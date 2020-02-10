@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let higbyLatitude = 37.8267
 		let higbyLongitude = -122.28
 		let dataService = WeatherDataService()
-		dataService.getWeatherData(latitude: higbyLatitude, longitude: higbyLongitude, success: { (data) in
+		dataService.getWeatherData(latitude: higbyLatitude, longitude: higbyLongitude, success: { (json) in
 			print("success: \(String(describing: data))")
 		}, failure: { (error) in
 			print("error: \(error.debugDescription)")
