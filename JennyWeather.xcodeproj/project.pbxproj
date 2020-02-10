@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -263,6 +263,7 @@
 /* Begin PBXTargetDependency section */
 		8B47768023F0B9F2003DAE2C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = 8B47766723F0B9F0003DAE2C /* JennyWeather */;
 			targetProxy = 8B47767F23F0B9F2003DAE2C /* PBXContainerItemProxy */;
 		};
@@ -452,7 +453,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JennyWeather.app/JennyWeather";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Jenny Weather.app/Jenny Weather";
 			};
 			name = Debug;
 		};
@@ -474,7 +475,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JennyWeather.app/JennyWeather";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Jenny Weather.app/Jenny Weather";
 			};
 			name = Release;
 		};
