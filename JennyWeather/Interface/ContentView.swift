@@ -13,7 +13,10 @@ struct ContentView: View {
 	@ObservedObject var weatherViewModel: WeatherViewModel
 	
     var body: some View {
-		Text(weatherViewModel.jsonString)
+		ScrollView {
+			Text(weatherViewModel.jsonString)
+				.frame(minWidth: 320)
+		}
     }
 }
 
