@@ -12,14 +12,6 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-		let higbyLatitude = 37.8267
-		let higbyLongitude = -122.28
-		let dataService = WeatherDataService()
-		dataService.getWeatherData(latitude: higbyLatitude, longitude: higbyLongitude, success: { (json) in
-			print("success: \(json)")
-		}, failure: { (error) in
-			print("error: \(error.debugDescription)")
-		})
 		return true
 	}
 
