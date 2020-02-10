@@ -14,6 +14,7 @@
 		8B47767523F0B9F2003DAE2C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B47767423F0B9F2003DAE2C /* Preview Assets.xcassets */; };
 		8B47767823F0B9F2003DAE2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B47767623F0B9F2003DAE2C /* LaunchScreen.storyboard */; };
 		8B47768323F0B9F2003DAE2C /* JennyWeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B47768223F0B9F2003DAE2C /* JennyWeatherTests.swift */; };
+		8B47769223F0C3ED003DAE2C /* WeatherDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B47769123F0C3ED003DAE2C /* WeatherDataService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		8B47767E23F0B9F2003DAE2C /* JennyWeatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JennyWeatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B47768223F0B9F2003DAE2C /* JennyWeatherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JennyWeatherTests.swift; sourceTree = "<group>"; };
 		8B47768423F0B9F2003DAE2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B47769123F0C3ED003DAE2C /* WeatherDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,13 +81,10 @@
 		8B47766A23F0B9F0003DAE2C /* JennyWeather */ = {
 			isa = PBXGroup;
 			children = (
-				8B47766B23F0B9F0003DAE2C /* AppDelegate.swift */,
-				8B47766D23F0B9F0003DAE2C /* SceneDelegate.swift */,
-				8B47766F23F0B9F0003DAE2C /* ContentView.swift */,
-				8B47767123F0B9F2003DAE2C /* Assets.xcassets */,
-				8B47767623F0B9F2003DAE2C /* LaunchScreen.storyboard */,
-				8B47767923F0B9F2003DAE2C /* Info.plist */,
-				8B47767323F0B9F2003DAE2C /* Preview Content */,
+				8B47769023F0C33D003DAE2C /* Network */,
+				8B47768F23F0C320003DAE2C /* ViewModels */,
+				8B47768E23F0C268003DAE2C /* Interface */,
+				8B47768D23F0C252003DAE2C /* Globals */,
 			);
 			path = JennyWeather;
 			sourceTree = "<group>";
@@ -105,6 +104,42 @@
 				8B47768423F0B9F2003DAE2C /* Info.plist */,
 			);
 			path = JennyWeatherTests;
+			sourceTree = "<group>";
+		};
+		8B47768D23F0C252003DAE2C /* Globals */ = {
+			isa = PBXGroup;
+			children = (
+				8B47766B23F0B9F0003DAE2C /* AppDelegate.swift */,
+				8B47766D23F0B9F0003DAE2C /* SceneDelegate.swift */,
+				8B47767123F0B9F2003DAE2C /* Assets.xcassets */,
+				8B47767623F0B9F2003DAE2C /* LaunchScreen.storyboard */,
+				8B47767923F0B9F2003DAE2C /* Info.plist */,
+			);
+			path = Globals;
+			sourceTree = "<group>";
+		};
+		8B47768E23F0C268003DAE2C /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				8B47767323F0B9F2003DAE2C /* Preview Content */,
+				8B47766F23F0B9F0003DAE2C /* ContentView.swift */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		8B47768F23F0C320003DAE2C /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		8B47769023F0C33D003DAE2C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				8B47769123F0C3ED003DAE2C /* WeatherDataService.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,6 +245,7 @@
 			files = (
 				8B47766C23F0B9F0003DAE2C /* AppDelegate.swift in Sources */,
 				8B47766E23F0B9F0003DAE2C /* SceneDelegate.swift in Sources */,
+				8B47769223F0C3ED003DAE2C /* WeatherDataService.swift in Sources */,
 				8B47767023F0B9F0003DAE2C /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,10 +399,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"JennyWeather/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"JennyWeather/Interface/Preview Content\"";
 				DEVELOPMENT_TEAM = 86WXZVZ79J;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = JennyWeather/Info.plist;
+				INFOPLIST_FILE = JennyWeather/Globals/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -383,10 +419,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"JennyWeather/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"JennyWeather/Interface/Preview Content\"";
 				DEVELOPMENT_TEAM = 86WXZVZ79J;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = JennyWeather/Info.plist;
+				INFOPLIST_FILE = JennyWeather/Globals/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
