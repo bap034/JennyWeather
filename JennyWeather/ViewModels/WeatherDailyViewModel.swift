@@ -1,5 +1,5 @@
 //
-//  WeatherDayViewModel.swift
+//  WeatherDailyViewModel.swift
 //  JennyWeather
 //
 //  Created by Brett Petersen on 2/11/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class WeatherDayViewModel: ObservableObject {
+class WeatherDailyViewModel: ObservableObject {
 	
 	static let summaryKey = "summary"
 	static let iconKey = "icon"
@@ -16,23 +16,23 @@ class WeatherDayViewModel: ObservableObject {
 	
 	@Published var summary: String
 	@Published var icon: String
-	@Published var data: [WeatherDayDataViewModel]
+	@Published var data: [WeatherDayViewModel]
 	
 	init(json: [String: Any]) throws {
-		summary = try NetworkUtility.valueForKey(WeatherDayViewModel.summaryKey, json: json)
-		icon = try NetworkUtility.valueForKey(WeatherDayViewModel.iconKey, json: json)
+		summary = try NetworkUtility.valueForKey(WeatherDailyViewModel.summaryKey, json: json)
+		icon = try NetworkUtility.valueForKey(WeatherDailyViewModel.iconKey, json: json)
 		
-		var dayDatas = [WeatherDayDataViewModel]()
-		let dayDataArray: [[String: Any]] = try NetworkUtility.valueForKey(WeatherDayViewModel.dataKey, json: json)
+		var dayDatas = [WeatherDayViewModel]()
+		let dayDataArray: [[String: Any]] = try NetworkUtility.valueForKey(WeatherDailyViewModel.dataKey, json: json)
 		dayDataArray.forEach { (dayDataJson) in
-			guard let dayData = try? WeatherDayDataViewModel(json: dayDataJson) else { return }
+			guard let dayData = try? WeatherDayViewModel(json: dayDataJson) else { return }
 			
 			dayDatas.append(dayData)
 		}
 		data = dayDatas
 	}
 	
-	init(summary: String, icon: String, data: [WeatherDayDataViewModel]) {
+	init(summary: String, icon: String, data: [WeatherDayViewModel]) {
 		self.summary = summary
 		self.icon = icon
 		self.data = data
@@ -41,7 +41,7 @@ class WeatherDayViewModel: ObservableObject {
 }
 
 // MARK: - Data Object
-class WeatherDayDataViewModel: ObservableObject {
+class WeatherDayViewModel: ObservableObject {
 	
 	static let timestampKey = "time"
 	static let summaryKey = "summary"
@@ -51,7 +51,7 @@ class WeatherDayDataViewModel: ObservableObject {
 	static let temperatureLowKey = "temperatureLow"
 	static let windSpeedKey = "windSpeed"
 	
-	@Published var timestamp: Int // Timestamp
+	@Published var timestamp: Int
 	@Published var summary: String
 	@Published var icon: String
 	@Published var precipProbability: Double
@@ -59,18 +59,18 @@ class WeatherDayDataViewModel: ObservableObject {
 	@Published var temperatureLow: Double
 	@Published var windSpeed: Double
 	
-	// MARK: Derived
+	// Derived
 	@Published var time: Date
 	
 	init(json: [String: Any]) throws {
-		let sureTimestamp:Int = try NetworkUtility.valueForKey(WeatherDayDataViewModel.timestampKey, json: json)
+		let sureTimestamp:Int = try NetworkUtility.valueForKey(WeatherDayViewModel.timestampKey, json: json)
 		timestamp = sureTimestamp
-		summary = try NetworkUtility.valueForKey(WeatherDayDataViewModel.summaryKey, json: json)
-		icon = try NetworkUtility.valueForKey(WeatherDayDataViewModel.iconKey, json: json)
-		precipProbability = try NetworkUtility.valueForKey(WeatherDayDataViewModel.precipProbabilityKey, json: json)
-		temperatureHigh = try NetworkUtility.valueForKey(WeatherDayDataViewModel.temperatureLowKey, json: json)
-		temperatureLow = try NetworkUtility.valueForKey(WeatherDayDataViewModel.temperatureHighKey, json: json)
-		windSpeed = try NetworkUtility.valueForKey(WeatherDayDataViewModel.windSpeedKey, json: json)
+		summary = try NetworkUtility.valueForKey(WeatherDayViewModel.summaryKey, json: json)
+		icon = try NetworkUtility.valueForKey(WeatherDayViewModel.iconKey, json: json)
+		precipProbability = try NetworkUtility.valueForKey(WeatherDayViewModel.precipProbabilityKey, json: json)
+		temperatureHigh = try NetworkUtility.valueForKey(WeatherDayViewModel.temperatureLowKey, json: json)
+		temperatureLow = try NetworkUtility.valueForKey(WeatherDayViewModel.temperatureHighKey, json: json)
+		windSpeed = try NetworkUtility.valueForKey(WeatherDayViewModel.windSpeedKey, json: json)
 				
 		time = Date(timeIntervalSince1970: TimeInterval(sureTimestamp))
 	}

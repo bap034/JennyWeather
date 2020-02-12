@@ -84,7 +84,7 @@ struct ContentView_Previews: PreviewProvider {
 		
 		if let dayStringJsonData = dayString.data(using: .utf8),
 			let dayStringJson = try? JSONSerialization.jsonObject(with: dayStringJsonData, options: []) as? [String: Any] {
-			let weatherDayVM = try? WeatherDayViewModel(json: dayStringJson)
+			let weatherDayVM = try? WeatherDailyViewModel(json: dayStringJson)
 			weatherVM.dayViewModel = weatherDayVM
 		}
 		
