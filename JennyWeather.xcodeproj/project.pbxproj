@@ -15,6 +15,7 @@
 		8B47767823F0B9F2003DAE2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B47767623F0B9F2003DAE2C /* LaunchScreen.storyboard */; };
 		8B47768323F0B9F2003DAE2C /* JennyWeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B47768223F0B9F2003DAE2C /* JennyWeatherTests.swift */; };
 		8B47769223F0C3ED003DAE2C /* WeatherDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B47769123F0C3ED003DAE2C /* WeatherDataService.swift */; };
+		8BFD418123F1012F001D1626 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFD418023F1012F001D1626 /* WeatherViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		8B47768223F0B9F2003DAE2C /* JennyWeatherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JennyWeatherTests.swift; sourceTree = "<group>"; };
 		8B47768423F0B9F2003DAE2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B47769123F0C3ED003DAE2C /* WeatherDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDataService.swift; sourceTree = "<group>"; };
+		8BFD418023F1012F001D1626 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 		8B47768F23F0C320003DAE2C /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				8BFD418023F1012F001D1626 /* WeatherViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BFD418123F1012F001D1626 /* WeatherViewModel.swift in Sources */,
 				8B47766C23F0B9F0003DAE2C /* AppDelegate.swift in Sources */,
 				8B47766E23F0B9F0003DAE2C /* SceneDelegate.swift in Sources */,
 				8B47769223F0C3ED003DAE2C /* WeatherDataService.swift in Sources */,
