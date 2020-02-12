@@ -9,18 +9,26 @@
 import Foundation
 
 class WeatherViewModel: ObservableObject {
-	@Published var jsonString: String = "Loading..."
+	@Published var text: String = "Loading..."
+	
+	@Published var dayViewModel: WeatherDayViewModel?
 	
 	func updateJsonString() {
 		let higbyLatitude = 37.8267
 		let higbyLongitude = -122.28
 		let dataService = WeatherDataService()
 		dataService.getWeatherData(latitude: higbyLatitude, longitude: higbyLongitude, success: { (json) in
-//			print("success: \(json)")
 			if let data = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted),
 				let string = String(data: data, encoding: .utf8) {
+				
+				var dayViewModel: WeatherDayViewModel?
+				if let firstDailyJson = (json["daily"] as? [[String: Any]])?.first {
+					dayViewModel = try? WeatherDayViewModel(json: firstDailyJson)
+				}
+				
 				DispatchQueue.main.async {
-					self.jsonString = string					
+					self.text = string
+					self.dayViewModel = dayViewModel
 				}
 			}
 		}, failure: { (error) in

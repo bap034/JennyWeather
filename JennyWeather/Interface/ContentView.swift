@@ -13,19 +13,81 @@ struct ContentView: View {
 	@ObservedObject var weatherViewModel: WeatherViewModel
 	
     var body: some View {
-		ScrollView {
-			Text(weatherViewModel.jsonString)
-				.frame(minWidth: 320)
+		if let sureWeatherDayViewModel = weatherViewModel.dayViewModel {
+			return ScrollView {
+				Text(sureWeatherDayViewModel.summary)
+					.frame(minWidth: 320)
+			}
+		} else {
+			return ScrollView {
+				Text(weatherViewModel.text)
+					.frame(minWidth: 320)
+			}
 		}
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-		let string = "\"summary\" : \"No precipitation throughout the week.\",\n    \"icon\" : \"clear-day\",\n    \"data\" : [\n      {\n        \"icon\" : \"clear-day\",\n        \"windGustTime\" : 1581278460,\n        \"temperatureLowTime\" : 1581344280,\n        \"dewPoint\" : 24.75,\n        \"summary\" : \"Clear throughout the day.\",\n        \"temperatureMax\" : 63.109999999999999,\n        \"humidity\" : 0.31,\n        \"windGust\" : 37.579999999999998,\n        \"precipIntensityMax\" : 0.002,\n        \"cloudCover\" : 0,\n        \"ozone\" : 329,\n        \"apparentTemperatureMinTime\" : 1581249180,\n        \"precipIntensityMaxTime\" : 1581307200,\n        \"sunriseTime\" : 1581260820,\n        \"precipIntensity\" : 0.00089999999999999998,\n        \"windSpeed\" : 13.199999999999999,\n        \"apparentTemperatureHighTime\" : 1581293820,\n        \"apparentTemperatureMin\" : 50.079999999999998,\n        \"apparentTemperatureHigh\" : 62.609999999999999,\n        \"apparentTemperatureLowTime\" : 1581344820,\n        \"precipProbability\" : 0.040000000000000001,\n        \"temperatureHighTime\" : 1581293820,\n        \"pressure\" : 1017.3,\n        \"sunsetTime\" : 1581298920,\n        \"windBearing\" : 0,\n        \"temperatureMinTime\" : 1581249180,\n        \"temperatureLow\" : 48.289999999999999,\n        \"temperatureHigh\" : 63.109999999999999,\n        \"uvIndexTime\" : 1581279780,\n        \"apparentTemperatureMax\" : 62.609999999999999,\n        \"apparentTemperatureMaxTime\" : 1581293820,\n        \"visibility\" : 10,\n        \"moonPhase\" : 0.53000000000000003,\n        \"apparentTemperatureLow\" : 45.329999999999998,\n        \"time\" : 1581235200,\n        \"precipType\" : \"rain\",\n        \"uvIndex\" : 3,\n        \"temperatureMin\" : 49.590000000000003,\n        \"temperatureMaxTime\" : 1581293820\n"
+		let dayString = """
+{
+      "summary":"Mixed precipitation throughout the week, with temperatures falling to 39°F on Saturday.",
+      "icon":"rain",
+      "data":[
+         {
+            "time":1509944400,
+            "summary":"Rain starting in the afternoon, continuing until evening.",
+            "icon":"rain",
+            "sunriseTime":1509967519,
+            "sunsetTime":1510003982,
+            "moonPhase":0.59,
+            "precipIntensity":0.0088,
+            "precipIntensityMax":0.0725,
+            "precipIntensityMaxTime":1510002000,
+            "precipProbability":0.73,
+            "precipType":"rain",
+            "temperatureHigh":66.35,
+            "temperatureHighTime":1509994800,
+            "temperatureLow":41.28,
+            "temperatureLowTime":1510056000,
+            "apparentTemperatureHigh":66.53,
+            "apparentTemperatureHighTime":1509994800,
+            "apparentTemperatureLow":35.74,
+            "apparentTemperatureLowTime":1510056000,
+            "dewPoint":57.66,
+            "humidity":0.86,
+            "pressure":1012.93,
+            "windSpeed":3.22,
+            "windGust":26.32,
+            "windGustTime":1510023600,
+            "windBearing":270,
+            "cloudCover":0.8,
+            "uvIndex":2,
+            "uvIndexTime":1509987600,
+            "visibility":10,
+            "ozone":269.45,
+            "temperatureMin":52.08,
+            "temperatureMinTime":1510027200,
+            "temperatureMax":66.35,
+            "temperatureMaxTime":1509994800,
+            "apparentTemperatureMin":52.08,
+            "apparentTemperatureMinTime":1510027200,
+            "apparentTemperatureMax":66.53,
+            "apparentTemperatureMaxTime":1509994800
+         }
+      ]
+   }
+"""
 		
 		let weatherVM = WeatherViewModel()
-		weatherVM.jsonString = string
+		weatherVM.text = dayString
+		
+		if let dayStringJsonData = dayString.data(using: .utf8),
+			let dayStringJson = try? JSONSerialization.jsonObject(with: dayStringJsonData, options: []) as? [String: Any] {
+			let weatherDayVM = try? WeatherDayViewModel(json: dayStringJson)
+			weatherVM.dayViewModel = weatherDayVM
+		}
+		
 		let view = ContentView(weatherViewModel: weatherVM)
 		return view
     }
