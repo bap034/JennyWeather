@@ -14,7 +14,18 @@ struct WeatherCurrentlyView: View {
 	@ObservedObject var weatherMinutelyVM: WeatherMinutelyViewModel
 	
     var body: some View {
-		Text(weatherMinutelyVM.summary)
+		VStack {
+			Text("\(weatherCurrentlyVM.time)")
+			
+			Text(weatherMinutelyVM.summary)
+			
+			Text("temperature: \(weatherCurrentlyVM.temperature) ℉")
+			
+			Text("wind: \(weatherCurrentlyVM.windSpeed) mph")
+			
+			Text("precipitation: \(weatherCurrentlyVM.precipProbability * 100)%")
+			
+		}
     }
 }
 

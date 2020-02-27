@@ -15,6 +15,11 @@ struct WeatherView: View {
 	var body: some View {
 		ScrollView {
 			WeatherCurrentlyView(weatherCurrentlyVM: weatherVM.currentlyViewModel, weatherMinutelyVM: weatherVM.minutelyViewModel)
+				.padding([.top, .bottom], 30)
+			
+			Divider()
+			
+			
 		}
 	}
 }
