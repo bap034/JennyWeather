@@ -113,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				8B47767323F0B9F2003DAE2C /* Preview Content */,
+				8B47767123F0B9F2003DAE2C /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -185,7 +186,6 @@
 			children = (
 				8B47766B23F0B9F0003DAE2C /* AppDelegate.swift */,
 				8B47766D23F0B9F0003DAE2C /* SceneDelegate.swift */,
-				8B47767123F0B9F2003DAE2C /* Assets.xcassets */,
 				8B47767623F0B9F2003DAE2C /* LaunchScreen.storyboard */,
 				8B47767923F0B9F2003DAE2C /* Info.plist */,
 			);
@@ -530,6 +530,7 @@
 		8B47768823F0B9F2003DAE2C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "JennyWeather/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 86WXZVZ79J;
@@ -550,6 +551,7 @@
 		8B47768923F0B9F2003DAE2C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "JennyWeather/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 86WXZVZ79J;
