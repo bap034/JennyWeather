@@ -25,9 +25,9 @@ struct WeatherCurrentlyView: View {
 			Text(weatherMinutelyVM.summary)
 				.font(.headline)
 			
-			Text("temperature: \(weatherCurrentlyVM.temperature) ℉")
+			Text("temp: \(weatherCurrentlyVM.temperature) ℉")
 			
-			Text("precipitation: \(weatherCurrentlyVM.precipProbability * 100)%")
+			Text("rain: \(weatherCurrentlyVM.precipProbability * 100)%")
 			
 			Text("wind: \(weatherCurrentlyVM.windSpeed) mph")
 		}

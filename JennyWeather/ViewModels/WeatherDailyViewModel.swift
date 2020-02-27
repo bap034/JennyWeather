@@ -69,8 +69,8 @@ class WeatherDayViewModel: ObservableObject {
 		summary = try NetworkUtility.valueForKey(WeatherDayViewModel.summaryKey, json: json)
 		icon = try NetworkUtility.valueForKey(WeatherDayViewModel.iconKey, json: json)
 		precipProbability = try NetworkUtility.valueForKey(WeatherDayViewModel.precipProbabilityKey, json: json)
-		temperatureHigh = try NetworkUtility.valueForKey(WeatherDayViewModel.temperatureLowKey, json: json)
-		temperatureLow = try NetworkUtility.valueForKey(WeatherDayViewModel.temperatureHighKey, json: json)
+		temperatureHigh = try NetworkUtility.valueForKey(WeatherDayViewModel.temperatureHighKey, json: json)
+		temperatureLow = try NetworkUtility.valueForKey(WeatherDayViewModel.temperatureLowKey, json: json)
 		windSpeed = try NetworkUtility.valueForKey(WeatherDayViewModel.windSpeedKey, json: json)
 										
 		let date = Date(timeIntervalSince1970: TimeInterval(sureTimestamp))
@@ -78,4 +78,9 @@ class WeatherDayViewModel: ObservableObject {
 		timeString = NetworkUtility.shared.dateOnlyFormatter.string(from: date)
 	}
 	
+}
+
+// MARK: Identifiable
+extension WeatherDayViewModel: Identifiable {
+	var id: Int { return timestamp }
 }
