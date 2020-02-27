@@ -41,6 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			DispatchQueue.main.async {
 				let weatherView = WeatherView(weatherVM: weatherVM)
 				let weatherViewVC = UIHostingController(rootView: weatherView)
+				weatherViewVC.title = "🤓 The Jenny Weather App! ☀️"
 				let nc = UINavigationController(rootViewController: weatherViewVC)
 				nc.modalTransitionStyle = .crossDissolve
 				nc.modalPresentationStyle = .fullScreen

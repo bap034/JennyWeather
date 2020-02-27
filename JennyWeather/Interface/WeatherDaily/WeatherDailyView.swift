@@ -19,15 +19,16 @@ struct WeatherDailyView: View {
 			
 			Text(weatherDailyVM.summary)
 				.font(.headline)
+				.padding(.bottom, 10)
 			
 			ForEach(weatherDailyVM.data) { (data) in
 				VStack(alignment: .leading) {
 					Text(data.timeString)
 						.font(.headline)
-					Text("high: \(data.temperatureHigh) ℉")
-					Text("low: \(data.temperatureLow) ℉")
-					Text("rain: \(data.precipProbability*100)%")
-					Text("wind: \(data.windSpeed) mph")
+					Text("high: \(data.temperatureHigh.toTemperatureString)")
+					Text("low: \(data.temperatureLow.toTemperatureString)")
+					Text("rain: \(data.precipProbability.toRainString)")
+					Text("wind: \(data.windSpeed.toWindString)")
 				}
 				
 				Divider()

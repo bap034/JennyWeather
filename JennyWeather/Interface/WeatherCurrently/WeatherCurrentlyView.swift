@@ -24,12 +24,13 @@ struct WeatherCurrentlyView: View {
 			
 			Text(weatherMinutelyVM.summary)
 				.font(.headline)
+				.padding(.bottom, 10)
 			
-			Text("temp: \(weatherCurrentlyVM.temperature) ℉")
+			Text("temp: \(weatherCurrentlyVM.temperature.toTemperatureString)")
 			
-			Text("rain: \(weatherCurrentlyVM.precipProbability * 100)%")
+			Text("rain: \(weatherCurrentlyVM.precipProbability.toRainString)")
 			
-			Text("wind: \(weatherCurrentlyVM.windSpeed) mph")
+			Text("wind: \(weatherCurrentlyVM.windSpeed.toWindString)")
 		}
     }
 }

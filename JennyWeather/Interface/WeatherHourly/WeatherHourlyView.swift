@@ -20,14 +20,15 @@ struct WeatherHourlyView: View {
 			
 			Text(weatherHourlyVM.summary)
 				.font(.headline)
+				.padding(.bottom, 10)
 			
 			ForEach(weatherHourlyVM.data) { data in
 				VStack(alignment: .leading) {
 					Text(data.timeString)
 						.font(.headline)
-					Text("temp: \(data.temperature) ℉")
-					Text("rain: \(data.precipProbability*100)%")
-					Text("wind: \(data.windSpeed) mph")
+					Text("temp: \(data.temperature.toTemperatureString)")
+					Text("rain: \(data.precipProbability.toRainString)")
+					Text("wind: \(data.windSpeed.toWindString)")
 				}
 				
 				Divider()
