@@ -29,7 +29,9 @@ class WeatherHourlyViewModel: ObservableObject {
 			
 			hourDatas.append(hourData)
 		}
-		data = hourDatas
+		/// DarkSky provides more than 24 hours worth of data.
+		let truncatedDatas = hourDatas.prefix(upTo: 25)
+		data = Array(truncatedDatas)
 	}
 	
 }
