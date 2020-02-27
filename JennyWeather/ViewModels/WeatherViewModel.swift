@@ -9,22 +9,38 @@
 import Foundation
 
 class WeatherViewModel: ObservableObject {
-	@Published var jsonString: String = "Loading..."
 	
-	func updateJsonString() {
-		let higbyLatitude = 37.8267
-		let higbyLongitude = -122.28
-		let dataService = WeatherDataService()
-		dataService.getWeatherData(latitude: higbyLatitude, longitude: higbyLongitude, success: { (json) in
-//			print("success: \(json)")
-			if let data = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted),
-				let string = String(data: data, encoding: .utf8) {
-				DispatchQueue.main.async {
-					self.jsonString = string					
-				}
-			}
-		}, failure: { (error) in
-			print("error: \(error.debugDescription)")
-		})
+	static let alertsKey = "alerts"
+	static let minutelyKey = "minutely"
+	static let hourlyKey = "hourly"
+	static let dailyKey = "daily"
+	static let currentlyKey = "currently"
+	
+	@Published var alertViewModels: [WeatherAlertViewModel]
+	@Published var minutelyViewModel: WeatherMinutelyViewModel
+	@Published var hourlyViewModel: WeatherHourlyViewModel
+	@Published var dailyViewModel: WeatherDailyViewModel
+	@Published var currentlyViewModel: WeatherCurrentlyViewModel
+	
+	init(json: [String: Any]) throws {
+		var alertViewModelsFromJson = [WeatherAlertViewModel]()
+		let alertJsons:[[String: Any]]? = NetworkUtility.valueOptionalForKey(WeatherViewModel.alertsKey, json: json)
+		alertJsons?.forEach { (alertJson) in
+			guard let sureAlertViewModel = try? WeatherAlertViewModel(json: alertJson) else { return }
+			
+			alertViewModelsFromJson.append(sureAlertViewModel)
+		}
+		
+		let minutelyJson:[String: Any] = try NetworkUtility.valueForKey(WeatherViewModel.minutelyKey, json: json)
+		let hourlyJson:[String: Any] = try NetworkUtility.valueForKey(WeatherViewModel.hourlyKey, json: json)
+		let dailyJson:[String: Any] = try NetworkUtility.valueForKey(WeatherViewModel.dailyKey, json: json)
+		let currentlyJson:[String: Any] = try NetworkUtility.valueForKey(WeatherViewModel.currentlyKey, json: json)
+		
+		alertViewModels = alertViewModelsFromJson
+		minutelyViewModel = try WeatherMinutelyViewModel(json: minutelyJson)
+		hourlyViewModel = try WeatherHourlyViewModel(json: hourlyJson)
+		dailyViewModel = try WeatherDailyViewModel(json: dailyJson)
+		currentlyViewModel = try WeatherCurrentlyViewModel(json: currentlyJson)
 	}
+	
 }
