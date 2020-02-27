@@ -24,44 +24,23 @@ class WeatherViewModel: ObservableObject {
 	
 	init(json: [String: Any]) throws {
 		var alertViewModelsFromJson = [WeatherAlertViewModel]()
-		let alertJsons:[[String: Any]] = try NetworkUtility.valueForKey(WeatherViewModel.alertsKey, json: json)
-		alertJsons.forEach { (alertJson) in
+		let alertJsons:[[String: Any]]? = NetworkUtility.valueOptionalForKey(WeatherViewModel.alertsKey, json: json)
+		alertJsons?.forEach { (alertJson) in
 			guard let sureAlertViewModel = try? WeatherAlertViewModel(json: alertJson) else { return }
 			
 			alertViewModelsFromJson.append(sureAlertViewModel)
 		}
 		
+		let minutelyJson:[String: Any] = try NetworkUtility.valueForKey(WeatherViewModel.minutelyKey, json: json)
+		let hourlyJson:[String: Any] = try NetworkUtility.valueForKey(WeatherViewModel.hourlyKey, json: json)
+		let dailyJson:[String: Any] = try NetworkUtility.valueForKey(WeatherViewModel.dailyKey, json: json)
+		let currentlyJson:[String: Any] = try NetworkUtility.valueForKey(WeatherViewModel.currentlyKey, json: json)
+		
 		alertViewModels = alertViewModelsFromJson
-		minutelyViewModel = try WeatherMinutelyViewModel(json: json)
-		hourlyViewModel = try WeatherHourlyViewModel(json: json)
-		dailyViewModel = try WeatherDailyViewModel(json: json)
-		currentlyViewModel = try WeatherCurrentlyViewModel(json: json)
+		minutelyViewModel = try WeatherMinutelyViewModel(json: minutelyJson)
+		hourlyViewModel = try WeatherHourlyViewModel(json: hourlyJson)
+		dailyViewModel = try WeatherDailyViewModel(json: dailyJson)
+		currentlyViewModel = try WeatherCurrentlyViewModel(json: currentlyJson)
 	}
 	
 }
-
-
-
-
-//func updateJsonString() {
-//	let higbyLatitude = 37.8267
-//	let higbyLongitude = -122.28
-//	let dataService = WeatherDataService()
-//	dataService.getWeatherData(latitude: higbyLatitude, longitude: higbyLongitude, success: { (json) in
-//		if let data = try? JSONSerialization.data(withJSONObject: json, options: .prettyPrinted),
-//			let string = String(data: data, encoding: .utf8) {
-//
-//			var dayViewModel: WeatherDailyViewModel?
-//			if let firstDailyJson = (json["daily"] as? [[String: Any]])?.first {
-//				dayViewModel = try? WeatherDailyViewModel(json: firstDailyJson)
-//			}
-//
-//			DispatchQueue.main.async {
-//				self.text = string
-//				self.dayViewModel = dayViewModel
-//			}
-//		}
-//	}, failure: { (error) in
-//		print("error: \(error.debugDescription)")
-//	})
-//}

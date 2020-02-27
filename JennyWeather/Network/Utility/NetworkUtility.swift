@@ -16,7 +16,7 @@ class NetworkUtility {
 	let timeOnlyFormatter: DateFormatter
 	let dateOnlyFormatter: DateFormatter
 	
-	init() {
+	private init() {
 		let dateFormatter = DateFormatter()
 		dateFormatter.dateStyle = .short
 		dateFormatter.timeStyle = .short
@@ -37,14 +37,25 @@ class NetworkUtility {
 
 // MARK: - Data Transfer Utility
 extension NetworkUtility {
-	static func valueForKey<T>(_ key: String, json: [String: Any]) throws -> T {
+	static func valueForKey<T>(_ key: String, json: [String: Any], file: String = #file) throws -> T {
+		let fileName: String = (file as NSString).lastPathComponent
 		guard let sureValue = json[key] else {
-			throw JSONError(type: .keyNotFound, key: key, value: nil)
+			let error = JSONError(type: .keyNotFound, key: key, value: nil)
+			print("\(fileName)" + " -- " + "\(error)")
+			throw error
 		}
 		guard let value = sureValue as? T else {
-			throw JSONError(type: .mismatchValueType, key: key, value: sureValue)
+			let error = JSONError(type: .mismatchValueType, key: key, value: sureValue)
+			let description = "\(fileName) -- " + error.localizedDescription + " expected type: \(T.self)"
+			print(description)
+			throw error
 		}
 		
+		return value
+	}
+	
+	static func valueOptionalForKey<T>(_ key: String, json: [String: Any]) -> T? {
+		let value = json[key] as? T
 		return value
 	}
 }

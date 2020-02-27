@@ -8,6 +8,11 @@
 
 import Foundation
 
+// MARK: - JW Errors
+enum JWError: Error {
+	case unexpectedNil
+}
+
 // MARK: - JSON Errors
 struct JSONError: Error {
 	enum JSONErrorType {

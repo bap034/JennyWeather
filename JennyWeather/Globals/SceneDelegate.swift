@@ -21,17 +21,37 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 		
 		// Create the SwiftUI view that provides the window contents.
-		let weatherVM = WeatherViewModel()
-		weatherVM.updateJsonString()
-		let contentView = ContentView(weatherViewModel: weatherVM)
-	
+		let weatherLoadingView = WeatherLoadingView()
+			
 		// Use a UIHostingController as window root view controller.
 		if let windowScene = scene as? UIWindowScene {
 		    let window = UIWindow(windowScene: windowScene)
-		    window.rootViewController = UIHostingController(rootView: contentView)
+		    window.rootViewController = UIHostingController(rootView: weatherLoadingView)
 		    self.window = window
 		    window.makeKeyAndVisible()
 		}
+		
+		// TODO: Move this somewhere more appropriate?
+		let higbyLatitude = 37.8267
+		let higbyLongitude = -122.28
+		let dataService = WeatherDataService()
+		dataService.getWeatherData(latitude: higbyLatitude, longitude: higbyLongitude, success: { (json) in
+			guard let weatherVM = try? WeatherViewModel(json: json) else { print("error"); return }
+
+			DispatchQueue.main.async {
+				let weatherView = WeatherView(weatherVM: weatherVM)
+				let weatherViewVC = UIHostingController(rootView: weatherView)
+				let nc = UINavigationController(rootViewController: weatherViewVC)
+				nc.modalTransitionStyle = .crossDissolve
+				nc.modalPresentationStyle = .fullScreen
+				
+				guard let sureWindowVC = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController else { print("no window VC"); return }
+				
+				sureWindowVC.present(nc, animated: true, completion: nil)
+			}
+		}, failure: { (error) in
+			print("error: \(error.debugDescription)")
+		})
 	}
 
 	func sceneDidDisconnect(_ scene: UIScene) {
