@@ -1,5 +1,5 @@
 //
-//  WeatherHourlyView.swift
+//  WeatherDailyView.swift
 //  JennyWeather
 //
 //  Created by Brett Petersen on 2/26/20.
@@ -8,24 +8,24 @@
 
 import SwiftUI
 
-struct WeatherHourlyView: View {
-    
-	@ObservedObject var weatherHourlyVM: WeatherHourlyViewModel
+struct WeatherDailyView: View {
+    @ObservedObject var weatherDailyVM: WeatherDailyViewModel
 	
     var body: some View {
 		VStack(alignment: .leading) {
-			Text("Hourly")
+			Text("Daily")
 				.font(.title)
 				.padding(.bottom, 10)
 			
-			Text(weatherHourlyVM.summary)
+			Text(weatherDailyVM.summary)
 				.font(.headline)
 			
-			ForEach(weatherHourlyVM.data) { data in
+			ForEach(weatherDailyVM.data) { (data) in
 				VStack(alignment: .leading) {
 					Text(data.timeString)
 						.font(.headline)
-					Text("temp: \(data.temperature) ℉")
+					Text("high: \(data.temperatureHigh) ℉")
+					Text("low: \(data.temperatureLow) ℉")
 					Text("rain: \(data.precipProbability*100)%")
 					Text("wind: \(data.windSpeed) mph")
 				}
@@ -37,11 +37,11 @@ struct WeatherHourlyView: View {
     }
 }
 
-struct WeatherHourlyView_Previews: PreviewProvider {
+struct WeatherDailyView_Previews: PreviewProvider {
     static var previews: some View {
         let weatherVM: WeatherViewModel = try! WeatherMockData.getWeatherViewModel()
 		
-		let view = WeatherHourlyView(weatherHourlyVM: weatherVM.hourlyViewModel)
+		let view = WeatherDailyView(weatherDailyVM: weatherVM.dailyViewModel)
 		return view
     }
 }

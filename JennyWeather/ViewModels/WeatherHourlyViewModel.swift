@@ -73,5 +73,5 @@ class WeatherHourViewModel: ObservableObject {
 
 // MARK: Identifiable
 extension WeatherHourViewModel: Identifiable {
-	var id:String { return "\(timestamp)" }
+	var id: Int { return timestamp }
 }
