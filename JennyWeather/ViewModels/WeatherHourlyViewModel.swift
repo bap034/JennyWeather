@@ -53,6 +53,7 @@ class WeatherHourViewModel: ObservableObject {
 	
 	// Derived
 	@Published var time: Date
+	@Published var timeString: String
 	
 	init(json: [String: Any]) throws {
 		let sureTimestamp:Int = try NetworkUtility.valueForKey(WeatherHourViewModel.timestampKey, json: json)
@@ -63,7 +64,14 @@ class WeatherHourViewModel: ObservableObject {
 		temperature = try NetworkUtility.valueForKey(WeatherHourViewModel.temperatureKey, json: json)
 		windSpeed = try NetworkUtility.valueForKey(WeatherHourViewModel.windSpeedKey, json: json)
 				
-		time = Date(timeIntervalSince1970: TimeInterval(sureTimestamp))
+		let date = Date(timeIntervalSince1970: TimeInterval(sureTimestamp))
+		time = date
+		timeString = NetworkUtility.shared.timeOnlyFormatter.string(from: date)
 	}
 	
+}
+
+// MARK: Identifiable
+extension WeatherHourViewModel: Identifiable {
+	var id:String { return "\(timestamp)" }
 }

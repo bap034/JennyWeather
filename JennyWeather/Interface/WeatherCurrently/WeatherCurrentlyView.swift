@@ -14,17 +14,22 @@ struct WeatherCurrentlyView: View {
 	@ObservedObject var weatherMinutelyVM: WeatherMinutelyViewModel
 	
     var body: some View {
-		VStack {
-			Text("\(weatherCurrentlyVM.time)")
+		VStack(alignment: .leading) {
+			Text("Currently")
+				.font(.title)
+			
+			Text(weatherCurrentlyVM.timeString)
+				.font(.caption)
+				.padding(.bottom, 10)
 			
 			Text(weatherMinutelyVM.summary)
+				.font(.headline)
 			
 			Text("temperature: \(weatherCurrentlyVM.temperature) ℉")
 			
-			Text("wind: \(weatherCurrentlyVM.windSpeed) mph")
-			
 			Text("precipitation: \(weatherCurrentlyVM.precipProbability * 100)%")
 			
+			Text("wind: \(weatherCurrentlyVM.windSpeed) mph")
 		}
     }
 }
