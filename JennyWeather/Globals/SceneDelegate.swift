@@ -32,8 +32,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		}
 		
 		// TODO: Move this somewhere more appropriate?
-		let higbyLatitude = 37.8267
-		let higbyLongitude = -122.28
+		let higbyLatitude = 37.851967
+		let higbyLongitude = -122.286313
 		let dataService = WeatherDataService()
 		dataService.getWeatherData(latitude: higbyLatitude, longitude: higbyLongitude, success: { (json) in
 			guard let weatherVM = try? WeatherViewModel(json: json) else { print("error"); return }

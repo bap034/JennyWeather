@@ -103,6 +103,14 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		8B46DB90240790B800333783 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8B47767323F0B9F2003DAE2C /* Preview Content */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		8B47765F23F0B9F0003DAE2C = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +136,7 @@
 				8B47768F23F0C320003DAE2C /* ViewModels */,
 				8B47768E23F0C268003DAE2C /* Interface */,
 				8B47768D23F0C252003DAE2C /* Globals */,
+				8B46DB90240790B800333783 /* Resources */,
 			);
 			path = JennyWeather;
 			sourceTree = "<group>";
@@ -164,7 +173,6 @@
 		8B47768E23F0C268003DAE2C /* Interface */ = {
 			isa = PBXGroup;
 			children = (
-				8B47767323F0B9F2003DAE2C /* Preview Content */,
 				8B5B8BE723F5238B0052EDC4 /* WeatherCurrently */,
 				8B46DB8E24078C8700333783 /* WeatherLoadingView.swift */,
 				8B47766F23F0B9F0003DAE2C /* WeatherView.swift */,
@@ -495,7 +503,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"JennyWeather/Interface/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "JennyWeather/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 86WXZVZ79J;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = JennyWeather/Globals/Info.plist;
@@ -515,7 +523,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"JennyWeather/Interface/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "JennyWeather/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 86WXZVZ79J;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = JennyWeather/Globals/Info.plist;
