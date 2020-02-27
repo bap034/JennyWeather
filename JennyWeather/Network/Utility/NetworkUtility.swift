@@ -18,7 +18,7 @@ class NetworkUtility {
 	
 	private init() {
 		let dateFormatter = DateFormatter()
-		dateFormatter.dateStyle = .short
+		dateFormatter.dateStyle = .medium
 		dateFormatter.timeStyle = .short
 		self.dateFormatter = dateFormatter
 		

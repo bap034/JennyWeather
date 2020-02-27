@@ -26,6 +26,7 @@ class WeatherCurrentlyViewModel: ObservableObject {
 	
 	// Derived
 	@Published var time: Date
+	@Published var timeString: String
 	
 	init(json: [String: Any]) throws {
 		let sureTimestamp:Int = try NetworkUtility.valueForKey(WeatherCurrentlyViewModel.timestampKey, json: json)
@@ -36,7 +37,9 @@ class WeatherCurrentlyViewModel: ObservableObject {
 		temperature = try NetworkUtility.valueForKey(WeatherCurrentlyViewModel.temperatureKey, json: json)
 		windSpeed = try NetworkUtility.valueForKey(WeatherCurrentlyViewModel.windSpeedKey, json: json)
 				
-		time = Date(timeIntervalSince1970: TimeInterval(sureTimestamp))
+		let date = Date(timeIntervalSince1970: TimeInterval(sureTimestamp))
+		time = date
+		timeString = NetworkUtility.shared.dateFormatter.string(from: date)
 	}
 	
 }

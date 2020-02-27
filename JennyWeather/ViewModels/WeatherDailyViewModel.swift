@@ -61,6 +61,7 @@ class WeatherDayViewModel: ObservableObject {
 	
 	// Derived
 	@Published var time: Date
+	@Published var timeString: String
 	
 	init(json: [String: Any]) throws {
 		let sureTimestamp:Int = try NetworkUtility.valueForKey(WeatherDayViewModel.timestampKey, json: json)
@@ -71,26 +72,10 @@ class WeatherDayViewModel: ObservableObject {
 		temperatureHigh = try NetworkUtility.valueForKey(WeatherDayViewModel.temperatureLowKey, json: json)
 		temperatureLow = try NetworkUtility.valueForKey(WeatherDayViewModel.temperatureHighKey, json: json)
 		windSpeed = try NetworkUtility.valueForKey(WeatherDayViewModel.windSpeedKey, json: json)
-				
-		time = Date(timeIntervalSince1970: TimeInterval(sureTimestamp))
-	}
-	
-	init(timestamp: Int,
-		 summary: String,
-		 icon: String,
-		 precipProbability: Double,
-		 temperatureHigh: Double,
-		 temperatureLow: Double,
-		 windSpeed: Double) {
-		self.timestamp = timestamp
-		self.summary = summary
-		self.icon = icon
-		self.precipProbability = precipProbability
-		self.temperatureHigh = temperatureHigh
-		self.temperatureLow = temperatureLow
-		self.windSpeed = windSpeed
-		
-		self.time = Date(timeIntervalSince1970: TimeInterval(timestamp))
+										
+		let date = Date(timeIntervalSince1970: TimeInterval(sureTimestamp))
+		time = date
+		timeString = NetworkUtility.shared.dateOnlyFormatter.string(from: date)
 	}
 	
 }
