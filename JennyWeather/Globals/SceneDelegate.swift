@@ -36,7 +36,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		let higbyLongitude = -122.286313
 		let dataService = WeatherDataService()
 		dataService.getWeatherData(latitude: higbyLatitude, longitude: higbyLongitude, success: { (json) in
-			guard let weatherVM = try? WeatherViewModel(json: json) else { print("error"); return }
+			WeatherViewModel.shared = try? WeatherViewModel(json: json)
+			guard let weatherVM = WeatherViewModel.shared else { print("error"); return }
 
 			DispatchQueue.main.async {
 				let weatherView = WeatherView(weatherVM: weatherVM)
@@ -46,12 +47,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				nc.modalTransitionStyle = .crossDissolve
 				nc.modalPresentationStyle = .fullScreen
 				
-				guard let sureWindowVC = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController else { print("no window VC"); return }
+				self.window?.rootViewController = nc
 				
-				sureWindowVC.present(nc, animated: true, completion: nil)
+				// Animate change
+				guard let sureWindow = self.window else { return }
+				UIView.transition(with: sureWindow, duration: 0.3, options: .transitionCrossDissolve, animations: nil, completion: nil)
 			}
 		}, failure: { (error) in
 			print("error: \(error.debugDescription)")
+			DispatchQueue.main.async {
+				let newWeatherLoadingView = WeatherLoadingView(error: error)
+				let newWeatherLoadingVC = UIHostingController(rootView: newWeatherLoadingView)
+				
+				self.window?.rootViewController = newWeatherLoadingVC
+			}
 		})
 	}
 
@@ -65,6 +74,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 	func sceneDidBecomeActive(_ scene: UIScene) {
 		// Called when the scene has moved from an inactive state to an active state.
 		// Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+		
+		/// Fetch new data if it's been greater than 1 minute.
+		if let sureLastFetchedTime = WeatherViewModel.shared?.lastFetchedTime,
+			Date() > Date(timeInterval: (60 * 1), since: sureLastFetchedTime) {
+				WeatherViewModel.shared?.updateWeatherData(success: nil, failure: nil)
+		}
+		
 	}
 
 	func sceneWillResignActive(_ scene: UIScene) {

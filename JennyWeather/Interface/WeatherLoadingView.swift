@@ -9,8 +9,17 @@
 import SwiftUI
 
 struct WeatherLoadingView: View {
+	
+	@State var error: Error? = nil
+	
     var body: some View {
-        Text("Loading...")
+		Group {
+			if error != nil {
+				Text(error?.localizedDescription ?? "Could not connect!")
+			} else {
+				Text("Loading...")
+			}
+		}
     }
 }
 

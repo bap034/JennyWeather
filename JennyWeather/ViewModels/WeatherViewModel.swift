@@ -10,6 +10,8 @@ import Foundation
 
 class WeatherViewModel: ObservableObject {
 	
+	static var shared: WeatherViewModel?
+	
 	static let alertsKey = "alerts"
 	static let minutelyKey = "minutely"
 	static let hourlyKey = "hourly"
@@ -43,4 +45,38 @@ class WeatherViewModel: ObservableObject {
 		currentlyViewModel = try WeatherCurrentlyViewModel(json: currentlyJson)
 	}
 	
+}
+
+// MARK: - Helper Methods
+extension WeatherViewModel {
+	var lastFetchedTime: Date {
+		let time = currentlyViewModel.time
+		return time
+	}
+	
+	private func loadNewWeatherData(_ json: [String: Any]) {
+		guard let sureNewWeatherViewModel = try? WeatherViewModel(json: json) else { return }
+		
+		self.alertViewModels = sureNewWeatherViewModel.alertViewModels
+		self.minutelyViewModel = sureNewWeatherViewModel.minutelyViewModel
+		self.hourlyViewModel = sureNewWeatherViewModel.hourlyViewModel
+		self.dailyViewModel = sureNewWeatherViewModel.dailyViewModel
+		self.currentlyViewModel = sureNewWeatherViewModel.currentlyViewModel
+	}
+	
+	func updateWeatherData(success: (()->Void)?, failure: DataServiceFailure) {
+		let higbyLatitude = 37.851967
+		let higbyLongitude = -122.286313
+		let dataService = WeatherDataService()
+		dataService.getWeatherData(latitude: higbyLatitude, longitude: higbyLongitude, success: { (json) in
+			/// Need to update the `@Published` variables on the `main` thread. Does not work to wrap the API call in a `DispatchQueue.main`.
+			DispatchQueue.main.async {
+				self.loadNewWeatherData(json)
+				success?()
+			}
+		}, failure: { (error) in
+			print("error: \(error.debugDescription)")
+			failure?(error)
+		})
+	}
 }
