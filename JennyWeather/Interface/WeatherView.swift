@@ -24,6 +24,12 @@ struct WeatherView: View {
 			Divider()
 			
 			WeatherDailyView(weatherDailyVM: weatherVM.dailyViewModel)
+			
+			Text("weather data provided by Dark Sky api")
+				.font(.caption)
+				.frame(alignment: .trailing)
+				.padding(.top, 40)
+				.padding(.bottom, 20)
 		}
 	}
 }
