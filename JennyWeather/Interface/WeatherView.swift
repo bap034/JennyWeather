@@ -21,6 +21,8 @@ struct WeatherView: View {
 			
 			WeatherHourlyView(weatherHourlyVM: weatherVM.hourlyViewModel)
 			
+			Divider()
+			
 			WeatherDailyView(weatherDailyVM: weatherVM.dailyViewModel)
 		}
 	}

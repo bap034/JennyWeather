@@ -17,24 +17,33 @@ struct WeatherHourlyView: View {
 			Text("Hourly")
 				.font(.title)
 				.padding(.bottom, 10)
+				.padding(.leading, 20)
 			
 			Text(weatherHourlyVM.summary)
 				.font(.headline)
 				.padding(.bottom, 10)
+				.padding(.leading, 20)
 			
-			ForEach(weatherHourlyVM.data) { data in
-				VStack(alignment: .leading) {
-					Text(data.timeString)
-						.font(.headline)
-					Text("temp: \(data.temperature.toTemperatureString)")
-					Text("rain: \(data.precipProbability.toRainString)")
-					Text("wind: \(data.windSpeed.toWindString)")
+			ScrollView(.horizontal, showsIndicators: false) {
+				HStack {
+					ForEach(weatherHourlyVM.data) { data in
+						VStack(alignment: .leading) {
+							Text(data.timeString)
+								.font(.headline)
+							Text("temp: \(data.temperature.toTemperatureString)")
+							Text("rain: \(data.precipProbability.toRainString)")
+							Text("wind: \(data.windSpeed.toWindString)")
+						}
+						.frame(minWidth: 150)
+						
+						if data.id != self.weatherHourlyVM.data.last?.id {
+							Divider()
+						}
+					}
 				}
-				
-				Divider()
+				.padding(.bottom, 10)
 			}
 		}
-		.padding(.leading, 20)
     }
 }
 
