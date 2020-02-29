@@ -25,11 +25,16 @@ struct WeatherView: View {
 			
 			WeatherDailyView(weatherDailyVM: weatherVM.dailyViewModel)
 			
-			Text("weather data provided by Dark Sky api")
+			Text("Powered by Dark Sky")
 				.font(.caption)
 				.frame(alignment: .trailing)
 				.padding(.top, 40)
 				.padding(.bottom, 20)
+				.onTapGesture {
+					if let sureURL = URL(string: "https://darksky.net/poweredby/") {
+						UIApplication.shared.open(sureURL, options: [:], completionHandler: nil)
+					}
+			}
 		}
 	}
 }
