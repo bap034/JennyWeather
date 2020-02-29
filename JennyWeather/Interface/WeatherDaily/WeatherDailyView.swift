@@ -31,7 +31,9 @@ struct WeatherDailyView: View {
 					Text("wind: \(data.windSpeed.toWindString)")
 				}
 				
-				Divider()
+				if data.id != self.weatherDailyVM.data.last?.id {
+					Divider()
+				}
 			}
 		}
 		.padding(.leading, 20)
