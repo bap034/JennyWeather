@@ -11,9 +11,12 @@ import SwiftUI
 struct WeatherView: View {
 	
 	@ObservedObject var weatherVM: WeatherViewModel
+	@ObservedObject var locationVM: WeatherLocationViewModel
 	
 	var body: some View {
 		ScrollView {
+			WeatherLocationView(locationVM: locationVM)
+			
 			WeatherCurrentlyView(weatherCurrentlyVM: weatherVM.currentlyViewModel, weatherMinutelyVM: weatherVM.minutelyViewModel)
 				.padding([.top, .bottom], 30)
 			
@@ -42,7 +45,9 @@ struct WeatherView: View {
 struct WeatherView_Previews: PreviewProvider {
     static var previews: some View {
 		let weatherVM: WeatherViewModel = try! WeatherMockData.getWeatherViewModel()
-		let view = WeatherView(weatherVM: weatherVM)
+		let locationVM = WeatherLocationViewModel(city: "Berkeley")
+		
+		let view = WeatherView(weatherVM: weatherVM, locationVM: locationVM)
 		return view
 	}
 }

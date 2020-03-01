@@ -38,9 +38,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		dataService.getWeatherData(latitude: higbyLatitude, longitude: higbyLongitude, success: { (json) in
 			WeatherViewModel.shared = try? WeatherViewModel(json: json)
 			guard let weatherVM = WeatherViewModel.shared else { print("error"); return }
+			let locationVM = WeatherLocationViewModel(city: "Location")
 
 			DispatchQueue.main.async {
-				let weatherView = WeatherView(weatherVM: weatherVM)
+				let weatherView = WeatherView(weatherVM: weatherVM, locationVM: locationVM)
 				let weatherViewVC = UIHostingController(rootView: weatherView)
 				weatherViewVC.title = "🤓 The Jenny Weather App! ☀️"
 				let nc = UINavigationController(rootViewController: weatherViewVC)
