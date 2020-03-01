@@ -14,23 +14,34 @@ struct WeatherCurrentlyView: View {
 	@ObservedObject var weatherMinutelyVM: WeatherMinutelyViewModel
 	
     var body: some View {
-		VStack(alignment: .leading) {
-			Text("Currently")
-				.font(.title)
+		HStack {
+			VStack(alignment: .leading) {
+				Text("Currently")
+					.font(.title)
+					.padding([.leading, .trailing], 20)
+				
+				Text(weatherCurrentlyVM.timeString)
+					.font(.caption)
+					.padding(.bottom, 10)
+					.padding([.leading, .trailing], 20)
+				
+				Text(weatherMinutelyVM.summary)
+					.font(.headline)
+					.fixedSize(horizontal: false, vertical: true)
+					.padding(.bottom, 10)
+					.padding([.leading, .trailing], 20)
+				
+				Text("temp: \(weatherCurrentlyVM.temperature.toTemperatureString)")
+					.padding([.leading, .trailing], 20)
+				
+				Text("rain: \(weatherCurrentlyVM.precipProbability.toRainString)")
+					.padding([.leading, .trailing], 20)
+				
+				Text("wind: \(weatherCurrentlyVM.windSpeed.toWindString)")
+					.padding([.leading, .trailing], 20)
+			}
 			
-			Text(weatherCurrentlyVM.timeString)
-				.font(.caption)
-				.padding(.bottom, 10)
-			
-			Text(weatherMinutelyVM.summary)
-				.font(.headline)
-				.padding(.bottom, 10)
-			
-			Text("temp: \(weatherCurrentlyVM.temperature.toTemperatureString)")
-			
-			Text("rain: \(weatherCurrentlyVM.precipProbability.toRainString)")
-			
-			Text("wind: \(weatherCurrentlyVM.windSpeed.toWindString)")
+			Spacer()
 		}
     }
 }

@@ -21,8 +21,9 @@ struct WeatherHourlyView: View {
 			
 			Text(weatherHourlyVM.summary)
 				.font(.headline)
+				.fixedSize(horizontal: false, vertical: true)
 				.padding(.bottom, 10)
-				.padding(.leading, 20)
+				.padding([.leading, .trailing], 20)
 			
 			ScrollView(.horizontal, showsIndicators: false) {
 				HStack {

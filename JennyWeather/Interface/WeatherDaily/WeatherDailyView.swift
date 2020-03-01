@@ -16,10 +16,13 @@ struct WeatherDailyView: View {
 			Text("Daily")
 				.font(.title)
 				.padding(.bottom, 10)
+				.padding(.leading, 20)
 			
 			Text(weatherDailyVM.summary)
 				.font(.headline)
+				.fixedSize(horizontal: false, vertical: true)
 				.padding(.bottom, 10)
+				.padding([.leading, .trailing], 20)
 			
 			ForEach(weatherDailyVM.data) { (data) in
 				VStack(alignment: .leading) {
@@ -35,8 +38,8 @@ struct WeatherDailyView: View {
 					Divider()
 				}
 			}
+			.padding(.leading, 20)
 		}
-		.padding(.leading, 20)
     }
 }
 

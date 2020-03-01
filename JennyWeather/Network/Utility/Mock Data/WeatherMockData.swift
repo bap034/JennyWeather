@@ -45,7 +45,7 @@ extension WeatherMockData {
 		        "ozone": 344.1
 		    },
 		    "minutely": {
-		        "summary": "Clear for the hour.",
+		        "summary": "Light rain stopping in 13 min., starting again 30 min. later.",
 		        "icon": "clear-night",
 		        "data": [
 		            {
@@ -356,7 +356,7 @@ extension WeatherMockData {
 		        ]
 		    },
 		    "hourly": {
-		        "summary": "Partly cloudy throughout the day.",
+		        "summary": "Partly cloudy throughout the day. And maybe some meatballs raining from the sky.",
 		        "icon": "partly-cloudy-day",
 		        "data": [
 		            {
@@ -1322,7 +1322,7 @@ extension WeatherMockData {
 		        ]
 		    },
 		    "daily": {
-		        "summary": "No precipitation throughout the week.",
+		        "summary": "No precipitation throughout the week. Fingers crossed it stays that way.",
 		        "icon": "clear-day",
 		        "data": [
 		            {
