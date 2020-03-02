@@ -18,7 +18,7 @@ struct WeatherView: View {
 			WeatherLocationView(locationVM: locationVM)
 			
 			WeatherCurrentlyView(weatherCurrentlyVM: weatherVM.currentlyViewModel, weatherMinutelyVM: weatherVM.minutelyViewModel)
-				.padding([.top, .bottom], 30)
+				.padding(.bottom, 30)
 			
 			Divider()
 			
