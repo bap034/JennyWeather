@@ -32,22 +32,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		}
 		
 		// TODO: Move this somewhere more appropriate?
-		let higbyLatitude = 37.851967
-		let higbyLongitude = -122.286313
+		let locationVM = WeatherLocationViewModel.shared
 		let dataService = WeatherDataService()
-		dataService.getWeatherData(latitude: higbyLatitude, longitude: higbyLongitude, success: { (json) in
+		dataService.getWeatherData(latitude: locationVM.latitude, longitude: locationVM.longitude, success: { (json) in
 			WeatherViewModel.shared = try? WeatherViewModel(json: json)
 			guard let weatherVM = WeatherViewModel.shared else { print("error"); return }
-
+			
 			DispatchQueue.main.async {
-				let weatherView = WeatherView(weatherVM: weatherVM)
+				let weatherView = WeatherView(weatherVM: weatherVM, locationVM: locationVM)
 				let weatherViewVC = UIHostingController(rootView: weatherView)
-				weatherViewVC.title = "🤓 The Jenny Weather App! ☀️"
-				let nc = UINavigationController(rootViewController: weatherViewVC)
-				nc.modalTransitionStyle = .crossDissolve
-				nc.modalPresentationStyle = .fullScreen
-				
-				self.window?.rootViewController = nc
+				self.window?.rootViewController = weatherViewVC
 				
 				// Animate change
 				guard let sureWindow = self.window else { return }
