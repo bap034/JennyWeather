@@ -50,7 +50,7 @@ struct WeatherView: View {
 struct WeatherView_Previews: PreviewProvider {
     static var previews: some View {
 		let weatherVM: WeatherViewModel = try! WeatherMockData.getWeatherViewModel()
-		let locationVM = WeatherLocationViewModel(city: "Berkeley")
+		let locationVM = WeatherLocationViewModel(cityName: "Berkeley")
 		
 		let view = WeatherView(weatherVM: weatherVM, locationVM: locationVM)
 		return view

@@ -14,7 +14,7 @@ struct WeatherLocationView: View {
 	
     var body: some View {
 		HStack {
-			Text(locationVM.city)
+			Text(locationVM.cityName)
 				.font(.largeTitle)
 				.fontWeight(.bold)
 				.padding(.leading, 20)
@@ -37,7 +37,7 @@ struct WeatherLocationView: View {
 
 struct WeatherLocationView_Previews: PreviewProvider {
     static var previews: some View {
-		let locationVM = WeatherLocationViewModel(city: "Berkeley")
+		let locationVM = WeatherLocationViewModel(cityName: "Berkeley")
 		
         return WeatherLocationView(locationVM: locationVM)
     }

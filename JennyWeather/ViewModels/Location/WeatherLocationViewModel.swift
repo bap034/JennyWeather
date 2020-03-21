@@ -9,14 +9,25 @@
 import Foundation
 
 class WeatherLocationViewModel: ObservableObject {
+		
+	static let shared = WeatherLocationViewModel(cityName: "Berkeley")
 	
-//	var latitude: Double
-//	var longitude: Double
+	@Published var latitude: Double
+	@Published var longitude: Double
+	@Published var cityName: String
 	
-	@Published var city: String
-	
-	init(city: String) {
-		self.city = city
+	init(cityName: String) {
+		self.cityName = cityName
+		
+		let coordinates = WeatherLocationViewModel.getCoordinates(cityName: cityName)
+		self.latitude = coordinates.0
+		self.longitude = coordinates.1
 	}
 	
+	/// Return: ( lattitude, longitude)
+	private static func getCoordinates(cityName: String) -> (Double, Double) {
+		let higbyLatitude = 37.851967
+		let higbyLongitude = -122.286313
+		return (higbyLatitude, higbyLongitude)
+	}
 }
