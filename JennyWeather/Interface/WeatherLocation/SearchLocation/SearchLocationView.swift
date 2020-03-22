@@ -1,0 +1,38 @@
+//
+//  SearchLocationView.swift
+//  JennyWeather
+//
+//  Created by Brett Petersen on 3/21/20.
+//  Copyright © 2020 Brett Petersen. All rights reserved.
+//
+
+import SwiftUI
+
+struct SearchLocationView: View {
+	
+	@ObservedObject var locationVM: SearchLocationViewModel
+	
+    var body: some View {
+		VStack {
+			TextField("title", text: $locationVM.searchCityName)
+				.font(.largeTitle)
+			
+			List(locationVM.cityLocationViewModels) { (cityLocationVM) in
+				CityLocationView(cityLocationVM: cityLocationVM)
+			}
+		}
+    }
+}
+
+struct SearchLocationView_Previews: PreviewProvider {
+    static var previews: some View {
+		let cityLocationVM1 = CityLocationViewModel(streetAddress: "123 Test St.")
+		let cityLocationVM2 = CityLocationViewModel(streetAddress: "456 Test St.")
+		let cityLocationVM3 = CityLocationViewModel(streetAddress: "Canada")
+		
+		let locationVM = SearchLocationViewModel(cityName: "Berkeley")
+		locationVM.cityLocationViewModels = [cityLocationVM1, cityLocationVM2, cityLocationVM3]
+		
+        return SearchLocationView(locationVM: locationVM)
+    }
+}

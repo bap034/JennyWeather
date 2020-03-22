@@ -22,14 +22,17 @@ struct WeatherLocationView: View {
 			
 			Spacer()
 			
-			Image(systemName: "location.circle.fill")
-				.resizable()
-				.frame(width: 30, height: 30)
-				.aspectRatio(contentMode: .fit)
-				.padding(.trailing, 20)
-				.onTapGesture {
-					print("tapped cloud")
-					// TODO: locationVM request location permission
+			Button(action: {
+				self.locationVM.handlePresentingSearchLocationView()
+			}) {
+				Image(systemName: "location.circle.fill")
+					.resizable()
+					.frame(width: 30, height: 30)
+					.aspectRatio(contentMode: .fit)
+					.padding(.trailing, 20)
+			}
+			.sheet(isPresented: $locationVM.canPresent) {
+				SearchLocationView(locationVM: SearchLocationViewModel(cityName: self.locationVM.cityName))
 			}
 		}
 	}
