@@ -24,3 +24,13 @@ struct JSONError: Error {
 	let key: String
 	let value: Any?
 }
+
+// MARK: - Location Errors
+struct LocationError: Error {
+	enum LocationErrorType {
+		case noResults
+		case other
+	}
+	
+	let type: LocationErrorType
+}

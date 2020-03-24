@@ -14,6 +14,8 @@ class SearchLocationViewModel: ObservableObject  {
 	
 	@Published var searchCityName: String
 	@Published var cityLocationViewModels = [CityLocationViewModel]()
+	@Published var isError: Bool = false
+	@Published var isEmpty: Bool = false
 	
 	init(cityName: String, locationManager: LocationManager = LocationManager.shared) {
 		self.searchCityName = cityName
@@ -25,8 +27,6 @@ class SearchLocationViewModel: ObservableObject  {
 // MARK: - LocationManager Methods
 extension SearchLocationViewModel {
 	func searchAddress(_ addressString: String) {
-		cityLocationViewModels.removeAll()
-		
 		locationManager.searchAddress(addressString, success: { (placemarks) in
 			let cityLocationVMs = placemarks.map { (placemarkDTO) -> CityLocationViewModel in
 				let streetAddress = placemarkDTO.addressString
@@ -34,10 +34,18 @@ extension SearchLocationViewModel {
 				return cityLocationVM
 			}
 			
-			/// Need to update the `@Published` variables on the `main` thread. Does not work to wrap the API call in a `DispatchQueue.main`.
-			DispatchQueue.main.async {
-				self.cityLocationViewModels = cityLocationVMs
+			self.cityLocationViewModels = cityLocationVMs
+			self.isError = false
+			self.isEmpty = cityLocationVMs.isEmpty
+		}, failure: { (error) in
+			if error.type == .noResults {
+				self.isError = false
+				self.isEmpty = true
+			} else {
+				self.isError = true
+				self.isEmpty = true
 			}
-		}, failure: nil)
+			
+		})
 	}
 }

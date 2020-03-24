@@ -15,7 +15,7 @@ struct SearchLocationView: View {
     var body: some View {
 		VStack {
 			HStack {
-				TextField("title", text: $locationVM.searchCityName)
+				TextField("Enter Address", text: $locationVM.searchCityName)
 					.font(.largeTitle)
 				
 				Button(action: {
@@ -25,8 +25,19 @@ struct SearchLocationView: View {
 				}
 			}
 			
-			if locationVM.cityLocationViewModels.isEmpty {
-				Text("No results found.")
+			if locationVM.isError {
+				HStack {
+					Text("Something went wrong. Please try again.")
+						.padding([.top, .leading], 10)
+					Spacer()
+				}
+				Spacer()
+			} else if locationVM.isEmpty {
+				HStack {
+					Text("No results found.")
+						.padding([.top, .leading], 10)
+					Spacer()
+				}
 				Spacer()
 			} else {
 				List(locationVM.cityLocationViewModels) { (cityLocationVM) in

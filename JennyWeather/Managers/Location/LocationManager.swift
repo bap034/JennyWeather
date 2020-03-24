@@ -43,11 +43,17 @@ extension LocationManager {
 		clLocationManager.requestWhenInUseAuthorization()
 	}
 	
-	func searchAddress(_ addressString: String, success: @escaping ([PlacemarkDTO])->Void, failure: ((Error?)->Void)?) {
+	func searchAddress(_ addressString: String, success: @escaping ([PlacemarkDTO])->Void, failure: ((LocationError)->Void)?) {
 		let geocoder = CLGeocoder()
 		geocoder.geocodeAddressString(addressString) { (placemarks, error) in
 			guard error == nil else {
-				failure?(error)
+				let locationError: LocationError
+				if let clError = (error as? CLError), clError.code == CLError.geocodeFoundNoResult {
+					locationError = LocationError(type: .noResults)
+				} else {
+					locationError = LocationError(type: .other)
+				}
+				failure?(locationError)
 				return
 			}
 			
