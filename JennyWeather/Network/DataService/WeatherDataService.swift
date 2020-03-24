@@ -34,8 +34,6 @@ class WeatherDataService: NSObject, URLSessionDataDelegate {
 
 extension WeatherDataService: WeatherDataServiceGettable {
 	func getWeatherData(latitude: Double, longitude: Double, success: @escaping DataServiceSuccess, failure: DataServiceFailure) {
-//		let higbyLatitude = 37.8267
-//		let higbyLongitude = -122.28
 		let urlString = WeatherDataService.url + "\(latitude),\(longitude)"
 		guard let url = URL(string: urlString) else {
 			failure?(nil)

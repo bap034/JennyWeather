@@ -22,6 +22,8 @@ class LocationManager: NSObject {
 	
 	var delegate: LocationManagerDelegate?
 	
+	var currentPlacemark: PlacemarkDTO = LocationManager.defaultPlacemarkDTO
+	
 	override init() {
 		super.init()
 		clLocationManager.delegate = self
@@ -40,6 +42,24 @@ extension LocationManager {
 	func requestWhenInUseAuthorization() {
 		clLocationManager.requestWhenInUseAuthorization()
 	}
+	
+	func searchAddress(_ addressString: String, success: @escaping ([PlacemarkDTO])->Void, failure: ((Error?)->Void)?) {
+		let geocoder = CLGeocoder()
+		geocoder.geocodeAddressString(addressString) { (placemarks, error) in
+			guard error == nil else {
+				failure?(error)
+				return
+			}
+			
+			let placemarkResults = placemarks ?? [CLPlacemark]()
+			var placemarkDTOs = [PlacemarkDTO]()
+			placemarkResults.forEach { (placemark) in
+				let placemarkDTO = PlacemarkDTO(placemark: placemark)
+				placemarkDTOs.append(placemarkDTO)
+			}
+			success(placemarkDTOs)
+		}
+	}
 }
 
 // MARK: - CLLocationManagerDelegate
@@ -55,5 +75,13 @@ extension LocationManager: CLLocationManagerDelegate {
 		@unknown default:
 			return
 		}
+	}
+}
+
+// MARK: - Default Data
+extension LocationManager {
+	static var defaultPlacemarkDTO: PlacemarkDTO {
+		let placemarkDTO = PlacemarkDTO(city: "Berkeley", latitude: 37.8267, longitude: -122.28)
+		return placemarkDTO
 	}
 }

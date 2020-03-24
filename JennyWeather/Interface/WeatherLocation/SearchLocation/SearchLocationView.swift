@@ -14,11 +14,24 @@ struct SearchLocationView: View {
 	
     var body: some View {
 		VStack {
-			TextField("title", text: $locationVM.searchCityName)
-				.font(.largeTitle)
+			HStack {
+				TextField("title", text: $locationVM.searchCityName)
+					.font(.largeTitle)
+				
+				Button(action: {
+					self.locationVM.searchAddress(self.locationVM.searchCityName)
+				}) {
+					Text("Search!")
+				}
+			}
 			
-			List(locationVM.cityLocationViewModels) { (cityLocationVM) in
-				CityLocationView(cityLocationVM: cityLocationVM)
+			if locationVM.cityLocationViewModels.isEmpty {
+				Text("No results found.")
+				Spacer()
+			} else {
+				List(locationVM.cityLocationViewModels) { (cityLocationVM) in
+					CityLocationView(cityLocationVM: cityLocationVM)
+				}
 			}
 		}
     }

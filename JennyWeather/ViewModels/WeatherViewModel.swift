@@ -65,10 +65,14 @@ extension WeatherViewModel {
 	}
 	
 	func updateWeatherData(success: (()->Void)?, failure: DataServiceFailure) {
-		let higbyLatitude = 37.851967
-		let higbyLongitude = -122.286313
+		guard let sureLatitude = LocationManager.shared.currentPlacemark.latitude,
+			let sureLongitude = LocationManager.shared.currentPlacemark.longitude else {
+				failure?(nil)
+				return
+		}
+		
 		let dataService = WeatherDataService()
-		dataService.getWeatherData(latitude: higbyLatitude, longitude: higbyLongitude, success: { (json) in
+		dataService.getWeatherData(latitude: sureLatitude, longitude: sureLongitude, success: { (json) in
 			/// Need to update the `@Published` variables on the `main` thread. Does not work to wrap the API call in a `DispatchQueue.main`.
 			DispatchQueue.main.async {
 				self.loadNewWeatherData(json)

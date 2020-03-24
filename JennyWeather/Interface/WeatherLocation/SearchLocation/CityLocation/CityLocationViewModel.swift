@@ -8,12 +8,16 @@
 
 import Foundation
 
-class CityLocationViewModel: ObservableObject, Identifiable {
-
+class CityLocationViewModel: ObservableObject {
+	
 	@Published var streetAddress: String
 	
 	init(streetAddress: String) {
 		self.streetAddress = streetAddress
 	}
 
+}
+
+extension CityLocationViewModel: Identifiable {
+	var id: String { return UUID().uuidString }
 }
