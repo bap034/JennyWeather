@@ -10,10 +10,12 @@ import Foundation
 
 class CityLocationViewModel: ObservableObject {
 	
-	@Published var streetAddress: String
+	@Published var primaryText: String
+	@Published var secondaryText: String
 	
-	init(streetAddress: String) {
-		self.streetAddress = streetAddress
+	init(primaryText: String, secondaryText: String? = nil) {
+		self.primaryText = primaryText
+		self.secondaryText = secondaryText ?? ""
 	}
 
 }

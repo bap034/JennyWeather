@@ -6,12 +6,15 @@
 //  Copyright © 2020 Brett Petersen. All rights reserved.
 //
 
-import CoreLocation
 import Foundation
+import MapKit
 
-protocol LocationManagerDelegate {
+protocol LocationManagerAuthorizationDelegate {
 	func onSuccessfulAuthorization()
 	func onFailureAuthorization()
+}
+protocol LocationManagerSearchCompletionDelegate {
+	func onSearchCompletion(results: [SearchCompletionResultDTO])
 }
 
 class LocationManager: NSObject {
@@ -19,14 +22,18 @@ class LocationManager: NSObject {
 	static let shared = LocationManager()
 
 	private let clLocationManager = CLLocationManager()
+	private let mkSearchCompleter = MKLocalSearchCompleter()
 	
-	var delegate: LocationManagerDelegate?
+	var authorizationDelegate: LocationManagerAuthorizationDelegate?
+	var searchCompletionDelegate: LocationManagerSearchCompletionDelegate?
 	
 	var currentPlacemark: PlacemarkDTO = LocationManager.defaultPlacemarkDTO
 	
 	override init() {
 		super.init()
 		clLocationManager.delegate = self
+		mkSearchCompleter.delegate = self
+		mkSearchCompleter.resultTypes = .address
 	}
 	
 }
@@ -75,9 +82,9 @@ extension LocationManager: CLLocationManagerDelegate {
 		
 		switch status {
 		case .authorizedWhenInUse, .authorizedAlways:
-			self.delegate?.onSuccessfulAuthorization()
+			self.authorizationDelegate?.onSuccessfulAuthorization()
 		case .denied, .restricted, .notDetermined:
-			self.delegate?.onFailureAuthorization()
+			self.authorizationDelegate?.onFailureAuthorization()
 		@unknown default:
 			return
 		}
@@ -89,5 +96,30 @@ extension LocationManager {
 	static var defaultPlacemarkDTO: PlacemarkDTO {
 		let placemarkDTO = PlacemarkDTO(city: "Berkeley", latitude: 37.8267, longitude: -122.28)
 		return placemarkDTO
+	}
+}
+
+// MARK: - MapKit
+extension LocationManager: MKLocalSearchCompleterDelegate {
+	func searchMKAddress(_ addressString: String) {
+		mkSearchCompleter.queryFragment = addressString
+	}
+	
+	func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+		var newResultDTOs = [SearchCompletionResultDTO]()
+		
+		let results = completer.results
+		results.forEach { (result) in
+			
+			let primaryText = result.title
+			var secondaryText: String? = nil
+			if !result.subtitle.isEmpty {
+				secondaryText = result.subtitle
+			}
+			let resultDTO = SearchCompletionResultDTO(primaryText: primaryText, secondaryText: secondaryText)
+			newResultDTOs.append(resultDTO)
+		}
+		
+		searchCompletionDelegate?.onSearchCompletion(results: newResultDTOs)
 	}
 }

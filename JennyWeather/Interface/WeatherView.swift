@@ -13,6 +13,16 @@ struct WeatherView: View {
 	@ObservedObject var weatherVM: WeatherViewModel
 	@ObservedObject var locationVM: WeatherLocationViewModel
 	
+	init(weatherVM: WeatherViewModel, locationVM: WeatherLocationViewModel) {
+		self.weatherVM = weatherVM
+		self.locationVM = locationVM
+		
+		UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().largeTitleTextAttributes = [
+			.font : UIFont.boldSystemFont(ofSize: 25)
+		]
+    }
+	
 	var body: some View {
 		NavigationView {
 			ScrollView {
@@ -42,7 +52,7 @@ struct WeatherView: View {
 						}
 				}
 			}
-			.navigationBarTitle("🤓 The Jenny Weather App! ☀️", displayMode: .inline)
+			.navigationBarTitle("🤓 The Jenny Weather App ☀️", displayMode: .automatic)
 		}
 	}
 }

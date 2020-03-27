@@ -13,13 +13,21 @@ struct CityLocationView: View {
 	@ObservedObject var cityLocationVM: CityLocationViewModel
 	
     var body: some View {
-		Text(cityLocationVM.streetAddress)
+		VStack(alignment: .leading) {
+			Text(cityLocationVM.primaryText)
+				.font(.headline)
+			
+			if (!cityLocationVM.secondaryText.isEmpty) {
+				Text(cityLocationVM.secondaryText)
+					.font(.subheadline)
+			}
+		}
     }
 }
 
 struct CityLocationView_Previews: PreviewProvider {
     static var previews: some View {
-		let cityLocationVM = CityLocationViewModel(streetAddress: "1234 Higby Street")
+		let cityLocationVM = CityLocationViewModel(primaryText: "1234 Higby Street", secondaryText: "Canada")
         return CityLocationView(cityLocationVM: cityLocationVM)
     }
 }

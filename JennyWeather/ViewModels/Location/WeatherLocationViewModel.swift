@@ -23,7 +23,7 @@ class WeatherLocationViewModel: NSObject, ObservableObject {
 		
 		super.init()
 		
-		self.locationManager.delegate = self
+		self.locationManager.authorizationDelegate = self
 	}
 	
 }
@@ -42,8 +42,8 @@ extension WeatherLocationViewModel {
 }
 
 
-// MARK: - LocationManagerDelegate
-extension WeatherLocationViewModel: LocationManagerDelegate {
+// MARK: - LocationManagerAuthorizationDelegate
+extension WeatherLocationViewModel: LocationManagerAuthorizationDelegate {
 	func onSuccessfulAuthorization() {
 		canPresent = true
 	}

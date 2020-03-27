@@ -59,22 +59,22 @@ struct PlacemarkDTO: Codable {
 extension PlacemarkDTO {
 	var addressString: String {
 		var address = ""
-		if let sureStreet = street {
+		if let sureStreet = street, !sureStreet.isEmpty {
 			address += sureStreet
 		}
-		if let sureCity = city {
+		if let sureCity = city, !sureCity.isEmpty {
 			if !address.isEmpty {
 				address += ", "
 			}
 			address += sureCity
 		}
-		if let sureState = state {
+		if let sureState = state, !sureState.isEmpty {
 			if !address.isEmpty {
 				address += ", "
 			}
 			address += sureState
 		}
-		if let sureZipCode = zipCode {
+		if let sureZipCode = zipCode, !sureZipCode.isEmpty {
 			if !address.isEmpty {
 				address += " "
 			}

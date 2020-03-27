@@ -37,6 +37,7 @@
 		8B9155C524272516008826D0 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9155C424272516008826D0 /* LocationManager.swift */; };
 		8B9155C824283BA8008826D0 /* PlacemarkDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9155C724283BA8008826D0 /* PlacemarkDTO.swift */; };
 		8BAF3EA023F3DF7A0091F220 /* WeatherAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BAF3E9F23F3DF7A0091F220 /* WeatherAlertViewModel.swift */; };
+		8BEB8593242DD942005142F9 /* SearchCompletionResultDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEB8592242DD942005142F9 /* SearchCompletionResultDTO.swift */; };
 		8BFD418123F1012F001D1626 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFD418023F1012F001D1626 /* WeatherViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +86,7 @@
 		8B9155C424272516008826D0 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		8B9155C724283BA8008826D0 /* PlacemarkDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacemarkDTO.swift; sourceTree = "<group>"; };
 		8BAF3E9F23F3DF7A0091F220 /* WeatherAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAlertViewModel.swift; sourceTree = "<group>"; };
+		8BEB8592242DD942005142F9 /* SearchCompletionResultDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCompletionResultDTO.swift; sourceTree = "<group>"; };
 		8BFD418023F1012F001D1626 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -326,6 +328,7 @@
 			isa = PBXGroup;
 			children = (
 				8B9155C724283BA8008826D0 /* PlacemarkDTO.swift */,
+				8BEB8592242DD942005142F9 /* SearchCompletionResultDTO.swift */,
 				8B9155C424272516008826D0 /* LocationManager.swift */,
 			);
 			path = Location;
@@ -448,6 +451,7 @@
 				8B9155C524272516008826D0 /* LocationManager.swift in Sources */,
 				8B41870623F3DAC200BA7307 /* WeatherCurrentlyViewModel.swift in Sources */,
 				8B41870223F3CE5900BA7307 /* JWErrors.swift in Sources */,
+				8BEB8593242DD942005142F9 /* SearchCompletionResultDTO.swift in Sources */,
 				8B9155C22426E9AC008826D0 /* CityLocationViewModel.swift in Sources */,
 				8B41870023F3C61600BA7307 /* NetworkUtility.swift in Sources */,
 				8B6D91A8240C5F0D0015CAC7 /* WeatherLocationView.swift in Sources */,

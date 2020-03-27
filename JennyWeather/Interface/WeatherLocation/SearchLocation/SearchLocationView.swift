@@ -11,19 +11,20 @@ import SwiftUI
 struct SearchLocationView: View {
 	
 	@ObservedObject var locationVM: SearchLocationViewModel
+	@State private var isShowingKeyboard = false
+	
+	private var keyboardOffset: CGFloat {
+		let offset:CGFloat = isShowingKeyboard ? 216 : 0
+		return offset
+	}
 	
     var body: some View {
 		VStack {
-			HStack {
-				TextField("Enter Address", text: $locationVM.searchCityName)
-					.font(.largeTitle)
-				
-				Button(action: {
-					self.locationVM.searchAddress(self.locationVM.searchCityName)
-				}) {
-					Text("Search!")
-				}
-			}
+			TextField("Enter Address", text: $locationVM.searchCityName, onEditingChanged: { (change) in
+				self.isShowingKeyboard.toggle()
+			})
+				.font(.largeTitle)
+				.disableAutocorrection(true)
 			
 			if locationVM.isError {
 				HStack {
@@ -43,16 +44,18 @@ struct SearchLocationView: View {
 				List(locationVM.cityLocationViewModels) { (cityLocationVM) in
 					CityLocationView(cityLocationVM: cityLocationVM)
 				}
+				.padding(.bottom, keyboardOffset)
 			}
 		}
+		.padding(20)
     }
 }
 
 struct SearchLocationView_Previews: PreviewProvider {
     static var previews: some View {
-		let cityLocationVM1 = CityLocationViewModel(streetAddress: "123 Test St.")
-		let cityLocationVM2 = CityLocationViewModel(streetAddress: "456 Test St.")
-		let cityLocationVM3 = CityLocationViewModel(streetAddress: "Canada")
+		let cityLocationVM1 = CityLocationViewModel(primaryText: "1234 Higby Street", secondaryText: "California")
+		let cityLocationVM2 = CityLocationViewModel(primaryText: "Test State", secondaryText: nil)
+		let cityLocationVM3 = CityLocationViewModel(primaryText: "Canada", secondaryText: nil)
 		
 		let locationVM = SearchLocationViewModel(cityName: "Berkeley")
 		locationVM.cityLocationViewModels = [cityLocationVM1, cityLocationVM2, cityLocationVM3]
