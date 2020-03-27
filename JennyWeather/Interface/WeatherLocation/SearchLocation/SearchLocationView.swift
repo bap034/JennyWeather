@@ -43,6 +43,9 @@ struct SearchLocationView: View {
 			} else {
 				List(locationVM.cityLocationViewModels) { (cityLocationVM) in
 					CityLocationView(cityLocationVM: cityLocationVM)
+						.onTapGesture {
+							self.locationVM.select(cityLocationVM.combinedString)
+					}
 				}
 				.padding(.bottom, keyboardOffset)
 			}
@@ -53,9 +56,9 @@ struct SearchLocationView: View {
 
 struct SearchLocationView_Previews: PreviewProvider {
     static var previews: some View {
-		let cityLocationVM1 = CityLocationViewModel(primaryText: "1234 Higby Street", secondaryText: "California")
-		let cityLocationVM2 = CityLocationViewModel(primaryText: "Test State", secondaryText: nil)
-		let cityLocationVM3 = CityLocationViewModel(primaryText: "Canada", secondaryText: nil)
+		let cityLocationVM1 = CityLocationViewModel(primaryString: "1234 Higby Street", secondaryString: "California")
+		let cityLocationVM2 = CityLocationViewModel(primaryString: "Test State", secondaryString: nil)
+		let cityLocationVM3 = CityLocationViewModel(primaryString: "Canada", secondaryString: nil)
 		
 		let locationVM = SearchLocationViewModel(cityName: "Berkeley")
 		locationVM.cityLocationViewModels = [cityLocationVM1, cityLocationVM2, cityLocationVM3]

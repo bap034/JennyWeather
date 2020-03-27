@@ -14,11 +14,11 @@ struct CityLocationView: View {
 	
     var body: some View {
 		VStack(alignment: .leading) {
-			Text(cityLocationVM.primaryText)
+			Text(cityLocationVM.primaryString)
 				.font(.headline)
 			
-			if (!cityLocationVM.secondaryText.isEmpty) {
-				Text(cityLocationVM.secondaryText)
+			if (!cityLocationVM.secondaryString.isEmpty) {
+				Text(cityLocationVM.secondaryString)
 					.font(.subheadline)
 			}
 		}
@@ -27,7 +27,7 @@ struct CityLocationView: View {
 
 struct CityLocationView_Previews: PreviewProvider {
     static var previews: some View {
-		let cityLocationVM = CityLocationViewModel(primaryText: "1234 Higby Street", secondaryText: "Canada")
+		let cityLocationVM = CityLocationViewModel(primaryString: "1234 Higby Street", secondaryString: "Canada")
         return CityLocationView(cityLocationVM: cityLocationVM)
     }
 }

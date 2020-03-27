@@ -9,11 +9,11 @@
 import Foundation
 
 struct SearchCompletionResultDTO: Codable {
-	let primaryText: String
-	let secondaryText: String?
+	let primaryString: String
+	let secondaryString: String?
 	
-	init(primaryText: String, secondaryText: String?) {
-		self.primaryText = primaryText
-		self.secondaryText = secondaryText
+	init(primaryString: String, secondaryString: String?) {
+		self.primaryString = primaryString
+		self.secondaryString = secondaryString
 	}
 }

@@ -111,12 +111,12 @@ extension LocationManager: MKLocalSearchCompleterDelegate {
 		let results = completer.results
 		results.forEach { (result) in
 			
-			let primaryText = result.title
-			var secondaryText: String? = nil
+			let primaryString = result.title
+			var secondaryString: String? = nil
 			if !result.subtitle.isEmpty {
-				secondaryText = result.subtitle
+				secondaryString = result.subtitle
 			}
-			let resultDTO = SearchCompletionResultDTO(primaryText: primaryText, secondaryText: secondaryText)
+			let resultDTO = SearchCompletionResultDTO(primaryString: primaryString, secondaryString: secondaryString)
 			newResultDTOs.append(resultDTO)
 		}
 		

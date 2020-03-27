@@ -16,6 +16,7 @@ class SearchLocationViewModel: ObservableObject  {
 	@Published var cityLocationViewModels = [CityLocationViewModel]()
 	@Published var isError: Bool = false
 	@Published var isEmpty: Bool = false
+	@Published var shouldDismiss: Bool = false
 	
 	init(cityName: String, locationManager: LocationManager = LocationManager.shared) {
 		self.searchCityName = cityName
@@ -29,9 +30,9 @@ class SearchLocationViewModel: ObservableObject  {
 
 	private func getCityLocationVMs(results: [SearchCompletionResultDTO]) -> [CityLocationViewModel] {
 		let cityLocationVMs = results.map { (resultDTO) -> CityLocationViewModel in
-			let primaryText = resultDTO.primaryText
-			let secondaryText = resultDTO.secondaryText
-			let cityLocationVM = CityLocationViewModel(primaryText: primaryText, secondaryText: secondaryText)
+			let primaryString = resultDTO.primaryString
+			let secondaryString = resultDTO.secondaryString
+			let cityLocationVM = CityLocationViewModel(primaryString: primaryString, secondaryString: secondaryString)
 			return cityLocationVM
 		}
 		return cityLocationVMs
@@ -40,24 +41,17 @@ class SearchLocationViewModel: ObservableObject  {
 
 // MARK: - LocationManager Methods
 extension SearchLocationViewModel {
-	func searchAddress(_ addressString: String) {
+	func select(_ addressString: String) {
 		locationManager.searchAddress(addressString, success: { (placemarks) in
-			let cityLocationVMs = placemarks.map { (placemarkDTO) -> CityLocationViewModel in
-				let streetAddress = placemarkDTO.addressString
-				let cityLocationVM = CityLocationViewModel(primaryText: streetAddress)
-				return cityLocationVM
-			}
-			self.cityLocationViewModels = cityLocationVMs
+			/// Assuming the first is the closest match
+			guard let placemark = placemarks.first else { return }
 			
-			self.isError = false
-			self.isEmpty = cityLocationVMs.isEmpty
+			self.locationManager.currentPlacemark = placemark
 		}, failure: { (error) in
 			if error.type == .noResults {
-				self.isError = false
-				self.isEmpty = true
+				print("****** no results for selected address!")
 			} else {
-				self.isError = true
-				self.isEmpty = true
+				print("****** something went wrong when selecting!")
 			}
 			
 		})

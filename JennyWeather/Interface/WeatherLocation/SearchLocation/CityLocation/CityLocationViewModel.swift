@@ -10,16 +10,27 @@ import Foundation
 
 class CityLocationViewModel: ObservableObject {
 	
-	@Published var primaryText: String
-	@Published var secondaryText: String
+	@Published var primaryString: String
+	@Published var secondaryString: String
 	
-	init(primaryText: String, secondaryText: String? = nil) {
-		self.primaryText = primaryText
-		self.secondaryText = secondaryText ?? ""
+	init(primaryString: String, secondaryString: String? = nil) {
+		self.primaryString = primaryString
+		self.secondaryString = secondaryString ?? ""
 	}
-
 }
 
+// MARK: - Helper Methods
+extension CityLocationViewModel {
+	var combinedString: String {
+		var newString = primaryString
+		if !secondaryString.isEmpty {
+			newString += ", " + secondaryString
+		}
+		return newString
+	}
+}
+
+// MARK: - Identifiable
 extension CityLocationViewModel: Identifiable {
 	var id: String { return UUID().uuidString }
 }
