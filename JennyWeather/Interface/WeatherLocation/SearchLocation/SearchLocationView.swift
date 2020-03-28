@@ -11,6 +11,11 @@ import SwiftUI
 struct SearchLocationView: View {
 	
 	@ObservedObject var locationVM: SearchLocationViewModel
+		
+	/// This property is intended to be the binding for the view to the (possible) presenting view. Setting the value to `false` would
+	/// indicate that the view should be dismissed.
+	@Binding var isPresented: Bool
+	
 	@State private var isShowingKeyboard = false
 	
 	private var keyboardOffset: CGFloat {
@@ -20,8 +25,9 @@ struct SearchLocationView: View {
 	
     var body: some View {
 		VStack {
-			TextField("Enter Address", text: $locationVM.searchCityName, onEditingChanged: { (change) in
-				self.isShowingKeyboard.toggle()
+			TextField("Enter Address", text: $locationVM.searchCityName, onEditingChanged: { (isEditing) in
+				self.isShowingKeyboard = isEditing
+				self.locationVM.searchMKAddress(self.locationVM.searchCityName)
 			})
 				.font(.largeTitle)
 				.disableAutocorrection(true)
@@ -45,6 +51,7 @@ struct SearchLocationView: View {
 					CityLocationView(cityLocationVM: cityLocationVM)
 						.onTapGesture {
 							self.locationVM.select(cityLocationVM.combinedString)
+							self.isPresented = false
 					}
 				}
 				.padding(.bottom, keyboardOffset)
@@ -63,6 +70,7 @@ struct SearchLocationView_Previews: PreviewProvider {
 		let locationVM = SearchLocationViewModel(cityName: "Berkeley")
 		locationVM.cityLocationViewModels = [cityLocationVM1, cityLocationVM2, cityLocationVM3]
 		
-        return SearchLocationView(locationVM: locationVM)
+		let isPresented:Binding<Bool> = Binding<Bool>.constant(false)
+        return SearchLocationView(locationVM: locationVM, isPresented: isPresented)
     }
 }
