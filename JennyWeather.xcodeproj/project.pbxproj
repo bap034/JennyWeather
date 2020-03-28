@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B1A0988242FFB3D005C3ACE /* UserDefaultsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1A0987242FFB3D005C3ACE /* UserDefaultsUtility.swift */; };
 		8B4186FA23F3BE5700BA7307 /* WeatherDailyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4186F923F3BE5700BA7307 /* WeatherDailyViewModel.swift */; };
 		8B4186FC23F3BE6D00BA7307 /* WeatherHourlyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4186FB23F3BE6D00BA7307 /* WeatherHourlyViewModel.swift */; };
 		8B41870023F3C61600BA7307 /* NetworkUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4186FF23F3C61600BA7307 /* NetworkUtility.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8B1A0987242FFB3D005C3ACE /* UserDefaultsUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsUtility.swift; sourceTree = "<group>"; };
 		8B4186F923F3BE5700BA7307 /* WeatherDailyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDailyViewModel.swift; sourceTree = "<group>"; };
 		8B4186FB23F3BE6D00BA7307 /* WeatherHourlyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHourlyViewModel.swift; sourceTree = "<group>"; };
 		8B4186FF23F3C61600BA7307 /* NetworkUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtility.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				8B5B8BEE23F528060052EDC4 /* Errors */,
 				8B5B8BEF23F528140052EDC4 /* Mock Data */,
 				8B4186FF23F3C61600BA7307 /* NetworkUtility.swift */,
+				8B1A0987242FFB3D005C3ACE /* UserDefaultsUtility.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				8B46DB8F24078C8700333783 /* WeatherLoadingView.swift in Sources */,
 				8B5B8BED23F527FC0052EDC4 /* String+JW.swift in Sources */,
 				8BAF3EA023F3DF7A0091F220 /* WeatherAlertViewModel.swift in Sources */,
+				8B1A0988242FFB3D005C3ACE /* UserDefaultsUtility.swift in Sources */,
 				8B41870423F3DA3800BA7307 /* WeatherMinutelyViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

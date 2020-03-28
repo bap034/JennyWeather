@@ -46,7 +46,7 @@ extension SearchLocationViewModel {
 			/// Assuming the first is the closest match
 			guard let placemark = placemarks.first else { return }
 			
-			self.locationManager.currentPlacemark = placemark
+			self.locationManager.saveAsCurrentPlacemark(placemark)
 		}, failure: { (error) in
 			if error.type == .noResults {
 				print("****** no results for selected address!")
