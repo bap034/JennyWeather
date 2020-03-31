@@ -16,7 +16,6 @@ class SearchLocationViewModel: ObservableObject  {
 	@Published var cityLocationViewModels = [CityLocationViewModel]()
 	@Published var isError: Bool = false
 	@Published var isEmpty: Bool = false
-	@Published var shouldDismiss: Bool = false
 	
 	init(cityName: String, locationManager: LocationManager = LocationManager.shared) {
 		self.searchCityName = cityName

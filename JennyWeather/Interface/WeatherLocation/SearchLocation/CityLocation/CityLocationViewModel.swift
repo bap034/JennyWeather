@@ -32,5 +32,5 @@ extension CityLocationViewModel {
 
 // MARK: - Identifiable
 extension CityLocationViewModel: Identifiable {
-	var id: String { return UUID().uuidString }
+	var id: String { return primaryString }
 }

@@ -27,7 +27,6 @@ struct SearchLocationView: View {
 		VStack {
 			TextField("Enter Address", text: $locationVM.searchCityName, onEditingChanged: { (isEditing) in
 				self.isShowingKeyboard = isEditing
-				self.locationVM.searchMKAddress(self.locationVM.searchCityName)
 			})
 				.font(.largeTitle)
 				.disableAutocorrection(true)
