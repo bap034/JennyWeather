@@ -41,7 +41,7 @@ struct WeatherLocationView: View {
 
 struct WeatherLocationView_Previews: PreviewProvider {
     static var previews: some View {
-		let locationVM = WeatherLocationViewModel(cityName: "Berkeley")
+		let locationVM = WeatherLocationViewModel()
 		
         return WeatherLocationView(locationVM: locationVM)
     }

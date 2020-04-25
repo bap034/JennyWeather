@@ -11,11 +11,9 @@ import SwiftUI
 struct WeatherView: View {
 	
 	@ObservedObject var weatherVM: WeatherViewModel
-	@ObservedObject var locationVM: WeatherLocationViewModel
 	
-	init(weatherVM: WeatherViewModel, locationVM: WeatherLocationViewModel) {
+	init(weatherVM: WeatherViewModel) {
 		self.weatherVM = weatherVM
-		self.locationVM = locationVM
 		
 		UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().largeTitleTextAttributes = [
@@ -27,7 +25,7 @@ struct WeatherView: View {
 		NavigationView {
 			ScrollView {
 				
-				WeatherLocationView(locationVM: locationVM)
+				WeatherLocationView(locationVM: weatherVM.locationVM)
 					.padding(.top, 30)
 				
 				WeatherCurrentlyView(weatherCurrentlyVM: weatherVM.currentlyViewModel, weatherMinutelyVM: weatherVM.minutelyViewModel)
@@ -60,9 +58,10 @@ struct WeatherView: View {
 struct WeatherView_Previews: PreviewProvider {
     static var previews: some View {
 		let weatherVM: WeatherViewModel = try! WeatherMockData.getWeatherViewModel()
-		let locationVM = WeatherLocationViewModel(cityName: "Berkeley")
+		let locationVM = WeatherLocationViewModel()
+		weatherVM.locationVM = locationVM
 		
-		let view = WeatherView(weatherVM: weatherVM, locationVM: locationVM)
+		let view = WeatherView(weatherVM: weatherVM)
 		return view
 	}
 }

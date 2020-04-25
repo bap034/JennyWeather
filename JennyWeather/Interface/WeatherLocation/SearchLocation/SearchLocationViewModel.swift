@@ -46,6 +46,7 @@ extension SearchLocationViewModel {
 			guard let placemark = placemarks.first else { return }
 			
 			self.locationManager.saveAsCurrentPlacemark(placemark)
+			WeatherViewModel.shared?.updateWeatherData(success: nil, failure: nil)
 		}, failure: { (error) in
 			if error.type == .noResults {
 				print("****** no results for selected address!")

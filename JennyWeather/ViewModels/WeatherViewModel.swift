@@ -18,6 +18,8 @@ class WeatherViewModel: ObservableObject {
 	static let dailyKey = "daily"
 	static let currentlyKey = "currently"
 	
+	
+	@Published var locationVM: WeatherLocationViewModel
 	@Published var alertViewModels: [WeatherAlertViewModel]
 	@Published var minutelyViewModel: WeatherMinutelyViewModel
 	@Published var hourlyViewModel: WeatherHourlyViewModel
@@ -25,6 +27,8 @@ class WeatherViewModel: ObservableObject {
 	@Published var currentlyViewModel: WeatherCurrentlyViewModel
 	
 	init(json: [String: Any]) throws {
+		locationVM = WeatherLocationViewModel(locationManager: LocationManager.shared) // TODO: refactor to remove locationManager dependency
+		
 		var alertViewModelsFromJson = [WeatherAlertViewModel]()
 		let alertJsons:[[String: Any]]? = NetworkUtility.valueOptionalForKey(WeatherViewModel.alertsKey, json: json)
 		alertJsons?.forEach { (alertJson) in
@@ -33,7 +37,7 @@ class WeatherViewModel: ObservableObject {
 			alertViewModelsFromJson.append(sureAlertViewModel)
 		}
 		
-		let minutelyJson:[String: Any] = try NetworkUtility.valueForKey(WeatherViewModel.minutelyKey, json: json)
+		let minutelyJson:[String: Any]? = try? NetworkUtility.valueForKey(WeatherViewModel.minutelyKey, json: json)
 		let hourlyJson:[String: Any] = try NetworkUtility.valueForKey(WeatherViewModel.hourlyKey, json: json)
 		let dailyJson:[String: Any] = try NetworkUtility.valueForKey(WeatherViewModel.dailyKey, json: json)
 		let currentlyJson:[String: Any] = try NetworkUtility.valueForKey(WeatherViewModel.currentlyKey, json: json)
@@ -55,7 +59,10 @@ extension WeatherViewModel {
 	}
 	
 	private func loadNewWeatherData(_ json: [String: Any]) {
+		let cityName = LocationManager.shared.currentPlacemark.addressString
 		guard let sureNewWeatherViewModel = try? WeatherViewModel(json: json) else { return }
+		
+		self.locationVM.cityName = cityName
 		
 		self.alertViewModels = sureNewWeatherViewModel.alertViewModels
 		self.minutelyViewModel = sureNewWeatherViewModel.minutelyViewModel

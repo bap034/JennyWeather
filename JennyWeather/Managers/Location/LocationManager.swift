@@ -24,11 +24,15 @@ class LocationManager: NSObject {
 	private let clLocationManager = CLLocationManager()
 	private let mkSearchCompleter = MKLocalSearchCompleter()
 	
+	public private(set) var currentPlacemark: PlacemarkDTO
 	var authorizationDelegate: LocationManagerAuthorizationDelegate?
 	var searchCompletionDelegate: LocationManagerSearchCompletionDelegate?
 	
 	override init() {
+		currentPlacemark = UserDefaultsUtility.currentPlaceMark ?? LocationManager.defaultPlacemarkDTO
+
 		super.init()
+
 		clLocationManager.delegate = self
 		mkSearchCompleter.delegate = self
 		mkSearchCompleter.resultTypes = .address
@@ -36,17 +40,12 @@ class LocationManager: NSObject {
 	
 }
 
-// MARK: - Storing & Retrieving Current Placemark
+// MARK: - Storing Current Placemark
 extension LocationManager {
 	// MARK: Storing
 	func saveAsCurrentPlacemark(_ placemark: PlacemarkDTO) {
 		UserDefaultsUtility.storeCurrentPlacemark(placemark)
-	}
-	
-	// MARK: Retrieving
-	var currentPlacemark: PlacemarkDTO {
-		let storedPlacemark = UserDefaultsUtility.currentPlaceMark ?? LocationManager.defaultPlacemarkDTO
-		return storedPlacemark
+		currentPlacemark = placemark
 	}
 }
 

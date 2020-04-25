@@ -16,8 +16,8 @@ class WeatherLocationViewModel: NSObject, ObservableObject {
 	
 	@Published var cityName: String
 	
-	init(cityName: String, locationManager: LocationManager = LocationManager.shared) {
-		self.cityName = cityName
+	init(locationManager: LocationManager = LocationManager.shared) {
+		self.cityName = locationManager.currentPlacemark.addressString
 		
 		self.locationManager = locationManager
 		

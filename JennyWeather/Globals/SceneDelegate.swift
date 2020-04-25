@@ -47,8 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			guard let weatherVM = WeatherViewModel.shared else { print("error"); return }
 			
 			DispatchQueue.main.async {
-				let locationVM = WeatherLocationViewModel(cityName: locationManager.currentPlacemark.addressString)
-				let weatherView = WeatherView(weatherVM: weatherVM, locationVM: locationVM)
+				let weatherView = WeatherView(weatherVM: weatherVM)
 				let weatherViewVC = UIHostingController(rootView: weatherView)
 				self.window?.rootViewController = weatherViewVC
 				
