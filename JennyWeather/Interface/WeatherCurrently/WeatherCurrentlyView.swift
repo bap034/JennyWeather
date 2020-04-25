@@ -14,7 +14,10 @@ struct WeatherCurrentlyView: View {
 	@ObservedObject var weatherMinutelyVM: WeatherMinutelyViewModel
 	
     var body: some View {
-		HStack {
+		
+		let minutelyText = weatherMinutelyVM.summary ?? weatherCurrentlyVM.summary
+		
+		return HStack {
 			VStack(alignment: .leading) {
 				Text("Currently")
 					.font(.title)
@@ -25,7 +28,7 @@ struct WeatherCurrentlyView: View {
 					.padding(.bottom, 10)
 					.padding([.leading, .trailing], 20)
 				
-				Text(weatherMinutelyVM.summary)
+				Text(minutelyText)
 					.font(.headline)
 					.fixedSize(horizontal: false, vertical: true)
 					.padding(.bottom, 10)

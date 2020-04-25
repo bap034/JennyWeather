@@ -32,14 +32,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		}
 		
 		// TODO: Move this somewhere more appropriate?
-		let locationVM = WeatherLocationViewModel.shared
+		let locationManager = LocationManager.shared
+		guard let sureLatitude = locationManager.currentPlacemark.latitude, let sureLongitude = locationManager.currentPlacemark.longitude else {
+			let newWeatherLoadingView = WeatherLoadingView(error: JWError.unexpectedNil)
+			let newWeatherLoadingVC = UIHostingController(rootView: newWeatherLoadingView)
+			
+			self.window?.rootViewController = newWeatherLoadingVC
+			return
+		}
+		
 		let dataService = WeatherDataService()
-		dataService.getWeatherData(latitude: locationVM.latitude, longitude: locationVM.longitude, success: { (json) in
+		dataService.getWeatherData(latitude: sureLatitude, longitude: sureLongitude, success: { (json) in
 			WeatherViewModel.shared = try? WeatherViewModel(json: json)
 			guard let weatherVM = WeatherViewModel.shared else { print("error"); return }
 			
 			DispatchQueue.main.async {
-				let weatherView = WeatherView(weatherVM: weatherVM, locationVM: locationVM)
+				let weatherView = WeatherView(weatherVM: weatherVM)
 				let weatherViewVC = UIHostingController(rootView: weatherView)
 				self.window?.rootViewController = weatherViewVC
 				

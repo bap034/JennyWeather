@@ -10,36 +10,22 @@ import Foundation
 
 class WeatherLocationViewModel: NSObject, ObservableObject {
 		
-	static let shared = WeatherLocationViewModel(cityName: "Berkeley")
-	
-	private let locationManager: LocationManager
+	let locationManager: LocationManager
 	
 	@Published var canPresent: Bool = false
 	
-	@Published var latitude: Double
-	@Published var longitude: Double
 	@Published var cityName: String
 	
-	init(cityName: String, locationManager: LocationManager = LocationManager.shared) {
-		self.cityName = cityName
-		
-		let coordinates = WeatherLocationViewModel.getCoordinates(cityName: cityName)
-		self.latitude = coordinates.0
-		self.longitude = coordinates.1
+	init(locationManager: LocationManager = LocationManager.shared) {
+		self.cityName = locationManager.currentPlacemark.addressString
 		
 		self.locationManager = locationManager
 		
 		super.init()
 		
-		self.locationManager.delegate = self
+		self.locationManager.authorizationDelegate = self
 	}
 	
-	/// Return: ( lattitude, longitude)
-	private static func getCoordinates(cityName: String) -> (Double, Double) {
-		let higbyLatitude = 37.851967
-		let higbyLongitude = -122.286313
-		return (higbyLatitude, higbyLongitude)
-	}
 }
 
 // MARK: - View Exposed Methods
@@ -56,8 +42,8 @@ extension WeatherLocationViewModel {
 }
 
 
-// MARK: - LocationManagerDelegate
-extension WeatherLocationViewModel: LocationManagerDelegate {
+// MARK: - LocationManagerAuthorizationDelegate
+extension WeatherLocationViewModel: LocationManagerAuthorizationDelegate {
 	func onSuccessfulAuthorization() {
 		canPresent = true
 	}

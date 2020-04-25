@@ -12,10 +12,12 @@ class WeatherMinutelyViewModel: ObservableObject {
 	
 	static let summaryKey = "summary"
 	
-	@Published var summary: String
+	@Published var summary: String?
 	
-	init(json: [String: Any]) throws {
-		summary = try NetworkUtility.valueForKey(WeatherMinutelyViewModel.summaryKey, json: json)
+	init(json: [String: Any]?) throws {
+		guard let sureJson = json else { return }
+		
+		summary = try? NetworkUtility.valueForKey(WeatherMinutelyViewModel.summaryKey, json: sureJson)
 	}
 	
 }

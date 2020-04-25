@@ -8,12 +8,29 @@
 
 import Foundation
 
-class CityLocationViewModel: ObservableObject, Identifiable {
-
-	@Published var streetAddress: String
+class CityLocationViewModel: ObservableObject {
 	
-	init(streetAddress: String) {
-		self.streetAddress = streetAddress
+	@Published var primaryString: String
+	@Published var secondaryString: String
+	
+	init(primaryString: String, secondaryString: String? = nil) {
+		self.primaryString = primaryString
+		self.secondaryString = secondaryString ?? ""
 	}
+}
 
+// MARK: - Helper Methods
+extension CityLocationViewModel {
+	var combinedString: String {
+		var newString = primaryString
+		if !secondaryString.isEmpty {
+			newString += ", " + secondaryString
+		}
+		return newString
+	}
+}
+
+// MARK: - Identifiable
+extension CityLocationViewModel: Identifiable {
+	var id: String { return primaryString }
 }

@@ -32,7 +32,8 @@ struct WeatherLocationView: View {
 					.padding(.trailing, 20)
 			}
 			.sheet(isPresented: $locationVM.canPresent) {
-				SearchLocationView(locationVM: SearchLocationViewModel(cityName: self.locationVM.cityName))
+				SearchLocationView(locationVM: SearchLocationViewModel(cityName: self.locationVM.cityName),
+								   isPresented: self.$locationVM.canPresent)
 			}
 		}
 	}
@@ -40,7 +41,7 @@ struct WeatherLocationView: View {
 
 struct WeatherLocationView_Previews: PreviewProvider {
     static var previews: some View {
-		let locationVM = WeatherLocationViewModel(cityName: "Berkeley")
+		let locationVM = WeatherLocationViewModel()
 		
         return WeatherLocationView(locationVM: locationVM)
     }
