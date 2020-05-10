@@ -11,11 +11,10 @@ import SwiftUI
 struct WeatherCurrentlyView: View {
 	
 	@ObservedObject var weatherCurrentlyVM: WeatherCurrentlyViewModel
-	@ObservedObject var weatherMinutelyVM: WeatherMinutelyViewModel
 	
     var body: some View {
 		
-		let minutelyText = weatherMinutelyVM.summary ?? weatherCurrentlyVM.summary
+		let minutelyText = weatherCurrentlyVM.minutelySummary ?? weatherCurrentlyVM.summary
 		
 		return HStack {
 			VStack(alignment: .leading) {
@@ -53,7 +52,7 @@ struct WeatherCurrentlyView_Previews: PreviewProvider {
     static var previews: some View {
 		let weatherVM: WeatherViewModel = try! WeatherMockData.getWeatherViewModel()
 		
-		let view = WeatherCurrentlyView(weatherCurrentlyVM: weatherVM.currentlyViewModel, weatherMinutelyVM: weatherVM.minutelyViewModel)
+		let view = WeatherCurrentlyView(weatherCurrentlyVM: weatherVM.currentlyViewModel)
 		return view
     }
 }

@@ -37,6 +37,12 @@ class NetworkUtility {
 
 // MARK: - Data Transfer Utility
 extension NetworkUtility {
+	static func codableFromJSON<T: Codable>(_ json: [String: Any]) throws -> T {
+		let data = try JSONSerialization.data(withJSONObject: json, options: .withoutEscapingSlashes)
+		let codableObject = try JSONDecoder().decode(T.self, from: data)
+		return codableObject
+	}
+	
 	static func valueForKey<T>(_ key: String, json: [String: Any], file: String = #file) throws -> T {
 		let fileName: String = (file as NSString).lastPathComponent
 		guard let sureValue = json[key] else {

@@ -24,17 +24,17 @@ struct WeatherDailyView: View {
 				.padding(.bottom, 10)
 				.padding([.leading, .trailing], 20)
 			
-			ForEach(weatherDailyVM.data) { (data) in
+			ForEach(weatherDailyVM.dayVMs) { (dayVM) in
 				VStack(alignment: .leading) {
-					Text(data.timeString)
+					Text(dayVM.timeString)
 						.font(.headline)
-					Text("high: \(data.temperatureHigh.toTemperatureString)")
-					Text("low: \(data.temperatureLow.toTemperatureString)")
-					Text("rain: \(data.precipProbability.toRainString)")
-					Text("wind: \(data.windSpeed.toWindString)")
+					Text("high: \(dayVM.temperatureHigh.toTemperatureString)")
+					Text("low: \(dayVM.temperatureLow.toTemperatureString)")
+					Text("rain: \(dayVM.precipProbability.toRainString)")
+					Text("wind: \(dayVM.windSpeed.toWindString)")
 				}
 				
-				if data.id != self.weatherDailyVM.data.last?.id {
+				if dayVM.id != self.weatherDailyVM.dayVMs.last?.id {
 					Divider()
 				}
 			}
