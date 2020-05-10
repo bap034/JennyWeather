@@ -27,17 +27,17 @@ struct WeatherHourlyView: View {
 			
 			ScrollView(.horizontal, showsIndicators: false) {
 				HStack {
-					ForEach(weatherHourlyVM.data) { data in
+					ForEach(weatherHourlyVM.hourVMs) { hourVM in
 						VStack(alignment: .leading) {
-							Text(data.timeString)
+							Text(hourVM.timeString)
 								.font(.headline)
-							Text("temp: \(data.temperature.toTemperatureString)")
-							Text("rain: \(data.precipProbability.toRainString)")
-							Text("wind: \(data.windSpeed.toWindString)")
+							Text("temp: \(hourVM.temperature.toTemperatureString)")
+							Text("rain: \(hourVM.precipProbability.toRainString)")
+							Text("wind: \(hourVM.windSpeed.toWindString)")
 						}
 						.frame(minWidth: 150)
 						
-						if data.id != self.weatherHourlyVM.data.last?.id {
+						if hourVM.id != self.weatherHourlyVM.hourVMs.last?.id {
 							Divider()
 						}
 					}

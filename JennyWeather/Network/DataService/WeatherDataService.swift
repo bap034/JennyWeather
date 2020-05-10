@@ -8,11 +8,11 @@
 
 import Foundation
 
-typealias DataServiceSuccess = ([String: Any])->Void
+typealias WeatherDataServiceSuccess = (WeatherDTO)->Void
 typealias DataServiceFailure = ((Error?)->Void)?
 
 protocol WeatherDataServiceGettable {
-	func getWeatherData(latitude: Double, longitude: Double, success: @escaping DataServiceSuccess, failure: DataServiceFailure)
+	func getWeatherData(latitude: Double, longitude: Double, success: @escaping WeatherDataServiceSuccess, failure: DataServiceFailure)
 }
 
 class WeatherDataService: NSObject, URLSessionDataDelegate {
@@ -33,7 +33,7 @@ class WeatherDataService: NSObject, URLSessionDataDelegate {
 }
 
 extension WeatherDataService: WeatherDataServiceGettable {
-	func getWeatherData(latitude: Double, longitude: Double, success: @escaping DataServiceSuccess, failure: DataServiceFailure) {
+	func getWeatherData(latitude: Double, longitude: Double, success: @escaping WeatherDataServiceSuccess, failure: DataServiceFailure) {
 		let urlString = WeatherDataService.url + "\(latitude),\(longitude)"
 		guard let url = URL(string: urlString) else {
 			failure?(nil)
@@ -47,7 +47,12 @@ extension WeatherDataService: WeatherDataServiceGettable {
 			} else if let sureData = data,
 				let json = try? JSONSerialization.jsonObject(with: sureData, options: []),
 				let jsonDict = json as? [String: Any] {
-				success(jsonDict)
+				do {
+					let weatherDTO:WeatherDTO = try NetworkUtility.codableFromJSON(jsonDict)
+					success(weatherDTO)
+				} catch {
+					failure?(error)
+				}
 			} else {
 				failure?(nil)
 			}
