@@ -14,7 +14,7 @@ class WeatherCurrentlyViewModel: ObservableObject {
 	
 	@Published var timestamp: Int
 	@Published var summary: String
-	@Published var icon: String
+	@Published var icon: WeatherIcon
 	@Published var precipProbability: Double
 	@Published var temperature: Double
 	@Published var windSpeed: Double
@@ -26,7 +26,7 @@ class WeatherCurrentlyViewModel: ObservableObject {
 		
 		timestamp = currentlyDTO.timestamp
 		summary = currentlyDTO.summary
-		icon = currentlyDTO.icon
+		icon = IconUtility.getWeatherIcon(darkSkyIconName: currentlyDTO.icon)
 		precipProbability = currentlyDTO.precipProbability
 		temperature = currentlyDTO.temperature
 		windSpeed = currentlyDTO.windSpeed

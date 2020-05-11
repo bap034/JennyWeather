@@ -11,12 +11,12 @@ import Foundation
 class WeatherDailyViewModel: ObservableObject {
 	
 	@Published var summary: String
-	@Published var icon: String
+	@Published var icon: WeatherIcon
 	@Published var dayVMs: [WeatherDayViewModel]
 	
 	init(dto: WeatherDailyDTO) {
 		summary = dto.summary
-		icon = dto.icon
+		icon = IconUtility.getWeatherIcon(darkSkyIconName: dto.icon)
 		
 		var dayVMs = [WeatherDayViewModel]()
 		dto.data.forEach { (dayDTO) in
@@ -35,7 +35,7 @@ class WeatherDayViewModel: ObservableObject {
 	
 	@Published var timeString: String
 	@Published var summary: String
-	@Published var icon: String
+	@Published var icon: WeatherIcon
 	@Published var precipProbability: Double
 	@Published var temperatureHigh: Double
 	@Published var temperatureLow: Double
@@ -46,7 +46,7 @@ class WeatherDayViewModel: ObservableObject {
 		
 		timeString = NetworkUtility.shared.dateOnlyFormatter.string(from: dto.time)
 		summary = dto.summary
-		icon = dto.icon
+		icon = IconUtility.getWeatherIcon(darkSkyIconName: dto.icon)
 		precipProbability = dto.precipProbability
 		temperatureHigh = dto.temperatureHigh
 		temperatureLow = dto.temperatureLow

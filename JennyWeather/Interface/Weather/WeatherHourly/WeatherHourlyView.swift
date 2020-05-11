@@ -26,16 +26,42 @@ struct WeatherHourlyView: View {
 				.padding([.leading, .trailing], 20)
 			
 			ScrollView(.horizontal, showsIndicators: false) {
-				HStack {
+				HStack(spacing: 0) {
 					ForEach(weatherHourlyVM.hourVMs) { hourVM in
-						VStack(alignment: .leading) {
-							Text(hourVM.timeString)
-								.font(.headline)
-							Text("temp: \(hourVM.temperature.toTemperatureString)")
-							Text("rain: \(hourVM.precipProbability.toRainString)")
-							Text("wind: \(hourVM.windSpeed.toWindString)")
+						HStack {
+							VStack(alignment: .leading) {
+								Image(systemName: hourVM.icon.systemIconName)
+									.resizable()
+									.scaledToFit()
+									.frame(height: 30)
+
+								Spacer()
+
+								Text(hourVM.temperature.toTemperatureString)
+									.font(.title)
+							}
+
+							VStack(alignment: .trailing) {
+								Text(hourVM.timeString)
+									.font(.headline)
+
+								Spacer()
+
+								HStack {
+									Text(hourVM.precipProbability.toRainString)
+									Image(systemName: WeatherIcon.rain.systemIconName)
+										.resizable()
+										.scaledToFit()
+										.frame(maxHeight: 30)
+								}
+
+								Spacer()
+
+								Text(hourVM.windSpeed.toWindString)
+							}
+							.layoutPriority(.infinity)
 						}
-						.frame(minWidth: 150)
+						.padding([.leading, .trailing], 20)
 						
 						if hourVM.id != self.weatherHourlyVM.hourVMs.last?.id {
 							Divider()
