@@ -25,14 +25,14 @@ struct WeatherLocationView: View {
 			Button(action: {
 				self.locationVM.handlePresentingSearchLocationView()
 			}) {
-				Image(systemName: "location.circle.fill")
+				Image(systemName: "magnifyingglass.circle.fill")
 					.resizable()
 					.frame(width: 30, height: 30)
 					.aspectRatio(contentMode: .fit)
 					.padding(.trailing, 20)
 			}
 			.sheet(isPresented: $locationVM.canPresent) {
-				SearchLocationView(locationVM: SearchLocationViewModel(cityName: self.locationVM.cityName),
+				SearchLocationView(locationVM: SearchLocationViewModel(cityName: ""),
 								   isPresented: self.$locationVM.canPresent)
 			}
 		}
