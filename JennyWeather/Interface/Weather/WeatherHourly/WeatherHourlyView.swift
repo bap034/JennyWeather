@@ -45,17 +45,13 @@ struct WeatherHourlyView: View {
 								Text(hourVM.timeString)
 									.font(.headline)
 
-								Spacer()
-
 								HStack {
 									Text(hourVM.precipProbability.toRainString)
 									Image(systemName: WeatherIcon.rain.systemIconName)
 										.resizable()
 										.scaledToFit()
-										.frame(maxHeight: 30)
+										.frame(maxHeight: 20)
 								}
-
-								Spacer()
 
 								Text(hourVM.windSpeed.toWindString)
 							}
@@ -70,6 +66,7 @@ struct WeatherHourlyView: View {
 				}
 				.padding(.bottom, 10)
 			}
+			.frame(maxHeight: 90)
 		}
     }
 }

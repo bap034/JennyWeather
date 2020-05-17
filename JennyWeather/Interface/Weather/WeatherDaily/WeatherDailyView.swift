@@ -28,17 +28,33 @@ struct WeatherDailyView: View {
 				VStack(alignment: .leading) {
 					Text(dayVM.timeString)
 						.font(.headline)
-					Text("high: \(dayVM.temperatureHigh.toTemperatureString)")
-					Text("low: \(dayVM.temperatureLow.toTemperatureString)")
-					Text("rain: \(dayVM.precipProbability.toRainString)")
-					Text("wind: \(dayVM.windSpeed.toWindString)")
+					HStack {
+						VStack {
+							Image(systemName: dayVM.icon.systemIconName)
+								.resizable()
+								.scaledToFit()
+								.frame(width: 50, height: 30)
+							
+							if dayVM.icon == .rain {
+								Text(dayVM.precipProbability.toRainString)
+							}
+						}
+						
+						Divider()
+						
+						Text(dayVM.temperatureHigh.toTemperatureString)
+							.font(.title)
+						Text(dayVM.temperatureLow.toTemperatureString)
+						
+						Divider()
+						
+						Text(dayVM.windSpeed.toWindString)
+					}
 				}
 				
-				if dayVM.id != self.weatherDailyVM.dayVMs.last?.id {
-					Divider()
-				}
+				Divider()
 			}
-			.padding(.leading, 20)
+			.padding([.leading, .trailing], 20)
 		}
     }
 }
