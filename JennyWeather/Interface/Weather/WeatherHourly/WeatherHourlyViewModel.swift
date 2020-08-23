@@ -11,12 +11,12 @@ import Foundation
 class WeatherHourlyViewModel: ObservableObject {
 	
 	@Published var summary: String
-	@Published var icon: String
+	@Published var icon: WeatherIcon
 	@Published var hourVMs: [WeatherHourViewModel]
 	
 	init(dto: WeatherHourlyDTO) {
 		summary = dto.summary
-		icon = dto.icon
+		icon = IconUtility.getWeatherIcon(darkSkyIconName: dto.icon)
 		
 		var hourVMs = [WeatherHourViewModel]()
 		dto.data.forEach { (hourDataJson) in
@@ -36,7 +36,7 @@ class WeatherHourViewModel: ObservableObject {
 	private let dto: WeatherHourDTO
 	
 	@Published var summary: String
-	@Published var icon: String
+	@Published var icon: WeatherIcon
 	@Published var precipProbability: Double
 	@Published var temperature: Double
 	@Published var windSpeed: Double
@@ -46,7 +46,7 @@ class WeatherHourViewModel: ObservableObject {
 		self.dto = dto
 		
 		summary = dto.summary
-		icon = dto.icon
+		icon = IconUtility.getWeatherIcon(darkSkyIconName: dto.icon)
 		precipProbability = dto.precipProbability
 		temperature = dto.temperature
 		windSpeed = dto.windSpeed

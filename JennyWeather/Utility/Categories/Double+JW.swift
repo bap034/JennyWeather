@@ -15,12 +15,12 @@ extension Double {
 	}
 	
 	var toRainString: String {
-		let rainString = String(format: "%.1f %%", self*100)
+		let rainString = String(format: "%.0f %%", self*100)
 		return rainString
 	}
 	
 	var toWindString: String {
-		let windString = String(format: "%.2f mph", self)
+		let windString = String(format: "%.1f mph", self)
 		return windString
 	}
 }

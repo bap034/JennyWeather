@@ -11,12 +11,12 @@ import Foundation
 class WeatherDailyViewModel: ObservableObject {
 	
 	@Published var summary: String
-	@Published var icon: String
+	@Published var icon: WeatherIcon
 	@Published var dayVMs: [WeatherDayViewModel]
 	
 	init(dto: WeatherDailyDTO) {
 		summary = dto.summary
-		icon = dto.icon
+		icon = IconUtility.getWeatherIcon(darkSkyIconName: dto.icon)
 		
 		var dayVMs = [WeatherDayViewModel]()
 		dto.data.forEach { (dayDTO) in
@@ -35,7 +35,7 @@ class WeatherDayViewModel: ObservableObject {
 	
 	@Published var timeString: String
 	@Published var summary: String
-	@Published var icon: String
+	@Published var icon: WeatherIcon
 	@Published var precipProbability: Double
 	@Published var temperatureHigh: Double
 	@Published var temperatureLow: Double
@@ -43,14 +43,29 @@ class WeatherDayViewModel: ObservableObject {
 	
 	init(dto: WeatherDayDTO) {
 		self.dto = dto
-		
-		timeString = NetworkUtility.shared.dateOnlyFormatter.string(from: dto.time)
+				
+		timeString = WeatherDayViewModel.getTimeString(date: dto.time)
 		summary = dto.summary
-		icon = dto.icon
+		icon = IconUtility.getWeatherIcon(darkSkyIconName: dto.icon)
 		precipProbability = dto.precipProbability
 		temperatureHigh = dto.temperatureHigh
 		temperatureLow = dto.temperatureLow
 		windSpeed = dto.windSpeed
+	}
+	
+	private static func getTimeString(date: Date) -> String {
+		var timeString = ""
+		let calendar = Calendar.current
+		if calendar.isDateInToday(date) {
+			timeString = "Today"
+		} else if calendar.isDateInTomorrow(date) {
+			timeString = "Tomorrow"
+		} else {
+			let dateformatter = DateFormatter()
+			dateformatter.dateFormat = "EEEE"
+			timeString = dateformatter.string(from: date)
+		}
+		return timeString
 	}
 }
 

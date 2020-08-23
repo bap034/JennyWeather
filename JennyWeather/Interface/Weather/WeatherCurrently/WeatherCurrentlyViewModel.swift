@@ -14,24 +14,28 @@ class WeatherCurrentlyViewModel: ObservableObject {
 	
 	@Published var timestamp: Int
 	@Published var summary: String
-	@Published var icon: String
+	@Published var icon: WeatherIcon
 	@Published var precipProbability: Double
 	@Published var temperature: Double
 	@Published var windSpeed: Double
 	@Published var time: Date
 	@Published var timeString: String
 	
+	var minutelyText:String {
+		return minutelySummary ?? summary
+	}
+	
 	init(currentlyDTO: WeatherCurrentlyDTO, minutelyDTO: WeatherMinutelyDTO) {
 		minutelySummary = minutelyDTO.summary
 		
 		timestamp = currentlyDTO.timestamp
 		summary = currentlyDTO.summary
-		icon = currentlyDTO.icon
+		icon = IconUtility.getWeatherIcon(darkSkyIconName: currentlyDTO.icon)
 		precipProbability = currentlyDTO.precipProbability
 		temperature = currentlyDTO.temperature
 		windSpeed = currentlyDTO.windSpeed
 		time = currentlyDTO.time
-		timeString = NetworkUtility.shared.dateFormatter.string(from: currentlyDTO.time)
+		timeString = "Last updated at \(NetworkUtility.shared.timeOnlyFormatter.string(from: currentlyDTO.time))"
 	}
 	
 }
