@@ -41,7 +41,6 @@ struct WeatherView: View {
 				
 				Text("Powered by Dark Sky")
 					.font(.caption)
-					.frame(alignment: .trailing)
 					.padding(.top, 40)
 					.padding(.bottom, 20)
 					.onTapGesture {

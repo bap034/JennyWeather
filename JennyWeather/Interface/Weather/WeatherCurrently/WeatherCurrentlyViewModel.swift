@@ -21,6 +21,10 @@ class WeatherCurrentlyViewModel: ObservableObject {
 	@Published var time: Date
 	@Published var timeString: String
 	
+	var minutelyText:String {
+		return minutelySummary ?? summary
+	}
+	
 	init(currentlyDTO: WeatherCurrentlyDTO, minutelyDTO: WeatherMinutelyDTO) {
 		minutelySummary = minutelyDTO.summary
 		
@@ -31,7 +35,7 @@ class WeatherCurrentlyViewModel: ObservableObject {
 		temperature = currentlyDTO.temperature
 		windSpeed = currentlyDTO.windSpeed
 		time = currentlyDTO.time
-		timeString = NetworkUtility.shared.dateFormatter.string(from: currentlyDTO.time)
+		timeString = "Last updated at \(NetworkUtility.shared.timeOnlyFormatter.string(from: currentlyDTO.time))"
 	}
 	
 }
