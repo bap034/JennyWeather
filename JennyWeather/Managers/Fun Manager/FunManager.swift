@@ -20,17 +20,20 @@ extension FunManager {
 	private static let candiceSpecialCounterKey = "candiceSpecialCounterKey"
 	
 	var candiceSpecialValue: Int {
-		return UserDefaults.standard.integer(forKey: FunManager.candiceSpecialCounterKey)
+		let value = Int(NSUbiquitousKeyValueStore.default.double(forKey: FunManager.candiceSpecialCounterKey))
+		return value
 	}
 	private func setCandiceSpecialValue(_ newValue: Int) {
-		UserDefaults.standard.set(newValue, forKey: FunManager.candiceSpecialCounterKey)
+		NSUbiquitousKeyValueStore.default.set(newValue, forKey: FunManager.candiceSpecialCounterKey)
 	}
 	
-	func updateCandiceSpecialValue(_ currentTemperature: Double) {
+	func shouldIncrementCandiceSpecialValue(currentTemperature: Double) -> Bool {
+		let shouldIncrement = Int(currentTemperature.rounded()) == FunManager.candiceSpecialTarget
+		return shouldIncrement
+	}
+	func incrementCandiceSpecialValue() {
 		let candiceSpecialValue = FunManager.shared.candiceSpecialValue
-		if Int(currentTemperature.rounded()) == FunManager.candiceSpecialTarget {
-			let newValue = candiceSpecialValue + 1
-			FunManager.shared.setCandiceSpecialValue(newValue)
-		}
+		let newValue = candiceSpecialValue + 1
+		FunManager.shared.setCandiceSpecialValue(newValue)
 	}
 }

@@ -17,6 +17,7 @@
 		8B1C7EA624675B9D007666AD /* WeatherDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1C7EA524675B9D007666AD /* WeatherDTO.swift */; };
 		8B1C7EAA2468D16E007666AD /* IconUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1C7EA92468D16E007666AD /* IconUtility.swift */; };
 		8B1D25C824F20A60009826CE /* FunManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1D25C724F20A60009826CE /* FunManager.swift */; };
+		8B1D25CE24F35EBD009826CE /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B1D25CD24F35EBD009826CE /* CloudKit.framework */; };
 		8B4186FA23F3BE5700BA7307 /* WeatherDailyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4186F923F3BE5700BA7307 /* WeatherDailyViewModel.swift */; };
 		8B4186FC23F3BE6D00BA7307 /* WeatherHourlyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4186FB23F3BE6D00BA7307 /* WeatherHourlyViewModel.swift */; };
 		8B41870023F3C61600BA7307 /* NetworkUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4186FF23F3C61600BA7307 /* NetworkUtility.swift */; };
@@ -73,6 +74,8 @@
 		8B1C7EA524675B9D007666AD /* WeatherDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDTO.swift; sourceTree = "<group>"; };
 		8B1C7EA92468D16E007666AD /* IconUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconUtility.swift; sourceTree = "<group>"; };
 		8B1D25C724F20A60009826CE /* FunManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunManager.swift; sourceTree = "<group>"; };
+		8B1D25CB24F32A4A009826CE /* Jenny Weather.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Jenny Weather.entitlements"; sourceTree = "<group>"; };
+		8B1D25CD24F35EBD009826CE /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		8B4186F923F3BE5700BA7307 /* WeatherDailyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDailyViewModel.swift; sourceTree = "<group>"; };
 		8B4186FB23F3BE6D00BA7307 /* WeatherHourlyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHourlyViewModel.swift; sourceTree = "<group>"; };
 		8B4186FF23F3C61600BA7307 /* NetworkUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkUtility.swift; sourceTree = "<group>"; };
@@ -117,6 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B1D25CE24F35EBD009826CE /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +206,14 @@
 			path = "Fun Manager";
 			sourceTree = "<group>";
 		};
+		8B1D25CC24F35EBD009826CE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8B1D25CD24F35EBD009826CE /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8B4186FD23F3C49300BA7307 /* DataService */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +268,7 @@
 				8B47766A23F0B9F0003DAE2C /* JennyWeather */,
 				8B47768123F0B9F2003DAE2C /* JennyWeatherTests */,
 				8B47766923F0B9F0003DAE2C /* Products */,
+				8B1D25CC24F35EBD009826CE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -271,6 +284,7 @@
 		8B47766A23F0B9F0003DAE2C /* JennyWeather */ = {
 			isa = PBXGroup;
 			children = (
+				8B1D25CB24F32A4A009826CE /* Jenny Weather.entitlements */,
 				8B4186FE23F3C49D00BA7307 /* Utility */,
 				8B47769023F0C33D003DAE2C /* Network */,
 				8B9155C3242724AF008826D0 /* Managers */,
@@ -715,6 +729,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "JennyWeather/Jenny Weather.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "JennyWeather/Resources/Preview\\ Content";
@@ -738,6 +753,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "JennyWeather/Jenny Weather.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "JennyWeather/Resources/Preview\\ Content";

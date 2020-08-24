@@ -49,7 +49,9 @@ extension WeatherDataService: WeatherDataServiceGettable {
 					let weatherDTO:WeatherDTO = try NetworkUtility.codableFromJSON(jsonDict)
 					
 					// TODO: can this be moved to somewhere else?
-					FunManager.shared.updateCandiceSpecialValue(weatherDTO.currently.temperature)
+					if FunManager.shared.shouldIncrementCandiceSpecialValue(currentTemperature: weatherDTO.currently.temperature) {
+						FunManager.shared.incrementCandiceSpecialValue()						
+					}
 					
 					success(weatherDTO)
 				} catch {
