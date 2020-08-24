@@ -731,7 +731,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "JennyWeather/Jenny Weather.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "JennyWeather/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 86WXZVZ79J;
 				ENABLE_PREVIEWS = YES;
@@ -755,7 +755,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "JennyWeather/Jenny Weather.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_ASSET_PATHS = "JennyWeather/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 86WXZVZ79J;
 				ENABLE_PREVIEWS = YES;
