@@ -24,7 +24,6 @@ struct WeatherView: View {
 	var body: some View {
 		NavigationView {
 			ScrollView {
-				
 				WeatherLocationView(locationVM: weatherVM.locationVM)
 					.padding(.top, 30)
 				
@@ -39,9 +38,13 @@ struct WeatherView: View {
 				
 				WeatherDailyView(weatherDailyVM: weatherVM.dailyViewModel)
 				
+				Text("🎉 \(weatherVM.candiceSpecialValue)")
+					.padding(.top, 30)
+					.padding(.trailing, 20)
+				
 				Text("Powered by Dark Sky")
 					.font(.caption)
-					.padding(.top, 40)
+					.padding(.top, 10)
 					.padding(.bottom, 20)
 					.onTapGesture {
 						if let sureURL = URL(string: "https://darksky.net/poweredby/") {

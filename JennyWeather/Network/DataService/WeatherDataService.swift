@@ -42,19 +42,23 @@ extension WeatherDataService: WeatherDataServiceGettable {
 		let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10)		
 		
 		let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
-			if let sureError = error {
-				failure?(sureError)
-			} else if let sureData = data,
+			if let sureData = data,
 				let json = try? JSONSerialization.jsonObject(with: sureData, options: []),
 				let jsonDict = json as? [String: Any] {
 				do {
 					let weatherDTO:WeatherDTO = try NetworkUtility.codableFromJSON(jsonDict)
+					
+					// TODO: can this be moved to somewhere else?
+					if FunManager.shared.shouldIncrementCandiceSpecialValue(currentTemperature: weatherDTO.currently.temperature) {
+						FunManager.shared.incrementCandiceSpecialValue()						
+					}
+					
 					success(weatherDTO)
 				} catch {
 					failure?(error)
 				}
 			} else {
-				failure?(nil)
+				failure?(error)
 			}
 		}
 		

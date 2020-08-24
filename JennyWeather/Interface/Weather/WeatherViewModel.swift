@@ -41,6 +41,10 @@ extension WeatherViewModel {
 		let time = currentlyViewModel.time
 		return time
 	}
+	var candiceSpecialValue: Int {
+		let candiceSpecial = FunManager.shared.candiceSpecialValue
+		return candiceSpecial
+	}
 	
 	private func loadNewWeatherData(_ dto: WeatherDTO) {
 		let cityName = LocationManager.shared.currentPlacemark.addressString
