@@ -10,7 +10,7 @@ import Foundation
 
 class WeatherCurrentlyViewModel: ObservableObject {
 	
-	@Published var minutelySummary: String?
+	@Published var minutelySummary: String
 	
 	@Published var timestamp: Int
 	@Published var summary: String
@@ -21,12 +21,8 @@ class WeatherCurrentlyViewModel: ObservableObject {
 	@Published var time: Date
 	@Published var timeString: String
 	
-	var minutelyText:String {
-		return minutelySummary ?? summary
-	}
-	
-	init(currentlyDTO: WeatherCurrentlyDTO, minutelyDTO: WeatherMinutelyDTO) {
-		minutelySummary = minutelyDTO.summary
+	init(currentlyDTO: WeatherCurrentlyDTO, minutelyDTO: WeatherMinutelyDTO?) {
+		minutelySummary = minutelyDTO?.summary ?? currentlyDTO.summary
 		
 		timestamp = currentlyDTO.timestamp
 		summary = currentlyDTO.summary
