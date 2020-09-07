@@ -33,7 +33,7 @@ struct WeatherCurrentlyView: View {
 						.frame(height: 50)
 				}
 				
-				Text(weatherCurrentlyVM.minutelyText)
+				Text(weatherCurrentlyVM.minutelySummary)
 					.font(.headline)
 					.fixedSize(horizontal: false, vertical: true)
 					.padding(.bottom, 10)
