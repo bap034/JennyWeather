@@ -15,8 +15,8 @@ struct WeatherLocationView: View {
     var body: some View {
 		HStack {
 			Text(locationVM.cityName)
-				.font(.largeTitle)
-				.fontWeight(.bold)
+				.font(ThemeManager.shared.currentTheme.fonts.titleFont)
+				.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 				.padding(.leading, 20)
 				.frame(alignment: .trailing)
 			
@@ -30,6 +30,7 @@ struct WeatherLocationView: View {
 					.frame(width: 30, height: 30)
 					.aspectRatio(contentMode: .fit)
 					.padding(.trailing, 20)
+					.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryDarkColor)
 			}
 			.sheet(isPresented: $locationVM.canPresent) {
 				SearchLocationView(locationVM: SearchLocationViewModel(cityName: ""),

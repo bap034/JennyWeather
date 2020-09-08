@@ -23,40 +23,59 @@ struct SearchLocationView: View {
 		return offset
 	}
 	
+	init(locationVM: SearchLocationViewModel, isPresented: Binding<Bool>) {
+		self.locationVM = locationVM
+		self._isPresented = isPresented
+		
+		/// Used to remove default `white` background color:  https://stackoverflow.com/a/58427518
+		UITableView.appearance().backgroundColor = .clear
+		UITableViewCell.appearance().backgroundColor = .clear
+	}
+	
     var body: some View {
-		VStack {
-			TextField("Enter Address", text: $locationVM.searchCityName, onEditingChanged: { (isEditing) in
-				self.isShowingKeyboard = isEditing
-			})
-				.font(.largeTitle)
-				.disableAutocorrection(true)
-			
-			if locationVM.isError {
-				HStack {
-					Text("Something went wrong. Please try again.")
-						.padding([.top, .leading], 10)
-					Spacer()
-				}
-				Spacer()
-			} else if locationVM.isEmpty {
-				HStack {
-					Text("No results found.")
-						.padding([.top, .leading], 10)
-					Spacer()
-				}
-				Spacer()
-			} else {
-				List(locationVM.cityLocationViewModels) { (cityLocationVM) in
-					CityLocationView(cityLocationVM: cityLocationVM)
-						.onTapGesture {
-							self.locationVM.select(cityLocationVM.combinedString)
-							self.isPresented = false
+		ZStack {
+			ThemeManager.shared.currentTheme.colors.baseLightColor
+				.edgesIgnoringSafeArea(.all)
+		
+			VStack {
+				TextField("Enter Address", text: $locationVM.searchCityName, onEditingChanged: { (isEditing) in
+					self.isShowingKeyboard = isEditing
+				})
+					.font(ThemeManager.shared.currentTheme.fonts.titleFont)
+					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
+					.disableAutocorrection(true)
+				
+				if locationVM.isError {
+					HStack {
+						Text("Something went wrong. Please try again.")
+							.font(ThemeManager.shared.currentTheme.fonts.primaryFont)
+							.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
+							.padding([.top, .leading], 10)
+						Spacer()
 					}
+					Spacer()
+				} else if locationVM.isEmpty {
+					HStack {
+						Text("No results found.")
+							.font(ThemeManager.shared.currentTheme.fonts.primaryFont)
+							.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
+							.padding([.top, .leading], 10)
+						Spacer()
+					}
+					Spacer()
+				} else {
+					List(locationVM.cityLocationViewModels) { (cityLocationVM) in
+						CityLocationView(cityLocationVM: cityLocationVM)
+							.onTapGesture {
+								self.locationVM.select(cityLocationVM.combinedString)
+								self.isPresented = false
+							}
+					}
+					.padding(.bottom, keyboardOffset)
 				}
-				.padding(.bottom, keyboardOffset)
 			}
+			.padding(20)
 		}
-		.padding(20)
     }
 }
 
