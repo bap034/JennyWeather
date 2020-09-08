@@ -21,6 +21,8 @@ struct WeatherCurrentlyView: View {
 							.font(ThemeManager.shared.currentTheme.fonts.headerFont)
 							.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 						
+						Spacer()
+						
 						Text(weatherCurrentlyVM.timeString)
 							.font(ThemeManager.shared.currentTheme.fonts.tertiaryFont)
 							.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
@@ -29,32 +31,33 @@ struct WeatherCurrentlyView: View {
 					
 					Spacer()
 					
+					VStack(alignment: .trailing) {
+					Text(weatherCurrentlyVM.temperature.toTemperatureString)
+						.font(ThemeManager.shared.currentTheme.fonts.titleFont)
+						.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
+					
+						HStack {
+							Text(weatherCurrentlyVM.precipProbability.toRainString)
+								.font(ThemeManager.shared.currentTheme.fonts.tertiaryFont)
+								.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
+							
+							Text(weatherCurrentlyVM.windSpeed.toWindString)
+								.font(ThemeManager.shared.currentTheme.fonts.tertiaryFont)
+								.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
+						}
+					}
+					
 					Image(systemName: weatherCurrentlyVM.icon.systemIconName)
 						.resizable()
 						.scaledToFit()
 						.frame(height: 50)
 						.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryDarkColor)
-				}
+				}				
 				
 				Text(weatherCurrentlyVM.minutelySummary)
-					.font(ThemeManager.shared.currentTheme.fonts.primaryFont)
+					.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
 					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 					.fixedSize(horizontal: false, vertical: true)
-					.padding(.bottom, 10)
-				
-				HStack {
-					Text(weatherCurrentlyVM.temperature.toTemperatureString)
-						.font(ThemeManager.shared.currentTheme.fonts.headerFont)
-						.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
-					
-					Text(weatherCurrentlyVM.precipProbability.toRainString)
-						.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
-						.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
-					
-					Text(weatherCurrentlyVM.windSpeed.toWindString)
-						.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
-						.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
-				}
 			}
 			.padding([.leading, .trailing], 20)
 			
@@ -67,7 +70,8 @@ struct WeatherCurrentlyView_Previews: PreviewProvider {
     static var previews: some View {
 		let weatherVM: WeatherViewModel = try! WeatherMockData.getWeatherViewModel()
 		
-		let view = WeatherCurrentlyView(weatherCurrentlyVM: weatherVM.currentlyViewModel)
+		let view = WeatherCurrentlyView(weatherCurrentlyVM: weatherVM.currentlyViewModel).frame(height: 100)
 		return view
     }
 }
+f

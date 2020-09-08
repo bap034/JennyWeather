@@ -14,11 +14,19 @@ struct WeatherLocationView: View {
 	
     var body: some View {
 		HStack(spacing: 10) {
-			Text(locationVM.cityName)
-				.font(ThemeManager.shared.currentTheme.fonts.headerFont)
-				.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
-				.padding(.leading, 20)
-				.frame(alignment: .trailing)
+			VStack(alignment: .leading) {
+				Text("Location:")
+					.font(ThemeManager.shared.currentTheme.fonts.primaryFont)
+					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
+					.padding(.leading, 20)
+					.frame(alignment: .trailing)
+				
+				Text(locationVM.cityName)
+					.font(ThemeManager.shared.currentTheme.fonts.headerFont)
+					.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryDarkColor)
+					.padding(.leading, 20)
+					.frame(alignment: .trailing)
+			}
 			
 			Spacer()
 			

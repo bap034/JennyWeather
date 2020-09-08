@@ -20,7 +20,7 @@ struct WeatherDailyView: View {
 				.padding(.leading, 20)
 			
 			Text(weatherDailyVM.summary)
-				.font(ThemeManager.shared.currentTheme.fonts.primaryFont)
+				.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
 				.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 				.fixedSize(horizontal: false, vertical: true)
 				.padding(.bottom, 10)

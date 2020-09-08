@@ -39,16 +39,24 @@ struct WeatherView: View {
 				WeatherLocationView(locationVM: weatherVM.locationVM)
 					.padding(.top, 30)
 				
+				Divider()
+					.background(ThemeManager.shared.currentTheme.colors.baseLightColor)
+					.padding(.top, 10)
+					.padding(.bottom, 10)
+				
 				WeatherCurrentlyView(weatherCurrentlyVM: weatherVM.currentlyViewModel)
-					.padding(.bottom, 30)
 				
 				Divider()
 					.background(ThemeManager.shared.currentTheme.colors.baseLightColor)
+					.padding(.top, 15)
+					.padding(.bottom, 10)
 				
 				WeatherHourlyView(weatherHourlyVM: weatherVM.hourlyViewModel)
 				
 				Divider()
 					.background(ThemeManager.shared.currentTheme.colors.baseLightColor)
+					.padding(.top, 15)
+					.padding(.bottom, 10)
 				
 				WeatherDailyView(weatherDailyVM: weatherVM.dailyViewModel)
 				
