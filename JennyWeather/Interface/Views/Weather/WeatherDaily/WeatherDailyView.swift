@@ -14,45 +14,23 @@ struct WeatherDailyView: View {
     var body: some View {
 		VStack(alignment: .leading) {
 			Text("Daily")
-				.font(.title)
+				.font(ThemeManager.shared.currentTheme.fonts.headerFont)
+				.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 				.padding(.bottom, 10)
 				.padding(.leading, 20)
 			
 			Text(weatherDailyVM.summary)
-				.font(.headline)
+				.font(ThemeManager.shared.currentTheme.fonts.primaryFont)
+				.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 				.fixedSize(horizontal: false, vertical: true)
 				.padding(.bottom, 10)
 				.padding([.leading, .trailing], 20)
 			
 			ForEach(weatherDailyVM.dayVMs) { (dayVM) in
-				VStack(alignment: .leading) {
-					Text(dayVM.timeString)
-						.font(.headline)
-					HStack {
-						VStack {
-							Image(systemName: dayVM.icon.systemIconName)
-								.resizable()
-								.scaledToFit()
-								.frame(width: 50, height: 30)
-							
-							if dayVM.icon == .rain {
-								Text(dayVM.precipProbability.toRainString)
-							}
-						}
-						
-						Divider()
-						
-						Text(dayVM.temperatureHigh.toTemperatureString)
-							.font(.title)
-						Text(dayVM.temperatureLow.toTemperatureString)
-						
-						Divider()
-						
-						Text(dayVM.windSpeed.toWindString)
-					}
-				}
+				WeatherDayView(weatherDayVM: dayVM)
 				
 				Divider()
+					.background(ThemeManager.shared.currentTheme.colors.baseLightColor)
 			}
 			.padding([.leading, .trailing], 20)
 		}

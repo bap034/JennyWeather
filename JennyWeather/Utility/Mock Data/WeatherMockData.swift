@@ -1411,7 +1411,7 @@ extension WeatherMockData {
 		            {
 		                "time": 1581667200,
 		                "summary": "Mostly cloudy throughout the day.",
-		                "icon": "partly-cloudy-day",
+		                "icon": "rain",
 		                "sunriseTime": 1581692520,
 		                "sunsetTime": 1581731280,
 		                "moonPhase": 0.72,
