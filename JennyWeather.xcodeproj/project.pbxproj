@@ -52,6 +52,8 @@
 		8B9A90A5250721A50005D142 /* JWFonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9A90A4250721A50005D142 /* JWFonts.swift */; };
 		8B9A90A7250727870005D142 /* JWColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9A90A6250727870005D142 /* JWColors.swift */; };
 		8B9A90A925072BB40005D142 /* JWThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9A90A825072BB40005D142 /* JWThemes.swift */; };
+		8B9A90AC25074AF20005D142 /* WeatherHourView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9A90AB25074AF20005D142 /* WeatherHourView.swift */; };
+		8B9A90AE25074B1B0005D142 /* WeatherHourViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9A90AD25074B1B0005D142 /* WeatherHourViewModel.swift */; };
 		8BAF3EA023F3DF7A0091F220 /* WeatherAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BAF3E9F23F3DF7A0091F220 /* WeatherAlertViewModel.swift */; };
 		8BEB8593242DD942005142F9 /* SearchCompletionResultDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEB8592242DD942005142F9 /* SearchCompletionResultDTO.swift */; };
 		8BFD418123F1012F001D1626 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BFD418023F1012F001D1626 /* WeatherViewModel.swift */; };
@@ -118,6 +120,8 @@
 		8B9A90A4250721A50005D142 /* JWFonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWFonts.swift; sourceTree = "<group>"; };
 		8B9A90A6250727870005D142 /* JWColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWColors.swift; sourceTree = "<group>"; };
 		8B9A90A825072BB40005D142 /* JWThemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWThemes.swift; sourceTree = "<group>"; };
+		8B9A90AB25074AF20005D142 /* WeatherHourView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHourView.swift; sourceTree = "<group>"; };
+		8B9A90AD25074B1B0005D142 /* WeatherHourViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHourViewModel.swift; sourceTree = "<group>"; };
 		8BAF3E9F23F3DF7A0091F220 /* WeatherAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAlertViewModel.swift; sourceTree = "<group>"; };
 		8BEB8592242DD942005142F9 /* SearchCompletionResultDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCompletionResultDTO.swift; sourceTree = "<group>"; };
 		8BFD418023F1012F001D1626 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
@@ -255,6 +259,7 @@
 		8B46DB912407946100333783 /* WeatherHourly */ = {
 			isa = PBXGroup;
 			children = (
+				8B9A90AA25074AD20005D142 /* Weather Hour */,
 				8B4186FB23F3BE6D00BA7307 /* WeatherHourlyViewModel.swift */,
 				8B46DB922407947C00333783 /* WeatherHourlyView.swift */,
 			);
@@ -497,6 +502,15 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		8B9A90AA25074AD20005D142 /* Weather Hour */ = {
+			isa = PBXGroup;
+			children = (
+				8B9A90AD25074B1B0005D142 /* WeatherHourViewModel.swift */,
+				8B9A90AB25074AF20005D142 /* WeatherHourView.swift */,
+			);
+			path = "Weather Hour";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -623,6 +637,7 @@
 				8B41870023F3C61600BA7307 /* NetworkUtility.swift in Sources */,
 				8B1C7E99246755C5007666AD /* WeatherDayDTO.swift in Sources */,
 				8B1C7EA624675B9D007666AD /* WeatherDTO.swift in Sources */,
+				8B9A90AC25074AF20005D142 /* WeatherHourView.swift in Sources */,
 				8B9A90A5250721A50005D142 /* JWFonts.swift in Sources */,
 				8B6D91A8240C5F0D0015CAC7 /* WeatherLocationView.swift in Sources */,
 				8B47767023F0B9F0003DAE2C /* WeatherView.swift in Sources */,
@@ -636,6 +651,7 @@
 				8B46DB9624079C5500333783 /* WeatherDailyView.swift in Sources */,
 				8B46DB8F24078C8700333783 /* WeatherLoadingView.swift in Sources */,
 				8B1C7E972467530C007666AD /* WeatherDailyDTO.swift in Sources */,
+				8B9A90AE25074B1B0005D142 /* WeatherHourViewModel.swift in Sources */,
 				8B1C7EA424675A19007666AD /* WeatherAlertDTO.swift in Sources */,
 				8B5B8BED23F527FC0052EDC4 /* String+JW.swift in Sources */,
 				8BAF3EA023F3DF7A0091F220 /* WeatherAlertViewModel.swift in Sources */,

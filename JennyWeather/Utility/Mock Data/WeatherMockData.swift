@@ -365,7 +365,7 @@ extension WeatherMockData {
 		                "summary": "Clear",
 		                "icon": "clear-night",
 		                "precipIntensity": 0.0008,
-		                "precipProbability": 0.01,
+		                "precipProbability": 0.13,
 		                "precipType": "rain",
 		                "temperature": 53.4,
 		                "apparentTemperature": 53.4,
