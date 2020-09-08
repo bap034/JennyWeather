@@ -34,6 +34,7 @@ struct WeatherHourlyView: View {
 						
 						if hourVM.id != self.weatherHourlyVM.hourVMs.last?.id {
 							Divider()
+								.background(ThemeManager.shared.currentTheme.colors.baseLightColor)
 						}
 					}
 				}

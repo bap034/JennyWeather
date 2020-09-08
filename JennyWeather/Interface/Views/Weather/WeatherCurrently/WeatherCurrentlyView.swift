@@ -23,7 +23,7 @@ struct WeatherCurrentlyView: View {
 						
 						Text(weatherCurrentlyVM.timeString)
 							.font(ThemeManager.shared.currentTheme.fonts.tertiaryFont)
-							.foregroundColor(ThemeManager.shared.currentTheme.colors.baseColor)
+							.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 							.padding(.bottom, 10)
 					}
 					

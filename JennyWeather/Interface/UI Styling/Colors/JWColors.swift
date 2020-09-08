@@ -15,6 +15,10 @@ protocol ColorStyling {
 	var baseLightColor: Color { get }
 	var complimentaryDarkColor: Color { get }
 	var complimentaryLightColor: Color { get }
+	
+	/// Temporary UIColor requirement for UINavigationController color
+	var baseDarkUIColor: UIColor { get }
+	var baseLightUIColor: UIColor { get }
 }
 
 struct JWColors {
@@ -41,5 +45,12 @@ struct DefaultColorStyling: ColorStyling {
 	
 	var complimentaryLightColor: Color {
 		return Color(red: 110.0/255, green: 238.0/255, blue: 255.0/255)
+	}
+	
+	var baseDarkUIColor: UIColor {
+		return UIColor(red: 179.0/255, green: 111.0/255, blue: 59.0/255, alpha: 1)
+	}
+	var baseLightUIColor: UIColor {
+		return UIColor(red: 255.0/255, green: 210.0/255, blue: 176.0/255, alpha: 1)
 	}
 }
