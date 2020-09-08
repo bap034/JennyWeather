@@ -6,15 +6,15 @@
 //  Copyright © 2020 Brett Petersen. All rights reserved.
 //
 
-import UIKit
+import SwiftUI
 
 protocol FontStyling {
-	var titleFont: UIFont { get }
-	var headerFont: UIFont { get }
-	var primaryFont: UIFont { get }
-	var secondaryFont: UIFont { get }
-	var tertiaryFont: UIFont { get }
-	var actionFont: UIFont { get }
+	var titleFont: Font { get }
+	var headerFont: Font { get }
+	var primaryFont: Font { get }
+	var secondaryFont: Font { get }
+	var tertiaryFont: Font { get }
+	var actionFont: Font { get }
 }
 
 struct JWFonts {
@@ -23,27 +23,27 @@ struct JWFonts {
 
 // MARK: - Default Font Styling
 struct DefaultFontStyling: FontStyling {
-	var titleFont: UIFont {
-		return UIFont.systemFont(ofSize: 36, weight: .bold)
+	var titleFont: Font {
+		return Font.system(size: 36, weight: .bold, design: .rounded)
 	}
 	
-	var headerFont: UIFont {
-		return UIFont.systemFont(ofSize: 24, weight: .medium)
+	var headerFont: Font {
+		return Font.system(size: 24, weight: .medium, design: .rounded)
 	}
 	
-	var primaryFont: UIFont {
-		return UIFont.systemFont(ofSize: 18, weight: .medium)
+	var primaryFont: Font {
+		return Font.system(size: 18, weight: .medium, design: .rounded)
 	}
 	
-	var secondaryFont: UIFont {
-		return UIFont.systemFont(ofSize: 18, weight: .regular)
+	var secondaryFont: Font {
+		return Font.system(size: 18, weight: .regular, design: .rounded)
 	}
 	
-	var tertiaryFont: UIFont {
-		return UIFont.systemFont(ofSize: 14, weight: .light)
+	var tertiaryFont: Font {
+		return Font.system(size: 16, weight: .light, design: .rounded)
 	}
 	
-	var actionFont: UIFont {
-		return UIFont.systemFont(ofSize: 20, weight: .medium)
+	var actionFont: Font {
+		return Font.system(size: 20, weight: .medium, design: .rounded)
 	}
 }
