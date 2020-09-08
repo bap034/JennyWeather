@@ -51,7 +51,7 @@ struct WeatherCurrentlyView: View {
 						.resizable()
 						.scaledToFit()
 						.frame(height: 50)
-						.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryDarkColor)
+						.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryColor)
 				}				
 				
 				Text(weatherCurrentlyVM.minutelySummary)
@@ -74,4 +74,3 @@ struct WeatherCurrentlyView_Previews: PreviewProvider {
 		return view
     }
 }
-f

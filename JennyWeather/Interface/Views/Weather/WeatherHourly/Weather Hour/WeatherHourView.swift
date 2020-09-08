@@ -19,7 +19,7 @@ struct WeatherHourView: View {
 					.resizable()
 					.scaledToFit()
 					.frame(height: 30)
-					.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryDarkColor)
+					.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryColor)
 				
 				Spacer()
 				
@@ -45,7 +45,7 @@ struct WeatherHourView: View {
 							.resizable()
 							.scaledToFit()
 							.frame(maxHeight: 20)
-							.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryDarkColor)
+							.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryColor)
 					}
 				} else {
 					Spacer()

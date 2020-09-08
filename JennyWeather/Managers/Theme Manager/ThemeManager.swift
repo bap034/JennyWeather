@@ -9,7 +9,7 @@
 import Foundation
 
 class ThemeManager {
-	var currentTheme = JWThemes.defaultTheme
+	var currentTheme = JWThemes.rainTheme
 	
 	static let shared = ThemeManager()
 }

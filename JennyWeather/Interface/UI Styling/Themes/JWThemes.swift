@@ -8,22 +8,15 @@
 
 import UIKit
 
-protocol Theme {
-	var fonts: FontStyling { get }
-	var colors: ColorStyling { get }
+struct Theme {
+	let fonts: FontStyle
+	let colors: ColorStyle
 }
 
 struct JWThemes {
-	static let defaultTheme:Theme = DefaultTheme()
-}
-
-// MARK: - Default Theme
-struct DefaultTheme: Theme {
-	var fonts: FontStyling {
-		return JWFonts.defaultFonts
-	}
+	static let defaultTheme = Theme(fonts: DefaultFontStyle(),
+									colors: DefaultColorStyle())
 	
-	var colors: ColorStyling {
-		return JWColors.defaultColors
-	}
+	static let rainTheme = Theme(fonts: DefaultFontStyle(),
+								 colors: RainColorStyle())
 }

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-protocol FontStyling {
+protocol FontStyle {
 	var titleFont: Font { get }
 	var headerFont: Font { get }
 	var primaryFont: Font { get }
@@ -18,11 +18,11 @@ protocol FontStyling {
 }
 
 struct JWFonts {
-	static let defaultFonts:FontStyling = DefaultFontStyling()
+	static let defaultFonts:FontStyle = DefaultFontStyle()
 }
 
 // MARK: - Default Font Styling
-struct DefaultFontStyling: FontStyling {
+struct DefaultFontStyle: FontStyle {
 	var titleFont: Font {
 		return Font.system(size: 30, weight: .bold, design: .default)
 	}

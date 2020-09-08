@@ -22,7 +22,7 @@ struct WeatherDayView: View {
 						.resizable()
 						.scaledToFit()
 						.frame(width: 50, height: 30)
-						.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryDarkColor)
+						.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryColor)
 					
 					if weatherDayVM.showPrecipitation {
 						Text(weatherDayVM.precipProbability.toRainString)

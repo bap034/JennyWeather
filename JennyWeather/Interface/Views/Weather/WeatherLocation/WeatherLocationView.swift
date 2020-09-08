@@ -23,7 +23,7 @@ struct WeatherLocationView: View {
 				
 				Text(locationVM.cityName)
 					.font(ThemeManager.shared.currentTheme.fonts.headerFont)
-					.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryDarkColor)
+					.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryColor)
 					.padding(.leading, 20)
 					.frame(alignment: .trailing)
 			}
@@ -38,7 +38,7 @@ struct WeatherLocationView: View {
 					.frame(width: 30, height: 30)
 					.aspectRatio(contentMode: .fit)
 					.padding(.trailing, 20)
-					.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryDarkColor)
+					.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryColor)
 			}
 			.sheet(isPresented: $locationVM.canPresent) {
 				SearchLocationView(locationVM: SearchLocationViewModel(cityName: ""),
