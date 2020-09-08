@@ -15,11 +15,13 @@ struct CityLocationView: View {
     var body: some View {
 		VStack(alignment: .leading) {
 			Text(cityLocationVM.primaryString)
-				.font(.headline)
+				.font(ThemeManager.shared.currentTheme.fonts.primaryFont)
+				.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 			
 			if (!cityLocationVM.secondaryString.isEmpty) {
 				Text(cityLocationVM.secondaryString)
-					.font(.subheadline)
+					.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
+					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 			}
 		}
     }

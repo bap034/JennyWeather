@@ -14,11 +14,23 @@ struct WeatherView: View {
 	
 	init(weatherVM: WeatherViewModel) {
 		self.weatherVM = weatherVM
-		
+	
+		/// NOTE: These `appeaerance()` changes are *GLOBAL* and affect all instances of that class.
 		UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().largeTitleTextAttributes = [
-			.font : UIFont.boldSystemFont(ofSize: 25)
+			.font : UIFont.boldSystemFont(ofSize: 25),
+			.foregroundColor : ThemeManager.shared.currentTheme.colors.baseDarkUIColor
 		]
+		UINavigationBar.appearance().titleTextAttributes = [
+			.foregroundColor : ThemeManager.shared.currentTheme.colors.baseDarkUIColor
+		]
+		UINavigationBar.appearance().barTintColor = ThemeManager.shared.currentTheme.colors.baseLightUIColor
+		
+		UIScrollView.appearance().backgroundColor = ThemeManager.shared.currentTheme.colors.baseLightUIColor
+		
+		/// Used to remove default `white` background color:  https://stackoverflow.com/a/58427518
+		UITableView.appearance().backgroundColor = .clear
+		UITableViewCell.appearance().backgroundColor = .clear
     }
 	
 	var body: some View {
@@ -27,23 +39,36 @@ struct WeatherView: View {
 				WeatherLocationView(locationVM: weatherVM.locationVM)
 					.padding(.top, 30)
 				
+				Divider()
+					.background(ThemeManager.shared.currentTheme.colors.baseLightColor)
+					.padding(.top, 10)
+					.padding(.bottom, 10)
+				
 				WeatherCurrentlyView(weatherCurrentlyVM: weatherVM.currentlyViewModel)
-					.padding(.bottom, 30)
 				
 				Divider()
+					.background(ThemeManager.shared.currentTheme.colors.baseLightColor)
+					.padding(.top, 15)
+					.padding(.bottom, 10)
 				
 				WeatherHourlyView(weatherHourlyVM: weatherVM.hourlyViewModel)
 				
 				Divider()
+					.background(ThemeManager.shared.currentTheme.colors.baseLightColor)
+					.padding(.top, 15)
+					.padding(.bottom, 10)
 				
 				WeatherDailyView(weatherDailyVM: weatherVM.dailyViewModel)
 				
 				Text("🎉 \(weatherVM.candiceSpecialValue)")
 					.padding(.top, 30)
 					.padding(.trailing, 20)
+					.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
+					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 				
 				Text("Powered by Dark Sky")
-					.font(.caption)
+					.font(ThemeManager.shared.currentTheme.fonts.tertiaryFont)
+					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 					.padding(.top, 10)
 					.padding(.bottom, 20)
 					.onTapGesture {

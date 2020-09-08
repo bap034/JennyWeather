@@ -1,34 +1,13 @@
 //
-//  WeatherDailyViewModel.swift
+//  WeatherDayViewModel.swift
 //  JennyWeather
 //
-//  Created by Brett Petersen on 2/11/20.
+//  Created by Brett Petersen on 9/7/20.
 //  Copyright © 2020 Brett Petersen. All rights reserved.
 //
 
 import Foundation
 
-class WeatherDailyViewModel: ObservableObject {
-	
-	@Published var summary: String
-	@Published var icon: WeatherIcon
-	@Published var dayVMs: [WeatherDayViewModel]
-	
-	init(dto: WeatherDailyDTO) {
-		summary = dto.summary
-		icon = IconUtility.getWeatherIcon(darkSkyIconName: dto.icon)
-		
-		var dayVMs = [WeatherDayViewModel]()
-		dto.data.forEach { (dayDTO) in
-			let dayData = WeatherDayViewModel(dto: dayDTO)
-			dayVMs.append(dayData)
-		}
-		self.dayVMs = dayVMs
-	}
-	
-}
-
-// MARK: - Data Object
 class WeatherDayViewModel: ObservableObject {
 	
 	private let dto: WeatherDayDTO
@@ -41,9 +20,16 @@ class WeatherDayViewModel: ObservableObject {
 	@Published var temperatureLow: Double
 	@Published var windSpeed: Double
 	
+	var showPrecipitation:Bool {
+		let isRain = icon == .rain
+		let isSnow = icon == .snow
+		let isSleet = icon == .sleet
+		return isRain || isSnow || isSleet
+	}
+	
 	init(dto: WeatherDayDTO) {
 		self.dto = dto
-				
+		
 		timeString = WeatherDayViewModel.getTimeString(date: dto.time)
 		summary = dto.summary
 		icon = IconUtility.getWeatherIcon(darkSkyIconName: dto.icon)

@@ -13,12 +13,20 @@ struct WeatherLocationView: View {
 	@ObservedObject var locationVM: WeatherLocationViewModel
 	
     var body: some View {
-		HStack {
-			Text(locationVM.cityName)
-				.font(.largeTitle)
-				.fontWeight(.bold)
-				.padding(.leading, 20)
-				.frame(alignment: .trailing)
+		HStack(spacing: 10) {
+			VStack(alignment: .leading) {
+				Text("Location:")
+					.font(ThemeManager.shared.currentTheme.fonts.primaryFont)
+					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
+					.padding(.leading, 20)
+					.frame(alignment: .trailing)
+				
+				Text(locationVM.cityName)
+					.font(ThemeManager.shared.currentTheme.fonts.headerFont)
+					.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryColor)
+					.padding(.leading, 20)
+					.frame(alignment: .trailing)
+			}
 			
 			Spacer()
 			
@@ -30,6 +38,7 @@ struct WeatherLocationView: View {
 					.frame(width: 30, height: 30)
 					.aspectRatio(contentMode: .fit)
 					.padding(.trailing, 20)
+					.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryColor)
 			}
 			.sheet(isPresented: $locationVM.canPresent) {
 				SearchLocationView(locationVM: SearchLocationViewModel(cityName: ""),
