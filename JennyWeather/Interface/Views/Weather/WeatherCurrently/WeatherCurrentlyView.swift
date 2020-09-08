@@ -18,10 +18,12 @@ struct WeatherCurrentlyView: View {
 				HStack {
 					VStack(alignment: .leading) {
 						Text("Currently")
-							.font(.title)
+							.font(ThemeManager.shared.currentTheme.fonts.headerFont)
+							.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 						
 						Text(weatherCurrentlyVM.timeString)
-							.font(.footnote)
+							.font(ThemeManager.shared.currentTheme.fonts.tertiaryFont)
+							.foregroundColor(ThemeManager.shared.currentTheme.colors.baseColor)
 							.padding(.bottom, 10)
 					}
 					
@@ -31,20 +33,27 @@ struct WeatherCurrentlyView: View {
 						.resizable()
 						.scaledToFit()
 						.frame(height: 50)
+						.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryDarkColor)
 				}
 				
 				Text(weatherCurrentlyVM.minutelySummary)
-					.font(.headline)
+					.font(ThemeManager.shared.currentTheme.fonts.primaryFont)
+					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 					.fixedSize(horizontal: false, vertical: true)
 					.padding(.bottom, 10)
 				
 				HStack {
 					Text(weatherCurrentlyVM.temperature.toTemperatureString)
-						.font(.title)
+						.font(ThemeManager.shared.currentTheme.fonts.headerFont)
+						.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 					
 					Text(weatherCurrentlyVM.precipProbability.toRainString)
+						.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
+						.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 					
 					Text(weatherCurrentlyVM.windSpeed.toWindString)
+						.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
+						.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 				}
 			}
 			.padding([.leading, .trailing], 20)
