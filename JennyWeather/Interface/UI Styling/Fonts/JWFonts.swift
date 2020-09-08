@@ -24,26 +24,26 @@ struct JWFonts {
 // MARK: - Default Font Styling
 struct DefaultFontStyling: FontStyling {
 	var titleFont: Font {
-		return Font.system(size: 36, weight: .bold, design: .rounded)
+		return Font.system(size: 30, weight: .bold, design: .default)
 	}
 	
 	var headerFont: Font {
-		return Font.system(size: 24, weight: .medium, design: .rounded)
+		return Font.system(size: 22, weight: .medium, design: .default)
 	}
 	
 	var primaryFont: Font {
-		return Font.system(size: 18, weight: .medium, design: .rounded)
+		return Font.system(size: 14, weight: .medium, design: .default)
 	}
 	
 	var secondaryFont: Font {
-		return Font.system(size: 18, weight: .regular, design: .rounded)
+		return Font.system(size: 14, weight: .regular, design: .default)
 	}
 	
 	var tertiaryFont: Font {
-		return Font.system(size: 16, weight: .light, design: .rounded)
+		return Font.system(size: 12, weight: .light, design: .default)
 	}
 	
 	var actionFont: Font {
-		return Font.system(size: 20, weight: .medium, design: .rounded)
+		return Font.system(size: 16, weight: .medium, design: .default)
 	}
 }

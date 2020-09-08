@@ -13,9 +13,9 @@ struct WeatherLocationView: View {
 	@ObservedObject var locationVM: WeatherLocationViewModel
 	
     var body: some View {
-		HStack {
+		HStack(spacing: 10) {
 			Text(locationVM.cityName)
-				.font(ThemeManager.shared.currentTheme.fonts.titleFont)
+				.font(ThemeManager.shared.currentTheme.fonts.headerFont)
 				.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 				.padding(.leading, 20)
 				.frame(alignment: .trailing)

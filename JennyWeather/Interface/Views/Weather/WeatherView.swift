@@ -14,7 +14,8 @@ struct WeatherView: View {
 	
 	init(weatherVM: WeatherViewModel) {
 		self.weatherVM = weatherVM
-		
+	
+		/// NOTE: These `appeaerance()` changes are *GLOBAL* and affect all instances of that class.
 		UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().largeTitleTextAttributes = [
 			.font : UIFont.boldSystemFont(ofSize: 25),
@@ -24,7 +25,12 @@ struct WeatherView: View {
 			.foregroundColor : ThemeManager.shared.currentTheme.colors.baseDarkUIColor
 		]
 		UINavigationBar.appearance().barTintColor = ThemeManager.shared.currentTheme.colors.baseLightUIColor
+		
 		UIScrollView.appearance().backgroundColor = ThemeManager.shared.currentTheme.colors.baseLightUIColor
+		
+		/// Used to remove default `white` background color:  https://stackoverflow.com/a/58427518
+		UITableView.appearance().backgroundColor = .clear
+		UITableViewCell.appearance().backgroundColor = .clear
     }
 	
 	var body: some View {

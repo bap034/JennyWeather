@@ -40,7 +40,6 @@ struct WeatherHourlyView: View {
 				}
 				.padding([.leading, .trailing], 10)
 			}
-			.frame(height: 90)
 		}
     }
 }

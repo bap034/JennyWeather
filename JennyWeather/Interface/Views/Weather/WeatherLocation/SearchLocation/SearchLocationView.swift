@@ -23,15 +23,6 @@ struct SearchLocationView: View {
 		return offset
 	}
 	
-	init(locationVM: SearchLocationViewModel, isPresented: Binding<Bool>) {
-		self.locationVM = locationVM
-		self._isPresented = isPresented
-		
-		/// Used to remove default `white` background color:  https://stackoverflow.com/a/58427518
-		UITableView.appearance().backgroundColor = .clear
-		UITableViewCell.appearance().backgroundColor = .clear
-	}
-	
     var body: some View {
 		ZStack {
 			ThemeManager.shared.currentTheme.colors.baseLightColor
