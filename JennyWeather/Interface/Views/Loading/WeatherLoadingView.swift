@@ -13,18 +13,28 @@ struct WeatherLoadingView: View {
 	@State var error: Error? = nil
 	
     var body: some View {
-		Group {
-			if error != nil {
-				Text(error?.localizedDescription ?? "Could not connect!")
-			} else {
-				Text("Loading...")
-			}
+		ZStack {
+			ThemeManager.shared.currentTheme.colors.baseLightColor
+				.edgesIgnoringSafeArea(.all)
+			
+			getText(error: error)
+				.padding(10)
 		}
     }
+	
+	private func getText(error: Error?) -> Text {
+		let text = error?.localizedDescription ?? "Loading..."
+		return Text(text)
+			.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
+			.font(ThemeManager.shared.currentTheme.fonts.primaryFont)
+	}
 }
 
 struct WeatherLoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        WeatherLoadingView()
+//		let error = JWError.unexpectedNil
+//		let view = WeatherLoadingView(error: error)
+		let view = WeatherLoadingView()
+		return view
     }
 }
