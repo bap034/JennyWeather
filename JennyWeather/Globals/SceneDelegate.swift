@@ -83,6 +83,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 				WeatherViewModel.shared?.updateWeatherData(success: nil, failure: nil)
 		}
 		
+		let themeType = ThemeType.rain // TODO: make this fetch the appropriate theme based on weather
+		let isDarkMode = UITraitCollection.current.userInterfaceStyle == .dark
+		ThemeManager.shared.currentTheme = ThemeManager.getTheme(themeType: themeType, isDarkMode: isDarkMode)
 	}
 
 	func sceneWillResignActive(_ scene: UIScene) {
