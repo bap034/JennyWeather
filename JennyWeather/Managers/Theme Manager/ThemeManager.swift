@@ -9,7 +9,23 @@
 import Foundation
 
 class ThemeManager {
-	var currentTheme = JWThemes.rainTheme
+	private static let defaultThemeType = ThemeType.rain
 	
 	static let shared = ThemeManager()
+	
+	var currentTheme = ThemeManager.getTheme(themeType: defaultThemeType, isDarkMode: false)
+	
+	static func getTheme(themeType: ThemeType, isDarkMode: Bool) -> Theme {
+		if isDarkMode {
+			switch themeType {
+				case .standard: return JWThemes.standardTheme
+				case .rain: return JWThemes.rainDarkTheme
+			}
+		} else {
+			switch themeType {
+				case .standard: return JWThemes.standardTheme
+				case .rain: return JWThemes.rainTheme
+			}
+		}
+	}
 }

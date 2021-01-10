@@ -92,3 +92,29 @@ struct RainColorStyle: ColorStyle {
 		return UIColor(redIntValue: 207, greenIntValue: 249, blueIntValue: 255)
 	}
 }
+
+// MARK: - Dark Color Styling
+struct RainDarkColorStyle: ColorStyle {
+	var baseDarkColor: Color {
+		return Color(baseDarkUIColor)
+	}
+	
+	var baseColor: Color {
+		return Color(redIntValue: 129, greenIntValue: 240, blueIntValue: 255)
+	}
+	
+	var baseLightColor: Color {
+		return Color(baseLightUIColor)
+	}
+	
+	var complimentaryColor: Color {
+		return Color(redIntValue: 179, greenIntValue: 119, blueIntValue: 109)
+	}
+	
+	var baseDarkUIColor: UIColor {
+		return UIColor(redIntValue: 207, greenIntValue: 249, blueIntValue: 255)
+	}
+	var baseLightUIColor: UIColor {
+		return UIColor(redIntValue: 33, greenIntValue: 60, blueIntValue: 64)
+	}
+}

@@ -8,15 +8,30 @@
 
 import UIKit
 
+enum ThemeType {
+	case standard
+	case rain
+}
+
 struct Theme {
+	let themeType: ThemeType
 	let fonts: FontStyle
 	let colors: ColorStyle
 }
 
+// MARK: - Utility Access Struct
 struct JWThemes {
-	static let defaultTheme = Theme(fonts: DefaultFontStyle(),
+	// MARK: Standard
+	static let standardTheme = Theme(themeType: .standard,
+									fonts: DefaultFontStyle(),
 									colors: DefaultColorStyle())
 	
-	static let rainTheme = Theme(fonts: DefaultFontStyle(),
+	// MARK: Rain
+	static let rainTheme = Theme(themeType: .rain,
+								 fonts: DefaultFontStyle(),
 								 colors: RainColorStyle())
+	
+	static let rainDarkTheme = Theme(themeType: .rain,
+									 fonts: DefaultFontStyle(),
+									 colors: RainDarkColorStyle())
 }
