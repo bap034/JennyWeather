@@ -10,12 +10,12 @@ import Foundation
 
 extension Double {
 	var toTemperatureString: String {
-		let temperatureString = String(format: "%.0f ℉", self)
+		let temperatureString = String(format: "%.0f℉", self)
 		return temperatureString
 	}
 	
 	var toRainString: String {
-		let rainString = String(format: "%.0f %%", self*100)
+		let rainString = String(format: "%.0f%%", self*100)
 		return rainString
 	}
 	

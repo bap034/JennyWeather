@@ -28,6 +28,7 @@ struct WeatherDayView: View {
 						Text(weatherDayVM.precipProbability.toRainString)
 							.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
 							.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
+							.frame(width: 50)
 					}
 				}
 				
