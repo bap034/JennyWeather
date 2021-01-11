@@ -13,18 +13,28 @@ struct CityLocationView: View {
 	@ObservedObject var cityLocationVM: CityLocationViewModel
 	
     var body: some View {
-		VStack(alignment: .leading) {
-			Text(cityLocationVM.primaryString)
-				.font(ThemeManager.shared.currentTheme.fonts.primaryFont)
-				.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
-			
-			if (!cityLocationVM.secondaryString.isEmpty) {
-				Text(cityLocationVM.secondaryString)
-					.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
+		ZStack(alignment: .leading) {
+			VStack(alignment: .leading) {
+				Text(cityLocationVM.primaryString)
+					.font(ThemeManager.shared.currentTheme.fonts.primaryFont)
 					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
+				
+				if (!cityLocationVM.secondaryString.isEmpty) {
+					Text(cityLocationVM.secondaryString)
+						.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
+						.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
+				}
+				
+			}
+			.frame(height: 40)
+			
+			VStack {
+				Spacer()
+				
+				Divider()
 			}
 		}
-    }
+	}
 }
 
 struct CityLocationView_Previews: PreviewProvider {
