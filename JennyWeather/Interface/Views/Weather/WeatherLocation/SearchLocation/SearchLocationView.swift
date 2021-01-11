@@ -18,11 +18,6 @@ struct SearchLocationView: View {
 	
 	@State private var isShowingKeyboard = false
 	
-	private var keyboardOffset: CGFloat {
-		let offset:CGFloat = isShowingKeyboard ? 216 : 0
-		return offset
-	}
-	
     var body: some View {
 		ZStack {
 			ThemeManager.shared.currentTheme.colors.baseLightColor
@@ -55,14 +50,15 @@ struct SearchLocationView: View {
 					}
 					Spacer()
 				} else {
-					List(locationVM.cityLocationViewModels) { (cityLocationVM) in
-						CityLocationView(cityLocationVM: cityLocationVM)
-							.onTapGesture {
-								self.locationVM.select(cityLocationVM.combinedString)
-								self.isPresented = false
-							}
+					ScrollView {
+						ForEach(locationVM.cityLocationViewModels) { (cityLocationVM) in
+							CityLocationView(cityLocationVM: cityLocationVM)
+								.onTapGesture {
+									self.locationVM.select(cityLocationVM.combinedString)
+									self.isPresented = false
+								}
+						}
 					}
-					.padding(.bottom, keyboardOffset)
 				}
 			}
 			.padding(20)
