@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -27,7 +29,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Location is used to search for addresses for weather in specific cities or to display the weather of the user's current city.</string>
+	<string>Location is used to search for addresses for weather in specific cities or to display the weather of the user&apos;s current city.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This app uses the Location service to search for cities or to show the weather of the current city based on your location.</string>
 	<key>UIApplicationSceneManifest</key>
