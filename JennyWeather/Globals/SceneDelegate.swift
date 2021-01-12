@@ -19,6 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
 		// This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
+		let themeType = ThemeType.rain // TODO: make this fetch the appropriate theme based on weather
+		let isDarkMode = UITraitCollection.current.userInterfaceStyle == .dark
+		ThemeManager.shared.currentTheme = ThemeManager.getTheme(themeType: themeType, isDarkMode: isDarkMode)
 		
 		// Create the SwiftUI view that provides the window contents.
 		let weatherLoadingView = WeatherLoadingView()
@@ -82,10 +85,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			Date() > Date(timeInterval: (60 * 1), since: sureLastFetchedTime) {
 				WeatherViewModel.shared?.updateWeatherData(success: nil, failure: nil)
 		}
-		
-		let themeType = ThemeType.rain // TODO: make this fetch the appropriate theme based on weather
-		let isDarkMode = UITraitCollection.current.userInterfaceStyle == .dark
-		ThemeManager.shared.currentTheme = ThemeManager.getTheme(themeType: themeType, isDarkMode: isDarkMode)
 	}
 
 	func sceneWillResignActive(_ scene: UIScene) {
