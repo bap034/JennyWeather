@@ -18,7 +18,7 @@ struct WeatherView: View {
 		/// NOTE: These `appeaerance()` changes are *GLOBAL* and affect all instances of that class.
 		UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().largeTitleTextAttributes = [
-			.font : UIFont.boldSystemFont(ofSize: 25),
+			.font : UIFont.boldSystemFont(ofSize: 24),
 			.foregroundColor : ThemeManager.shared.currentTheme.colors.baseDarkUIColor
 		]
 		UINavigationBar.appearance().titleTextAttributes = [
@@ -77,7 +77,7 @@ struct WeatherView: View {
 						}
 				}
 			}
-			.navigationBarTitle("🤓 The Jenny Weather App ☀️", displayMode: .automatic)
+			.navigationBarTitle("🤓 The Jenny Weather App ☀️🐕‍🦺", displayMode: .automatic)
 		}
 	}
 }
