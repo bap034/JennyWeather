@@ -22,6 +22,12 @@ class WeatherDataService: NSObject, URLSessionDataDelegate {
 	private var urlSession: URLSession?
 	private var observation: NSKeyValueObservation?
 	
+	private static let unitsParameterName = "units"
+	private static var unitsParameterValue: String {
+		let units = UserDefaultsUtility.isUsingMetricSystem ? "si":"us"
+		return units
+	}
+	
 	override init() {
 		super.init()
 
@@ -33,13 +39,23 @@ class WeatherDataService: NSObject, URLSessionDataDelegate {
 }
 
 extension WeatherDataService: WeatherDataServiceGettable {
-	func getWeatherData(latitude: Double, longitude: Double, success: @escaping WeatherDataServiceSuccess, failure: DataServiceFailure) {
+	
+	private func getURL(latitude: Double, longitude: Double) -> URL? {
 		let urlString = WeatherDataService.url + "\(latitude),\(longitude)"
-		guard let url = URL(string: urlString) else {
+		
+		// TODO: If need more parameters, build a more robust way or use Alamofire
+		let parameterString = "?" + "\(WeatherDataService.unitsParameterName)=\(WeatherDataService.unitsParameterValue)"
+		let newURLString = urlString + parameterString
+		
+		let url = URL(string: newURLString)
+		return url
+	}
+	func getWeatherData(latitude: Double, longitude: Double, success: @escaping WeatherDataServiceSuccess, failure: DataServiceFailure) {
+		guard let url = getURL(latitude: latitude, longitude: longitude) else {
 			failure?(nil)
 			return
 		}
-		let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10)		
+		let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 10)
 		
 		let dataTask = URLSession.shared.dataTask(with: request) { (data, response, error) in
 			if let sureData = data,

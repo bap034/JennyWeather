@@ -12,7 +12,8 @@ class WeatherLocationViewModel: NSObject, ObservableObject {
 		
 	let locationManager: LocationManager
 	
-	@Published var canPresent: Bool = false
+	@Published var canPresentSearchLocation: Bool = false
+	@Published var canPresentSettings: Bool = false
 	
 	@Published var cityName: String
 	
@@ -36,8 +37,12 @@ extension WeatherLocationViewModel {
 		if !isLocationAuthorized {
 			locationManager.requestWhenInUseAuthorization()
 		} else {
-			canPresent = isLocationAuthorized
+			canPresentSearchLocation = isLocationAuthorized
 		}
+	}
+	
+	func updateWeather() {
+		
 	}
 }
 
@@ -45,10 +50,10 @@ extension WeatherLocationViewModel {
 // MARK: - LocationManagerAuthorizationDelegate
 extension WeatherLocationViewModel: LocationManagerAuthorizationDelegate {
 	func onSuccessfulAuthorization() {
-		canPresent = true
+		canPresentSearchLocation = true
 	}
 
 	func onFailureAuthorization() {
-		canPresent = false
+		canPresentSearchLocation = false
 	}
 }
