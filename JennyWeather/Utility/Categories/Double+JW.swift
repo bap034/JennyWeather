@@ -10,7 +10,12 @@ import Foundation
 
 extension Double {
 	var toTemperatureString: String {
-		let temperatureString = String(format: "%.0f℉", self)
+		let temperatureString: String
+		if UserDefaultsUtility.isUsingMetricSystem {
+			temperatureString = String(format: "%.0f°C", self)
+		} else {
+			temperatureString = String(format: "%.0f°F", self)
+		}
 		return temperatureString
 	}
 	
@@ -20,7 +25,12 @@ extension Double {
 	}
 	
 	var toWindString: String {
-		let windString = String(format: "%.1f mph", self)
+		let windString: String
+		if UserDefaultsUtility.isUsingMetricSystem {
+			windString = String(format: "%.1f m/s", self)
+		} else {
+			windString = String(format: "%.1f mph", self)
+		}
 		return windString
 	}
 }
