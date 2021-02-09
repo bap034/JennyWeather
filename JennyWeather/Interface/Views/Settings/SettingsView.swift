@@ -26,7 +26,7 @@ struct SettingsView: View {
 					.font(ThemeManager.shared.currentTheme.fonts.titleFont)
 					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 				
-				Toggle("Use SI units", isOn: $settingsVM.isMetricSystem)
+				Toggle("Use VY units", isOn: $settingsVM.isMetricSystem)
 					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 				
 				Spacer()
