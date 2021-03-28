@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B1339AD2610102A0092BF53 /* DarkSkyNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1339AC2610102A0092BF53 /* DarkSkyNetworkManager.swift */; };
 		8B1A0988242FFB3D005C3ACE /* UserDefaultsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1A0987242FFB3D005C3ACE /* UserDefaultsUtility.swift */; };
 		8B1C7E972467530C007666AD /* WeatherDailyDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1C7E962467530C007666AD /* WeatherDailyDTO.swift */; };
 		8B1C7E99246755C5007666AD /* WeatherDayDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1C7E98246755C5007666AD /* WeatherDayDTO.swift */; };
@@ -74,6 +75,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8B1339AC2610102A0092BF53 /* DarkSkyNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkSkyNetworkManager.swift; sourceTree = "<group>"; };
 		8B1A0987242FFB3D005C3ACE /* UserDefaultsUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsUtility.swift; sourceTree = "<group>"; };
 		8B1C7E962467530C007666AD /* WeatherDailyDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDailyDTO.swift; sourceTree = "<group>"; };
 		8B1C7E98246755C5007666AD /* WeatherDayDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDayDTO.swift; sourceTree = "<group>"; };
@@ -154,6 +156,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B1339B12610103A0092BF53 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				8B1339AC2610102A0092BF53 /* DarkSkyNetworkManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		8B1C7E94246751D9007666AD /* Currently */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,6 +369,7 @@
 			children = (
 				8B711FF124569DA80061A21F /* DTO */,
 				8B4186FD23F3C49300BA7307 /* DataService */,
+				8B1339B12610103A0092BF53 /* Manager */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -662,6 +673,7 @@
 				8B9155C524272516008826D0 /* LocationManager.swift in Sources */,
 				8B41870623F3DAC200BA7307 /* WeatherCurrentlyViewModel.swift in Sources */,
 				8B41870223F3CE5900BA7307 /* JWErrors.swift in Sources */,
+				8B1339AD2610102A0092BF53 /* DarkSkyNetworkManager.swift in Sources */,
 				8BEB8593242DD942005142F9 /* SearchCompletionResultDTO.swift in Sources */,
 				8B9155C22426E9AC008826D0 /* CityLocationViewModel.swift in Sources */,
 				8B41870023F3C61600BA7307 /* NetworkUtility.swift in Sources */,
