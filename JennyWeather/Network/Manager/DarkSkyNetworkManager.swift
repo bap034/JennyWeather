@@ -8,11 +8,10 @@
 
 import Foundation
 
-
 class DarkSkyNetworkManager: NSObject, URLSessionDataDelegate {
 	static let shared = DarkSkyNetworkManager()
 	
-	private var secretKey = "9e81c40beac3dc5695160dec5db8258b"
+	private var secretKey = "placeholder"
 	private var baseURLString: String { return "https://api.darksky.net/forecast/\(secretKey)/" }
 	private var urlSession: URLSession?
 	private var observation: NSKeyValueObservation?
@@ -28,12 +27,22 @@ class DarkSkyNetworkManager: NSObject, URLSessionDataDelegate {
 }
 
 // API Methods
-extension DarkSkyNetworkManager {	
+extension DarkSkyNetworkManager {
+	func updateSecretKey(success: (()->Void)?, failure: (()->Void)?) {
+		CloudKitManager.retrieveSecret { [weak self] (secret) in
+			self?.secretKey = secret.darkSkyAPI
+			success?()
+		} failure: {
+			failure?()
+		}
+	}
+	
 	/// The `urlString` parameter is appended to the `baseURLString` property. Omit leading`/` from the `urlString` value.
 	func sendForecastRequest(urlString: String, completion: @escaping (Data?, URLResponse?, Error?)->Void) {
 		let fullURLString = baseURLString + urlString
 		guard let url = URL(string: fullURLString) else {
-			completion(nil, nil, JWError.unexpectedNil)
+			let errorMessage = "Ah, sorry sorry!\n\nAn error occurred when trying to retrieve weather data. Please make sure you are on the latest app version and try again later."
+			completion(nil, nil, JWError(type: .unexpectedNil, message: errorMessage))
 			return
 		}
 		

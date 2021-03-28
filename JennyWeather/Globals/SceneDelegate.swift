@@ -37,36 +37,48 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		// TODO: Move this somewhere more appropriate?
 		let locationManager = LocationManager.shared
 		guard let sureLatitude = locationManager.currentPlacemark.latitude, let sureLongitude = locationManager.currentPlacemark.longitude else {
-			let newWeatherLoadingView = WeatherLoadingView(error: JWError.unexpectedNil)
+			let errorMessage = "Ack!\n\nSomething went wrong. Please make sure you are on the latest app version and try again later."
+			let newWeatherLoadingView = WeatherLoadingView(error: JWError(type: .unexpectedNil, message: errorMessage))
 			let newWeatherLoadingVC = UIHostingController(rootView: newWeatherLoadingView)
 			
 			self.window?.rootViewController = newWeatherLoadingVC
 			return
 		}
 		
-		let dataService = WeatherDataService()
-		dataService.getWeatherData(latitude: sureLatitude, longitude: sureLongitude, success: { (weatherDTO) in
-			WeatherViewModel.shared = WeatherViewModel(dto: weatherDTO)
-			guard let weatherVM = WeatherViewModel.shared else { print("error"); return }
-			
-			DispatchQueue.main.async {
-				let weatherView = WeatherView(weatherVM: weatherVM)
-				let weatherViewVC = UIHostingController(rootView: weatherView)
-				self.window?.rootViewController = weatherViewVC
+		DarkSkyNetworkManager.shared.updateSecretKey {
+			let dataService = WeatherDataService()
+			dataService.getWeatherData(latitude: sureLatitude, longitude: sureLongitude, success: { (weatherDTO) in
+				WeatherViewModel.shared = WeatherViewModel(dto: weatherDTO)
+				guard let weatherVM = WeatherViewModel.shared else { print("error"); return }
 				
-				// Animate change
-				guard let sureWindow = self.window else { return }
-				UIView.transition(with: sureWindow, duration: 0.3, options: .transitionCrossDissolve, animations: nil, completion: nil)
-			}
-		}, failure: { (error) in
-			print("error: \(error.debugDescription)")
+				DispatchQueue.main.async {
+					let weatherView = WeatherView(weatherVM: weatherVM)
+					let weatherViewVC = UIHostingController(rootView: weatherView)
+					self.window?.rootViewController = weatherViewVC
+					
+					// Animate change
+					guard let sureWindow = self.window else { return }
+					UIView.transition(with: sureWindow, duration: 0.3, options: .transitionCrossDissolve, animations: nil, completion: nil)
+				}
+			}, failure: { (error) in
+				print("error: \(error.debugDescription)")
+				DispatchQueue.main.async {
+					let newWeatherLoadingView = WeatherLoadingView(error: error)
+					let newWeatherLoadingVC = UIHostingController(rootView: newWeatherLoadingView)
+					
+					self.window?.rootViewController = newWeatherLoadingVC
+				}
+			})
+		} failure: {
+			print("error: failed to retrieve API key")
 			DispatchQueue.main.async {
-				let newWeatherLoadingView = WeatherLoadingView(error: error)
+				let errorMessage = "Derp...\n\nCould not retrieve weather data. Please make sure you are on the latest app version and try again later."
+				let newWeatherLoadingView = WeatherLoadingView(error: JWError(type: .unexpectedNil, message: errorMessage))
 				let newWeatherLoadingVC = UIHostingController(rootView: newWeatherLoadingView)
 				
 				self.window?.rootViewController = newWeatherLoadingVC
 			}
-		})
+		}
 	}
 
 	func sceneDidDisconnect(_ scene: UIScene) {

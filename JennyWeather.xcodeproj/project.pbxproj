@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8B1339AD2610102A0092BF53 /* DarkSkyNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1339AC2610102A0092BF53 /* DarkSkyNetworkManager.swift */; };
+		8B1339B82610215D0092BF53 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1339B72610215D0092BF53 /* CloudKitManager.swift */; };
 		8B1A0988242FFB3D005C3ACE /* UserDefaultsUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1A0987242FFB3D005C3ACE /* UserDefaultsUtility.swift */; };
 		8B1C7E972467530C007666AD /* WeatherDailyDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1C7E962467530C007666AD /* WeatherDailyDTO.swift */; };
 		8B1C7E99246755C5007666AD /* WeatherDayDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B1C7E98246755C5007666AD /* WeatherDayDTO.swift */; };
@@ -76,6 +77,7 @@
 
 /* Begin PBXFileReference section */
 		8B1339AC2610102A0092BF53 /* DarkSkyNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkSkyNetworkManager.swift; sourceTree = "<group>"; };
+		8B1339B72610215D0092BF53 /* CloudKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
 		8B1A0987242FFB3D005C3ACE /* UserDefaultsUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsUtility.swift; sourceTree = "<group>"; };
 		8B1C7E962467530C007666AD /* WeatherDailyDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDailyDTO.swift; sourceTree = "<group>"; };
 		8B1C7E98246755C5007666AD /* WeatherDayDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDayDTO.swift; sourceTree = "<group>"; };
@@ -162,6 +164,14 @@
 				8B1339AC2610102A0092BF53 /* DarkSkyNetworkManager.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		8B1339B62610214E0092BF53 /* CloudKit */ = {
+			isa = PBXGroup;
+			children = (
+				8B1339B72610215D0092BF53 /* CloudKitManager.swift */,
+			);
+			path = CloudKit;
 			sourceTree = "<group>";
 		};
 		8B1C7E94246751D9007666AD /* Currently */ = {
@@ -463,6 +473,7 @@
 		8B9155C3242724AF008826D0 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				8B1339B62610214E0092BF53 /* CloudKit */,
 				8B1D25C624F20A40009826CE /* Fun Manager */,
 				8B9155C624283B81008826D0 /* Location */,
 				8B9A909C25071FFC0005D142 /* Theme Manager */,
@@ -689,6 +700,7 @@
 				8B9A909E250720110005D142 /* ThemeManager.swift in Sources */,
 				8B1D25C824F20A60009826CE /* FunManager.swift in Sources */,
 				8B1C7EA2246759B3007666AD /* WeatherMinutelyDTO.swift in Sources */,
+				8B1339B82610215D0092BF53 /* CloudKitManager.swift in Sources */,
 				8B4186FC23F3BE6D00BA7307 /* WeatherHourlyViewModel.swift in Sources */,
 				8B6D91AB240C5F9E0015CAC7 /* WeatherLocationViewModel.swift in Sources */,
 				8B46DB9624079C5500333783 /* WeatherDailyView.swift in Sources */,

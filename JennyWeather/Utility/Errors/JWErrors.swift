@@ -9,8 +9,23 @@
 import Foundation
 
 // MARK: - JW Errors
-enum JWError: Error {
-	case unexpectedNil
+class JWError: LocalizedError {
+	enum JWErrorType {
+		case unexpectedNil
+	}
+	
+	let type: JWErrorType
+	let message: String?
+	
+	var errorDescription: String? {
+		return message ?? localizedDescription
+	}
+
+	init(type: JWError.JWErrorType, message: String? = nil) {
+		self.type = type
+		self.message = message
+	}
+	
 }
 
 // MARK: - JSON Errors
