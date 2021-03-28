@@ -10,9 +10,9 @@ import Foundation
 
 extension String {
 	func toJson() throws -> [String: Any] {
-		guard let jsonData = data(using: .utf8) else { throw JWError.unexpectedNil }
+		guard let jsonData = data(using: .utf8) else { throw JWError(type: .unexpectedNil, message: "unexpected nil JSON data") }
 		let jsonAnyObject = try JSONSerialization.jsonObject(with: jsonData, options: [])
-		guard let json = jsonAnyObject as? [String: Any] else { throw JWError.unexpectedNil }
+		guard let json = jsonAnyObject as? [String: Any] else { throw JWError(type: .unexpectedNil, message: "unexpected nil JSON object") }
 		
 		return json
 	}
