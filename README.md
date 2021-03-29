@@ -1,4 +1,4 @@
-# JennyWeather
+# The Jenny Weather App!
 
 Created a customized weather app for my friend Jenny. Built using SwiftUI & MVVM and references Dark Sky API for the weather data. 
 
