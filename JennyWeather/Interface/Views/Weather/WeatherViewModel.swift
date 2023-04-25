@@ -11,6 +11,8 @@ import Foundation
 class WeatherViewModel: ObservableObject {
 	
 	static var shared: WeatherViewModel?
+    
+    let lastFetchedTime: Date
 	
 	@Published var locationVM: WeatherLocationViewModel
 	@Published var alertViewModels: [WeatherAlertViewModel]
@@ -19,6 +21,8 @@ class WeatherViewModel: ObservableObject {
 	@Published var currentlyViewModel: WeatherCurrentlyViewModel
 	
 	init(dto: WeatherDTO) {
+        lastFetchedTime = dto.currently.time
+        
 		locationVM = WeatherLocationViewModel(locationManager: LocationManager.shared) // TODO: refactor to remove locationManager dependency
 		
 		var alertVMs = [WeatherAlertViewModel]()
@@ -37,10 +41,6 @@ class WeatherViewModel: ObservableObject {
 
 // MARK: - Helper Methods
 extension WeatherViewModel {
-	var lastFetchedTime: Date {
-		let time = currentlyViewModel.time
-		return time
-	}
 	var candiceSpecialValue: Int {
 		let candiceSpecial = FunManager.shared.candiceSpecialValue
 		return candiceSpecial

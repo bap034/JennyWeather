@@ -22,19 +22,27 @@ class CloudKitManager {
 	static func retrieveSecret(success: ((Secret)->Void)?, failure: (()->Void)?) {
 		let predicate = NSPredicate(value: true)
 		let query = CKQuery(recordType: secretsRecordType, predicate: predicate)
-		publicDatabase.perform(query, inZoneWith: zoneId) { (records, error) in
-			guard let sureRecord = records?.first else {
-				print(">>> error: \(String(describing: error?.localizedDescription))")
-				failure?()
-				return
-			}
-			guard let secret: Secret = sureRecord.toCodable() else {
-				failure?()
-				return
-			}
-			
-			success?(secret)
-		}
+        publicDatabase.fetch(withQuery: query) { result in
+            let firstRecordResult = try? result.get().matchResults.first?.1
+            switch firstRecordResult {
+                case .success(let record):
+                    guard let secret: Secret = record.toCodable() else {
+                        failure?()
+                        return
+                    }
+                    
+                    success?(secret)
+                    return
+                case .failure(let error):
+                    print(">>> error: \(String(describing: error.localizedDescription))")
+                    failure?()
+                    return
+                case .none:
+                    print(">>> error: unexpected nil record")
+                    failure?()
+                    return
+            }
+        }
 	}
 }
 

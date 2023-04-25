@@ -32,32 +32,33 @@ struct WeatherCurrentlyView: View {
 					Spacer()
 					
 					VStack(alignment: .trailing) {
-					Text(weatherCurrentlyVM.temperature.toTemperatureString)
+                        Text(weatherCurrentlyVM.temperatureText)
 						.font(ThemeManager.shared.currentTheme.fonts.titleFont)
 						.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 					
 						HStack {
-							Text(weatherCurrentlyVM.precipProbability.toRainString)
+							Text(weatherCurrentlyVM.precipProbabilityText)
 								.font(ThemeManager.shared.currentTheme.fonts.tertiaryFont)
 								.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 							
-							Text(weatherCurrentlyVM.windSpeed.toWindString)
+							Text(weatherCurrentlyVM.windSpeedText)
 								.font(ThemeManager.shared.currentTheme.fonts.tertiaryFont)
 								.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 						}
 					}
 					
-					Image(systemName: weatherCurrentlyVM.icon.systemIconName)
+					Image(systemName: weatherCurrentlyVM.icon)
 						.resizable()
 						.scaledToFit()
 						.frame(height: 50)
 						.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryColor)
 				}				
-				
-				Text(weatherCurrentlyVM.minutelySummary)
-					.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
-					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
-					.fixedSize(horizontal: false, vertical: true)
+                if let sureMinutelySummary = weatherCurrentlyVM.minutelySummary, !sureMinutelySummary.isEmpty {
+                    Text(sureMinutelySummary)
+                        .font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
+                        .foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
 			}
 			.padding([.leading, .trailing], 20)
 			

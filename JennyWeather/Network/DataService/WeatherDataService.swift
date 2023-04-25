@@ -19,8 +19,9 @@ class WeatherDataService: NSObject {
 	
 	private static let unitsParameterName = "units"
 	private static var unitsParameterValue: String {
-		let units = UserDefaultsUtility.isUsingMetricSystem ? "si":"us"
-		return units
+        return "si"
+//		let units = UserDefaultsUtility.isUsingMetricSystem ? "si":"us"
+//		return units
 	}
 	
 }
@@ -46,7 +47,7 @@ extension WeatherDataService: WeatherDataServiceGettable {
 					let weatherDTO:WeatherDTO = try NetworkUtility.codableFromJSON(jsonDict)
 					
 					// TODO: can this be moved to somewhere else?
-					if FunManager.shared.shouldIncrementCandiceSpecialValue(currentTemperature: weatherDTO.currently.temperature) {
+                    if FunManager.shared.shouldIncrementCandiceSpecialValue(currentTemperature: weatherDTO.currently.temperature.value) {
 						FunManager.shared.incrementCandiceSpecialValue()						
 					}
 					
@@ -61,3 +62,18 @@ extension WeatherDataService: WeatherDataServiceGettable {
 	}
 }
 
+protocol WeatherDataServiceGettable2 {
+    func getWeatherData(latitude: Double, longitude: Double) async -> Result<WeatherDTO, Error>
+}
+
+class WeatherDataService2 {
+    
+}
+
+// MARK: - Weather
+extension WeatherDataService2: WeatherDataServiceGettable2 {
+    func getWeatherData(latitude: Double, longitude: Double) async -> Result<WeatherDTO, Error> {
+        let weatherResult = await WeatherKitManager.getWeatherDTO(latitude: latitude, longitude: longitude)
+        return weatherResult
+    }
+}

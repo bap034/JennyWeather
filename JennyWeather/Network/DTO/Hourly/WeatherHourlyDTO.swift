@@ -9,10 +9,6 @@
 import Foundation
 
 struct WeatherHourlyDTO: Codable {
-	
-	var summary: String
-	var icon: String
-	var data: [WeatherHourDTO]
-	    
+	let data: [WeatherHourDTO]	    
 }
 

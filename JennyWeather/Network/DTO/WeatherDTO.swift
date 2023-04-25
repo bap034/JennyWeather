@@ -9,11 +9,9 @@
 import Foundation
 
 struct WeatherDTO: Codable {
-	
 	let alerts: [WeatherAlertDTO]?
 	let minutely: WeatherMinutelyDTO?
 	let hourly: WeatherHourlyDTO
 	let daily: WeatherDailyDTO
 	let currently: WeatherCurrentlyDTO
-	
 }

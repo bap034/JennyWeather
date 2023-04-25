@@ -10,14 +10,9 @@ import Foundation
 
 class WeatherDailyViewModel: ObservableObject {
 	
-	@Published var summary: String
-	@Published var icon: WeatherIcon
 	@Published var dayVMs: [WeatherDayViewModel]
 	
 	init(dto: WeatherDailyDTO) {
-		summary = dto.summary
-		icon = IconUtility.getWeatherIcon(darkSkyIconName: dto.icon)
-		
 		var dayVMs = [WeatherDayViewModel]()
 		dto.data.forEach { (dayDTO) in
 			let dayData = WeatherDayViewModel(dto: dayDTO)
