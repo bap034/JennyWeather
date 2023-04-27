@@ -7,12 +7,14 @@
 //
 
 import Foundation
+import WeatherKit
 
 class WeatherMockData {
 	static func getWeatherViewModel() throws -> WeatherViewModel {
 		let json = try jsonString.toJson()
-		let dto: WeatherDTO = try NetworkUtility.codableFromJSON(json)
-		let weatherVM = WeatherViewModel(dto: dto)
+        let dto: Weather = try NetworkUtility.codableFromJSON(json)
+        let weatherDTO = dto.toWeatherDTO
+		let weatherVM = WeatherViewModel(dto: weatherDTO)
 		return weatherVM
 	}
 }

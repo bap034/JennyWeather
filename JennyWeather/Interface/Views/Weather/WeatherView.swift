@@ -84,11 +84,23 @@ struct WeatherView: View {
 
 struct WeatherView_Previews: PreviewProvider {
     static var previews: some View {
-		let weatherVM: WeatherViewModel = try! WeatherMockData.getWeatherViewModel()
-		let locationVM = WeatherLocationViewModel()
-		weatherVM.locationVM = locationVM
-		
-		let view = WeatherView(weatherVM: weatherVM)
-		return view
-	}
+        var weatherView: WeatherView? = nil
+        var errorView: Text? = nil
+        
+        do {
+            let weatherVM: WeatherViewModel = try WeatherMockData.getWeatherViewModel()
+            let locationVM = WeatherLocationViewModel()
+            weatherVM.locationVM = locationVM
+            
+            weatherView = WeatherView(weatherVM: weatherVM)
+        } catch {
+            print(error)
+            errorView =  Text(error.localizedDescription)
+        }
+        
+        return Group {
+            weatherView
+            errorView
+        }
+    }
 }
