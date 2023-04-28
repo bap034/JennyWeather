@@ -96,7 +96,13 @@ extension Forecast<MinuteWeather> {
 extension Forecast<HourWeather> {
     var toWeatherHourlyDTO: WeatherHourlyDTO {
         let hourWeathers = forecast
-        let hourDTOs = hourWeathers.map { hourWeather in
+        
+        let now = Date()
+        let currentHour = Calendar.current.component(.hour, from: now)
+        let currentHourDate = Calendar.current.date(bySettingHour: currentHour, minute: 0, second: 0, of: now) ?? now
+        /// Want to start at the current hour
+        let filteredHourWeathers = hourWeathers.filter({ $0.date >= currentHourDate })
+        let hourDTOs = filteredHourWeathers.map { hourWeather in
             let hourDTO = WeatherHourDTO(icon: hourWeather.symbolName,
                                          precipType: PrecipitationType(wkPrecipitation: hourWeather.precipitation),
                                          precipProbability: hourWeather.precipitationChance,
