@@ -87,7 +87,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		/// Fetch new data if it's been greater than 1 minute.
 		if let sureLastFetchedTime = WeatherViewModel.shared?.lastFetchedTime,
 			Date() > Date(timeInterval: (60 * 1), since: sureLastFetchedTime) {
-				WeatherViewModel.shared?.updateWeatherData(success: nil, failure: nil)
+            Task {
+                await WeatherViewModel.shared?.updateWeatherData()
+            }
 		}
 	}
 

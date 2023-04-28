@@ -58,23 +58,19 @@ extension WeatherViewModel {
 		self.currentlyViewModel = newWeatherViewModel.currentlyViewModel
 	}
 	
-	func updateWeatherData(success: (()->Void)?, failure: DataServiceFailure) {
-		guard let sureLatitude = LocationManager.shared.currentPlacemark.latitude,
-			let sureLongitude = LocationManager.shared.currentPlacemark.longitude else {
-				failure?(nil)
-				return
-		}
-		
-		let dataService = WeatherDataService()
-		dataService.getWeatherData(latitude: sureLatitude, longitude: sureLongitude, success: { (json) in
-			/// Need to update the `@Published` variables on the `main` thread. Does not work to wrap the API call in a `DispatchQueue.main`.
-			DispatchQueue.main.async {
-				self.loadNewWeatherData(json)
-				success?()
-			}
-		}, failure: { (error) in
-			print("error: \(error.debugDescription)")
-			failure?(error)
-		})
-	}
+    func updateWeatherData() async {
+        guard let sureLatitude = LocationManager.shared.currentPlacemark.latitude,
+              let sureLongitude = LocationManager.shared.currentPlacemark.longitude else { return }
+        
+        let weatherDTOResult = await WeatherKitManager.getWeatherDTO(latitude: sureLatitude, longitude: sureLongitude)
+        /// Need to update the `@Published` variables on the `main` thread. Does not work to wrap the API call in a `DispatchQueue.main`.
+        DispatchQueue.main.async {
+            switch weatherDTOResult {
+                case .success(let dto):
+                    self.loadNewWeatherData(dto)
+                case .failure(let error):
+                    print(error)
+            }
+        }        
+    }
 }

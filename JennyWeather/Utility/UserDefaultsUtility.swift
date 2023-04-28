@@ -42,17 +42,3 @@ extension UserDefaultsUtility {
 		retrieve(key: currentPlacemarkKey)
 	}
 }
-
-// MARK: Settings
-//extension UserDefaultsUtility {
-//	private static let isUsingMetricSystemKey = "isUsingMetricSystem"
-//
-//	static func storeIsUsingMetricSystem(_ isUsing: Bool) {
-//		userDefaults.set(isUsing, forKey: isUsingMetricSystemKey)
-//	}
-//
-//	static var isUsingMetricSystem: Bool {
-//		let isUsingMetricSystem = userDefaults.bool(forKey: isUsingMetricSystemKey)
-//		return isUsingMetricSystem
-//	}
-//}
