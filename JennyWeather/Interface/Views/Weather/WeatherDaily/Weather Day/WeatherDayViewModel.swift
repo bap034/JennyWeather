@@ -13,30 +13,25 @@ class WeatherDayViewModel: ObservableObject {
 	private let dto: WeatherDayDTO
 	
 	@Published var timeString: String
-	@Published var summary: String
-	@Published var icon: WeatherIcon
-	@Published var precipProbability: Double
-	@Published var temperatureHigh: Double
-	@Published var temperatureLow: Double
-	@Published var windSpeed: Double
+	@Published var icon: String
+	@Published var precipProbabilityText: String
+	@Published var temperatureHighText: String
+	@Published var temperatureLowText: String
+	@Published var windSpeedText: String
 	
 	var showPrecipitation:Bool {
-		let isRain = icon == .rain
-		let isSnow = icon == .snow
-		let isSleet = icon == .sleet
-		return isRain || isSnow || isSleet
+        dto.precipType.isPrecipitating
 	}
 	
 	init(dto: WeatherDayDTO) {
 		self.dto = dto
 		
 		timeString = WeatherDayViewModel.getTimeString(date: dto.time)
-		summary = dto.summary
-		icon = IconUtility.getWeatherIcon(darkSkyIconName: dto.icon)
-		precipProbability = dto.precipProbability
-		temperatureHigh = dto.temperatureHigh
-		temperatureLow = dto.temperatureLow
-		windSpeed = dto.windSpeed
+		icon = dto.icon
+		precipProbabilityText = WeatherKitManager.getPrecipProbabilityText(precipProbability: dto.precipProbability)
+        temperatureHighText = Measurement.defaultFormatter.string(from: dto.temperatureHigh)
+		temperatureLowText = Measurement.defaultFormatter.string(from: dto.temperatureLow)
+		windSpeedText = Measurement.defaultFormatter.string(from: dto.windSpeed)
 	}
 	
 	private static func getTimeString(date: Date) -> String {

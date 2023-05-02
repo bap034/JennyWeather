@@ -12,25 +12,23 @@ class WeatherHourViewModel: ObservableObject {
 	
 	private let dto: WeatherHourDTO
 	
-	@Published var summary: String
-	@Published var icon: WeatherIcon
-	@Published var precipProbability: Double
-	@Published var temperature: Double
-	@Published var windSpeed: Double
+	@Published var icon: String
+	@Published var precipProbabilityText: String
+	@Published var temperatureText: String
+	@Published var windSpeedText: String
 	@Published var timeString: String
 	
 	var showPrecipitation:Bool {
-		return precipProbability >= 0.05
+        return dto.precipType.isPrecipitating
 	}
 	
 	init(dto: WeatherHourDTO) {
 		self.dto = dto
 		
-		summary = dto.summary
-		icon = IconUtility.getWeatherIcon(darkSkyIconName: dto.icon)
-		precipProbability = dto.precipProbability
-		temperature = dto.temperature
-		windSpeed = dto.windSpeed
+		icon = dto.icon
+        precipProbabilityText = WeatherKitManager.getPrecipProbabilityText(precipProbability: dto.precipProbability)
+        temperatureText = Measurement.defaultFormatter.string(from: dto.temperature)
+		windSpeedText = Measurement.defaultFormatter.string(from: dto.windSpeed)
 		timeString = NetworkUtility.shared.timeOnlyFormatter.string(from: dto.time)
 	}
 	

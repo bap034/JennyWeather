@@ -10,18 +10,4 @@ import Foundation
 
 class SettingsViewModel: ObservableObject {
 	
-	@Published var isMetricSystem: Bool {
-		didSet {
-			didSetIsMetricSystem()
-		}
-	}
-	
-	init() {
-		isMetricSystem = UserDefaultsUtility.isUsingMetricSystem
-	}
-	
-	private func didSetIsMetricSystem() {
-		UserDefaultsUtility.storeIsUsingMetricSystem(isMetricSystem)
-		WeatherViewModel.shared?.updateWeatherData(success: nil, failure: nil)
-	}
 }

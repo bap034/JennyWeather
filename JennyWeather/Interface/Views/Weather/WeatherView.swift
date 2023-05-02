@@ -15,7 +15,7 @@ struct WeatherView: View {
 	init(weatherVM: WeatherViewModel) {
 		self.weatherVM = weatherVM
 	
-		/// NOTE: These `appeaerance()` changes are *GLOBAL* and affect all instances of that class.
+		/// NOTE: These `appearance()` changes are *GLOBAL* and affect all instances of that class.
 		UINavigationBar.appearance().shadowImage = UIImage()
         UINavigationBar.appearance().largeTitleTextAttributes = [
 			.font : UIFont.boldSystemFont(ofSize: 24),
@@ -66,16 +66,16 @@ struct WeatherView: View {
 					.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
 					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 				
-				Text("Powered by Dark Sky")
+				Text("Powered by  Weather")
 					.font(ThemeManager.shared.currentTheme.fonts.tertiaryFont)
 					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 					.padding(.top, 10)
 					.padding(.bottom, 20)
 					.onTapGesture {
-						if let sureURL = URL(string: "https://darksky.net/poweredby/") {
+						if let sureURL = URL(string: "https://weatherkit.apple.com/legal-attribution.html") {
 							UIApplication.shared.open(sureURL, options: [:], completionHandler: nil)
 						}
-				}
+                    }
 			}
 			.navigationBarTitle("🤓 The Jenny Weather App ☀️🐕‍🦺", displayMode: .automatic)
 		}
@@ -84,11 +84,23 @@ struct WeatherView: View {
 
 struct WeatherView_Previews: PreviewProvider {
     static var previews: some View {
-		let weatherVM: WeatherViewModel = try! WeatherMockData.getWeatherViewModel()
-		let locationVM = WeatherLocationViewModel()
-		weatherVM.locationVM = locationVM
-		
-		let view = WeatherView(weatherVM: weatherVM)
-		return view
-	}
+        var weatherView: WeatherView? = nil
+        var errorView: Text? = nil
+        
+        do {
+            let weatherVM: WeatherViewModel = try WeatherMockData.getWeatherViewModel()
+            let locationVM = WeatherLocationViewModel()
+            weatherVM.locationVM = locationVM
+            
+            weatherView = WeatherView(weatherVM: weatherVM)
+        } catch {
+            print(error)
+            errorView =  Text(error.localizedDescription)
+        }
+        
+        return Group {
+            weatherView
+            errorView
+        }
+    }
 }

@@ -18,13 +18,11 @@ struct WeatherLocationView: View {
 				Text("Location:")
 					.font(ThemeManager.shared.currentTheme.fonts.primaryFont)
 					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
-					.padding(.leading, 20)
 					.frame(alignment: .trailing)
 				
 				Text(locationVM.cityName)
 					.font(ThemeManager.shared.currentTheme.fonts.headerFont)
 					.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryColor)
-					.padding(.leading, 20)
 					.frame(alignment: .trailing)
 			}
 			
@@ -44,21 +42,22 @@ struct WeatherLocationView: View {
 								   isPresented: self.$locationVM.canPresentSearchLocation)
 			}
 			
-			Button(action: {
-				self.locationVM.canPresentSettings = true
-			}) {
-				Image(systemName: "gearshape.fill")
-					.resizable()
-					.frame(width: 30, height: 30)
-					.aspectRatio(contentMode: .fit)
-					.padding(.trailing, 20)
-					.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryColor)
-			}
-			.sheet(isPresented: $locationVM.canPresentSettings) {
-				SettingsView(settingsVM: SettingsViewModel(),
-							 isPresented: self.$locationVM.canPresentSettings)
-			}
+            // NOTE: Currently nothing lives in Settings so hiding it until needed
+//			Button(action: {
+//				self.locationVM.canPresentSettings = true
+//			}) {
+//				Image(systemName: "gearshape.fill")
+//					.resizable()
+//					.frame(width: 30, height: 30)
+//					.aspectRatio(contentMode: .fit)
+//					.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryColor)
+//			}
+//			.sheet(isPresented: $locationVM.canPresentSettings) {
+//				SettingsView(settingsVM: SettingsViewModel(),
+//							 isPresented: self.$locationVM.canPresentSettings)
+//			}
 		}
+        .padding([.leading, .trailing], 20)
 	}
 }
 

@@ -10,27 +10,22 @@ import Foundation
 
 class WeatherCurrentlyViewModel: ObservableObject {
 	
-	@Published var minutelySummary: String
-	
-	@Published var timestamp: Int
-	@Published var summary: String
-	@Published var icon: WeatherIcon
-	@Published var precipProbability: Double
-	@Published var temperature: Double
-	@Published var windSpeed: Double
-	@Published var time: Date
+	@Published var minutelySummary: String?
+    @Published var precipProbabilityText: String
+    
+    @Published var icon: String
+	@Published var temperatureText: String
+	@Published var windSpeedText: String
 	@Published var timeString: String
 	
 	init(currentlyDTO: WeatherCurrentlyDTO, minutelyDTO: WeatherMinutelyDTO?) {
-		minutelySummary = minutelyDTO?.summary ?? currentlyDTO.summary
-		
-		timestamp = currentlyDTO.timestamp
-		summary = currentlyDTO.summary
-		icon = IconUtility.getWeatherIcon(darkSkyIconName: currentlyDTO.icon)
-		precipProbability = currentlyDTO.precipProbability
-		temperature = currentlyDTO.temperature
-		windSpeed = currentlyDTO.windSpeed
-		time = currentlyDTO.time
+		minutelySummary = minutelyDTO?.summary
+        let precipProbability = minutelyDTO?.data.first?.precipProbability ?? 0
+        precipProbabilityText = WeatherKitManager.getPrecipProbabilityText(precipProbability: precipProbability)
+        
+        icon = currentlyDTO.icon
+        temperatureText = Measurement.defaultFormatter.string(from: currentlyDTO.temperature)
+		windSpeedText = Measurement.defaultFormatter.string(from: currentlyDTO.windSpeed)
 		timeString = "Last updated at \(NetworkUtility.shared.timeOnlyFormatter.string(from: currentlyDTO.time))"
 	}
 	

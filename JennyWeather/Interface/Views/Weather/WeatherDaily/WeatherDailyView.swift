@@ -17,14 +17,7 @@ struct WeatherDailyView: View {
 				.font(ThemeManager.shared.currentTheme.fonts.headerFont)
 				.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 				.padding(.bottom, 10)
-				.padding(.leading, 20)
-			
-			Text(weatherDailyVM.summary)
-				.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
-				.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
-				.fixedSize(horizontal: false, vertical: true)
-				.padding(.bottom, 10)
-				.padding([.leading, .trailing], 20)
+				.padding(.leading, 20)        
 			
 			ForEach(weatherDailyVM.dayVMs) { (dayVM) in
 				WeatherDayView(weatherDayVM: dayVM)

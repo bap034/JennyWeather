@@ -10,21 +10,17 @@ import Foundation
 
 class WeatherHourlyViewModel: ObservableObject {
 	
-	@Published var summary: String
-	@Published var icon: WeatherIcon
 	@Published var hourVMs: [WeatherHourViewModel]
 	
 	init(dto: WeatherHourlyDTO) {
-		summary = dto.summary
-		icon = IconUtility.getWeatherIcon(darkSkyIconName: dto.icon)
-		
 		var hourVMs = [WeatherHourViewModel]()
 		dto.data.forEach { (hourDataJson) in
 			let hourData = WeatherHourViewModel(dto: hourDataJson)
 			hourVMs.append(hourData)
 		}
-		/// DarkSky provides more than 24 hours worth of data.
-		let truncatedVMs = hourVMs.prefix(upTo: 25)
+		/// WeatherKit provides more than 24 hours worth of data.
+        let maxCount = min(hourVMs.count, 24)
+        let truncatedVMs = hourVMs.prefix(upTo: maxCount)
 		self.hourVMs = Array(truncatedVMs)
 	}
 	
