@@ -44,41 +44,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 			self.window?.rootViewController = newWeatherLoadingVC
 			return
 		}
-		
-		DarkSkyNetworkManager.shared.updateSecretKey {
-			let dataService = WeatherDataService()
-			dataService.getWeatherData(latitude: sureLatitude, longitude: sureLongitude, success: { (weatherDTO) in
-				WeatherViewModel.shared = WeatherViewModel(dto: weatherDTO)
-				guard let weatherVM = WeatherViewModel.shared else { print("error"); return }
-				
-				DispatchQueue.main.async {
-					let weatherView = WeatherView(weatherVM: weatherVM)
-					let weatherViewVC = UIHostingController(rootView: weatherView)
-					self.window?.rootViewController = weatherViewVC
-					
-					// Animate change
-					guard let sureWindow = self.window else { return }
-					UIView.transition(with: sureWindow, duration: 0.3, options: .transitionCrossDissolve, animations: nil, completion: nil)
-				}
-			}, failure: { (error) in
-				print("error: \(error.debugDescription)")
-				DispatchQueue.main.async {
-					let newWeatherLoadingView = WeatherLoadingView(error: error)
-					let newWeatherLoadingVC = UIHostingController(rootView: newWeatherLoadingView)
-					
-					self.window?.rootViewController = newWeatherLoadingVC
-				}
-			})
-		} failure: {
-			print("error: failed to retrieve API key")
-			DispatchQueue.main.async {
-				let errorMessage = "Derp...\n\nCould not retrieve weather data. Please make sure you are on the latest app version and try again later."
-				let newWeatherLoadingView = WeatherLoadingView(error: JWError(type: .unexpectedNil, message: errorMessage))
-				let newWeatherLoadingVC = UIHostingController(rootView: newWeatherLoadingView)
-				
-				self.window?.rootViewController = newWeatherLoadingVC
-			}
-		}
+        
+        Task {
+            let weatherDTOResult = await WeatherKitManager.getWeatherDTO(latitude: sureLatitude, longitude: sureLongitude)
+            switch weatherDTOResult {
+                case .success(let weatherDTO):
+                    WeatherViewModel.shared = WeatherViewModel(dto: weatherDTO)
+                    guard let weatherVM = WeatherViewModel.shared else { print("error"); return }
+                    
+                    DispatchQueue.main.async {
+                        let weatherView = WeatherView(weatherVM: weatherVM)
+                        let weatherViewVC = UIHostingController(rootView: weatherView)
+                        self.window?.rootViewController = weatherViewVC
+                        
+                        // Animate change
+                        guard let sureWindow = self.window else { return }
+                        UIView.transition(with: sureWindow, duration: 0.3, options: .transitionCrossDissolve, animations: nil, completion: nil)
+                    }
+                case .failure(let error):
+                    print("error: \(error.localizedDescription)")
+                    DispatchQueue.main.async {
+                        let newWeatherLoadingView = WeatherLoadingView(error: error)
+                        let newWeatherLoadingVC = UIHostingController(rootView: newWeatherLoadingView)
+                        
+                        self.window?.rootViewController = newWeatherLoadingVC
+                    }
+            }
+        }
 	}
 
 	func sceneDidDisconnect(_ scene: UIScene) {
@@ -95,7 +87,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 		/// Fetch new data if it's been greater than 1 minute.
 		if let sureLastFetchedTime = WeatherViewModel.shared?.lastFetchedTime,
 			Date() > Date(timeInterval: (60 * 1), since: sureLastFetchedTime) {
-				WeatherViewModel.shared?.updateWeatherData(success: nil, failure: nil)
+            Task {
+                await WeatherViewModel.shared?.updateWeatherData()
+            }
 		}
 	}
 

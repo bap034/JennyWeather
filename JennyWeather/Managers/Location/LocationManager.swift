@@ -18,12 +18,32 @@ protocol LocationManagerSearchCompletionDelegate {
 }
 
 class LocationManager: NSObject {
+    enum LocationAuthorizationType {
+        case authorized
+        case denied
+        case notDetermined
+        
+        init(clAuthorizationStatus: CLAuthorizationStatus) {
+            switch clAuthorizationStatus {
+                case .notDetermined:
+                    self = .notDetermined
+                case .restricted, .denied:
+                    self = .denied
+                case .authorizedAlways, .authorizedWhenInUse, .authorized:
+                    self = .authorized
+                @unknown default:
+                    self = .denied
+            }
+        }
+    }
+    
 	
 	static let shared = LocationManager()
 
 	private let clLocationManager = CLLocationManager()
 	private let mkSearchCompleter = MKLocalSearchCompleter()
 	
+    public private(set) var locationAuthorizationType = LocationAuthorizationType.notDetermined
 	public private(set) var currentPlacemark: PlacemarkDTO
 	var authorizationDelegate: LocationManagerAuthorizationDelegate?
 	var searchCompletionDelegate: LocationManagerSearchCompletionDelegate?
@@ -51,12 +71,6 @@ extension LocationManager {
 
 // MARK: - CLLocationManager Methods
 extension LocationManager {
-	var isLocationAuthorized: Bool {
-		let isAuthorizedWhenInUse = CLLocationManager.authorizationStatus() == .authorizedWhenInUse
-		let isAuthorizedAlways = CLLocationManager.authorizationStatus() == .authorizedAlways
-		return isAuthorizedWhenInUse || isAuthorizedAlways
-	}
-	
 	func requestWhenInUseAuthorization() {
 		clLocationManager.requestWhenInUseAuthorization()
 	}
@@ -90,15 +104,16 @@ extension LocationManager {
 extension LocationManager: CLLocationManagerDelegate {
 	func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
 		guard manager == clLocationManager else { return }
-		
-		switch status {
-		case .authorizedWhenInUse, .authorizedAlways:
-			self.authorizationDelegate?.onSuccessfulAuthorization()
-		case .denied, .restricted, .notDetermined:
-			self.authorizationDelegate?.onFailureAuthorization()
-		@unknown default:
-			return
-		}
+        
+        locationAuthorizationType = LocationAuthorizationType(clAuthorizationStatus: status)
+        switch status {
+            case .authorizedWhenInUse, .authorizedAlways:
+                authorizationDelegate?.onSuccessfulAuthorization()
+            case .denied, .restricted, .notDetermined:
+                authorizationDelegate?.onFailureAuthorization()
+            @unknown default:
+                return
+        }
 	}
 }
 

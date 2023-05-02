@@ -20,13 +20,6 @@ struct WeatherHourlyView: View {
 				.padding(.bottom, 10)
 				.padding(.leading, 20)
 			
-			Text(weatherHourlyVM.summary)
-				.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
-				.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
-				.fixedSize(horizontal: false, vertical: true)
-				.padding(.bottom, 10)
-				.padding([.leading, .trailing], 20)
-			
 			ScrollView(.horizontal, showsIndicators: false) {
 				HStack(spacing: 0) {
 					ForEach(weatherHourlyVM.hourVMs) { hourVM in

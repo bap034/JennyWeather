@@ -18,14 +18,14 @@ struct WeatherDayView: View {
 				.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 			HStack {
 				VStack {
-					Image(systemName: weatherDayVM.icon.systemIconName)
+					Image(systemName: weatherDayVM.icon)
 						.resizable()
 						.scaledToFit()
 						.frame(width: 50, height: 30)
 						.foregroundColor(ThemeManager.shared.currentTheme.colors.complimentaryColor)
 					
 					if weatherDayVM.showPrecipitation {
-						Text(weatherDayVM.precipProbability.toRainString)
+						Text(weatherDayVM.precipProbabilityText)
 							.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
 							.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 							.frame(width: 50)
@@ -35,18 +35,18 @@ struct WeatherDayView: View {
 				Divider()
 					.background(ThemeManager.shared.currentTheme.colors.baseLightColor)
 				
-				Text(weatherDayVM.temperatureHigh.toTemperatureString)
+				Text(weatherDayVM.temperatureHighText)
 					.font(ThemeManager.shared.currentTheme.fonts.headerFont)
 					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 				
-				Text(weatherDayVM.temperatureLow.toTemperatureString)
+				Text(weatherDayVM.temperatureLowText)
 					.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
 					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 				
 				Divider()
 					.background(ThemeManager.shared.currentTheme.colors.baseLightColor)
 				
-				Text(weatherDayVM.windSpeed.toWindString)
+				Text(weatherDayVM.windSpeedText)
 					.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
 					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 			}

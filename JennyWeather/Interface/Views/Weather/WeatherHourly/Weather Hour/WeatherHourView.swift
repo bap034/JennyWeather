@@ -15,7 +15,7 @@ struct WeatherHourView: View {
     var body: some View {
 		HStack {
 			VStack(alignment: .leading) {
-				Image(systemName: weatherHourVM.icon.systemIconName)
+				Image(systemName: weatherHourVM.icon)
 					.resizable()
 					.scaledToFit()
 					.frame(height: 30)
@@ -23,7 +23,7 @@ struct WeatherHourView: View {
 				
 				Spacer()
 				
-				Text(weatherHourVM.temperature.toTemperatureString)
+				Text(weatherHourVM.temperatureText)
 					.font(ThemeManager.shared.currentTheme.fonts.headerFont)
 					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 			}
@@ -37,11 +37,11 @@ struct WeatherHourView: View {
 				
 				if weatherHourVM.showPrecipitation {
 					HStack {
-						Text(weatherHourVM.precipProbability.toRainString)
+						Text(weatherHourVM.precipProbabilityText)
 							.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
 							.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 						
-						Image(systemName: WeatherIcon.rain.systemIconName)
+						Image(systemName: "umbrella")
 							.resizable()
 							.scaledToFit()
 							.frame(maxHeight: 20)
@@ -51,7 +51,7 @@ struct WeatherHourView: View {
 					Spacer()
 				}
 				
-				Text(weatherHourVM.windSpeed.toWindString)
+				Text(weatherHourVM.windSpeedText)
 					.font(ThemeManager.shared.currentTheme.fonts.secondaryFont)
 					.foregroundColor(ThemeManager.shared.currentTheme.colors.baseDarkColor)
 			}

@@ -14,7 +14,8 @@ class WeatherLocationViewModel: NSObject, ObservableObject {
 	
 	@Published var canPresentSearchLocation: Bool = false
 	@Published var canPresentSettings: Bool = false
-	
+    @Published var errorMessage: String?
+    
 	@Published var cityName: String
 	
 	init(locationManager: LocationManager = LocationManager.shared) {
@@ -31,14 +32,18 @@ class WeatherLocationViewModel: NSObject, ObservableObject {
 
 // MARK: - View Exposed Methods
 extension WeatherLocationViewModel {
-	var isLocationAuthorized: Bool { return locationManager.isLocationAuthorized }
-	
 	func handlePresentingSearchLocationView() {
-		if !isLocationAuthorized {
-			locationManager.requestWhenInUseAuthorization()
-		} else {
-			canPresentSearchLocation = isLocationAuthorized
-		}
+        canPresentSearchLocation = true
+        
+        /// Note:  Only need Location Permission if retrieving the user's location. Not if searching a location.
+//        switch locationManager.locationAuthorizationType {
+//            case .authorized:
+//                canPresentSearchLocation = true
+//            case .denied:
+//                errorMessage = "You must enable Location Permissions to search a location."
+//            case .notDetermined:
+//                locationManager.requestWhenInUseAuthorization()
+//        }
 	}
 	
 	func updateWeather() {

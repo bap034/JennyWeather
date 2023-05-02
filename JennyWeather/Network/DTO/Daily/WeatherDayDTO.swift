@@ -9,47 +9,16 @@
 import Foundation
 
 struct WeatherDayDTO: Codable {
-	
-	var timestamp: Int
-	var summary: String
-	var icon: String
-	var precipProbability: Double
-	var temperatureHigh: Double
-	var temperatureLow: Double
-	var windSpeed: Double
-	
-	// Derived
-	var time: Date
-	
-    enum CodingKeys: String, CodingKey {
-		case timestamp = "time"
-		case summary
-		case icon
-		case precipProbability
-		case temperatureHigh
-		case temperatureLow
-		case windSpeed
-    }
-}
-
-// MARK: - Manual Decoding
-extension WeatherDayDTO {
-	init(from decoder: Decoder) throws {
-		let values = try decoder.container(keyedBy: CodingKeys.self)
-		timestamp = try values.decode(Int.self, forKey: .timestamp)
-		summary = try values.decode(String.self, forKey: .summary)
-		icon = try values.decode(String.self, forKey: .icon)
-		precipProbability = try values.decode(Double.self, forKey: .precipProbability)
-		temperatureHigh = try values.decode(Double.self, forKey: .temperatureHigh)
-		temperatureLow = try values.decode(Double.self, forKey: .temperatureLow)
-		windSpeed = try values.decode(Double.self, forKey: .windSpeed)
-		
-		let date = Date(timeIntervalSince1970: TimeInterval(timestamp))
-		time = date
-	}
+    let icon: String
+    let precipType: PrecipitationType
+    let precipProbability: Double
+    let temperatureHigh: Measurement<UnitTemperature>
+    let temperatureLow: Measurement<UnitTemperature>
+    let windSpeed: Measurement<UnitSpeed>
+    let time: Date
 }
 
 // MARK: - Identifiable
 extension WeatherDayDTO: Identifiable {
-	var id: Int { return timestamp }
+    var id: Int { return Int(time.timeIntervalSince1970) }
 }
