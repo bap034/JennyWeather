@@ -12,6 +12,7 @@ class WeatherViewModel: ObservableObject {
 	
 	static var shared: WeatherViewModel?
     
+    private var weatherDTO: WeatherDTO?
     let lastFetchedTime: Date
 	
 	@Published var locationVM: WeatherLocationViewModel
@@ -35,6 +36,8 @@ class WeatherViewModel: ObservableObject {
 		hourlyViewModel = WeatherHourlyViewModel(dto: dto.hourly)
 		dailyViewModel = WeatherDailyViewModel(dto: dto.daily)
 		currentlyViewModel = WeatherCurrentlyViewModel(currentlyDTO: dto.currently, minutelyDTO: dto.minutely)
+        
+        handleCandiceSpecialValue(currentTemperature: dto.currently.temperature.converted(to: .fahrenheit).value)
 	}
 	
 }
@@ -42,11 +45,13 @@ class WeatherViewModel: ObservableObject {
 // MARK: - Helper Methods
 extension WeatherViewModel {
 	var candiceSpecialValue: Int {
-		let candiceSpecial = FunManager.shared.candiceSpecialValue
+		let candiceSpecial = FunManager.shared.candiceSpecialCounter
 		return candiceSpecial
 	}
 	
 	private func loadNewWeatherData(_ dto: WeatherDTO) {
+        self.weatherDTO = dto
+        
 		let cityName = LocationManager.shared.currentPlacemark.addressString
 		let newWeatherViewModel = WeatherViewModel(dto: dto)
 		
@@ -63,14 +68,20 @@ extension WeatherViewModel {
               let sureLongitude = LocationManager.shared.currentPlacemark.longitude else { return }
         
         let weatherDTOResult = await WeatherKitManager.getWeatherDTO(latitude: sureLatitude, longitude: sureLongitude)
-        /// Need to update the `@Published` variables on the `main` thread. Does not work to wrap the API call in a `DispatchQueue.main`.
-        DispatchQueue.main.async {
-            switch weatherDTOResult {
-                case .success(let dto):
-                    self.loadNewWeatherData(dto)
-                case .failure(let error):
-                    print(error)
-            }
-        }        
+        switch weatherDTOResult {
+            case .success(let dto):
+                await MainActor.run {
+                    loadNewWeatherData(dto)
+                    handleCandiceSpecialValue(currentTemperature: dto.currently.temperature.value)
+                }
+            case .failure(let error):
+                print(error)
+        }
+    }
+    
+    private func handleCandiceSpecialValue(currentTemperature: Double) {
+        if FunManager.shared.shouldIncrementCandiceSpecialValue(currentTemperature: currentTemperature) {
+            FunManager.shared.incrementCandiceSpecialValue()
+        }
     }
 }

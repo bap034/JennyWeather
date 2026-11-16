@@ -16,24 +16,58 @@ class FunManager {
 
 // MARK: - Candice Special Counter
 extension FunManager {
-	private static let candiceSpecialTarget = 69
-	private static let candiceSpecialCounterKey = "candiceSpecialCounterKey"
-	
-	var candiceSpecialValue: Int {
-		let value = Int(NSUbiquitousKeyValueStore.default.double(forKey: FunManager.candiceSpecialCounterKey))
-		return value
-	}
-	private func setCandiceSpecialValue(_ newValue: Int) {
-		NSUbiquitousKeyValueStore.default.set(newValue, forKey: FunManager.candiceSpecialCounterKey)
-	}
+    private var isIcloudAvailable: Bool { FileManager.default.ubiquityIdentityToken != nil }
+
+    private static let candiceSpecialTarget = 69
+    private static let candiceSpecialCounterKey = "candiceSpecialCounterKey"
+    private static let candiceSpecialCounterLastUpdatedKey = "candiceSpecialCounterLastUpdatedKey"
+    
+    var candiceSpecialCounter: Int {
+        var value: Int
+        if isIcloudAvailable {
+            value = Int(NSUbiquitousKeyValueStore.default.double(forKey: FunManager.candiceSpecialCounterKey))
+        } else {
+            value = UserDefaultsUtility.backupCandiceValue ?? 0
+        }
+        return value
+    }
+    private func setCandiceSpecialCounter(_ newValue: Int) {
+        if isIcloudAvailable {
+            NSUbiquitousKeyValueStore.default.set(newValue, forKey: FunManager.candiceSpecialCounterKey)
+        } else {
+            UserDefaultsUtility.storeBackupCandiceValue(newValue)
+        }
+    }
+    var candiceSpecialCounterLastUpdated: TimeInterval {
+        var lastUpdated: TimeInterval
+        if isIcloudAvailable {
+            let storedValue = NSUbiquitousKeyValueStore.default.double(forKey: FunManager.candiceSpecialCounterLastUpdatedKey)
+            lastUpdated = TimeInterval(storedValue)
+        } else {
+            lastUpdated = UserDefaultsUtility.backupCandiceValueLastUpdated ?? 0.0
+        }
+        return lastUpdated
+    }
+    private func setCandiceSpecialCounterLastUpdated(_ newValue: TimeInterval) {
+        if isIcloudAvailable {
+            NSUbiquitousKeyValueStore.default.set(newValue, forKey: FunManager.candiceSpecialCounterLastUpdatedKey)
+        } else {
+            UserDefaultsUtility.storeBackupCandiceValueLastUpdated(newValue)
+        }
+    }
 	
 	func shouldIncrementCandiceSpecialValue(currentTemperature: Double) -> Bool {
-		let shouldIncrement = Int(currentTemperature.rounded()) == FunManager.candiceSpecialTarget
+		let isTargetValue = Int(currentTemperature.rounded()) == FunManager.candiceSpecialTarget
+        let lastUpdatedDate = Date(timeIntervalSince1970: candiceSpecialCounterLastUpdated)
+        let hasUpdatedToday = Calendar.current.isDateInToday(lastUpdatedDate)
+        let shouldIncrement = isTargetValue && !hasUpdatedToday
 		return shouldIncrement
 	}
 	func incrementCandiceSpecialValue() {
-		let candiceSpecialValue = FunManager.shared.candiceSpecialValue
+		let candiceSpecialValue = FunManager.shared.candiceSpecialCounter
 		let newValue = candiceSpecialValue + 1
-		FunManager.shared.setCandiceSpecialValue(newValue)
+        FunManager.shared.setCandiceSpecialCounter(newValue)
+        let todayTimeInterval = Date().timeIntervalSince1970
+        FunManager.shared.setCandiceSpecialCounterLastUpdated(todayTimeInterval)
 	}
 }
